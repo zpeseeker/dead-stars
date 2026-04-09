@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dead Inventors, Vanishing Scientists & The Energy They Knew</title>
+<style>
+:root{--bg:#0a0a0f;--bg2:#111118;--bg3:#16161f;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);--text:#d4d4e0;--muted:#6b6b80;--accent:#c8a94a;--accent2:#7b5ea7;--red:#c94a4a;--orange:#c8734a;--teal:#4a9c8a;--blue:#4a7ac8;--green:#5a9c5a;--gold:#b8860b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Georgia,serif;line-height:1.7;min-height:100vh}
+.hero{text-align:center;padding:4rem 2rem 2.5rem;background:radial-gradient(ellipse at 50% 0%,rgba(200,169,74,0.07) 0%,transparent 70%);border-bottom:1px solid var(--border)}
+.eyebrow{font-family:'Courier New',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+.hero h1{font-size:clamp(1.6rem,4.5vw,3.2rem);font-weight:normal;color:#f0ead0;line-height:1.2;margin-bottom:1rem}
+.hero h1 span{color:var(--accent)}
+.hero-sub{font-size:1rem;color:var(--muted);max-width:700px;margin:0 auto 1.6rem;font-style:italic}
+.disc{display:inline-block;background:rgba(201,74,74,0.08);border:1px solid rgba(201,74,74,0.25);border-radius:6px;padding:9px 16px;font-size:11px;color:#c98080;max-width:680px;font-family:'Courier New',monospace;letter-spacing:.4px;line-height:1.7}
+.controls{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 1.5rem;display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.fl{font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.fb{font-family:'Courier New',monospace;font-size:10px;padding:4px 11px;border-radius:3px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;letter-spacing:1px;transition:all .2s}
+.fb:hover{color:var(--text);border-color:var(--accent)}
+.fb.active{background:rgba(200,169,74,0.12);color:var(--accent);border-color:var(--accent)}
+.fb.td.active{background:rgba(201,74,74,0.12);color:#e07070;border-color:#c94a4a}
+.fb.ts.active{background:rgba(200,115,74,0.12);color:#e09060;border-color:#c8734a}
+.fb.tp.active{background:rgba(123,94,167,0.15);color:#b090d8;border-color:#7b5ea7}
+.fb.ta.active{background:rgba(90,156,90,0.12);color:#80c080;border-color:#5a9c5a}
+.fb.tc.active{background:rgba(74,122,200,0.12);color:#7098d8;border-color:#4a7ac8}
+.fb.tm.active{background:rgba(74,156,138,0.12);color:#60b0a0;border-color:#4a9c8a}
+.fb.te.active{background:rgba(184,134,11,0.15);color:#d4a820;border-color:#b8860b}
+.stats{display:flex;gap:14px;padding:11px 1.5rem;border-bottom:1px solid var(--border);flex-wrap:wrap;align-items:center}
+.stat{display:flex;align-items:center;gap:6px}
+.sdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.slb{font-family:'Courier New',monospace;font-size:10px;color:var(--muted)}
+.sct{font-size:12px;color:var(--text);font-weight:bold}
+.main{display:flex;max-width:1440px;margin:0 auto}
+.tl-wrap{flex:1;padding:2.5rem 1.5rem;min-width:0;position:relative}
+.tl-track{position:absolute;left:calc(1.5rem + 124px + 16px);top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--border2) 5%,var(--border2) 95%,transparent)}
+.entry{display:flex;gap:18px;margin-bottom:1.8rem;cursor:pointer}
+.entry.hidden{display:none}
+.ey{width:124px;flex-shrink:0;text-align:right;padding-top:14px;font-family:'Courier New',monospace;font-size:11px;color:var(--muted);letter-spacing:.4px;line-height:1.5}
+.ey-flags{margin-top:3px;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.flag-row{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);font-family:'Courier New',monospace}
+.flag-row span{font-size:13px;line-height:1}
+.edw{width:16px;flex-shrink:0;display:flex;align-items:flex-start;padding-top:18px;justify-content:center}
+.edot{width:11px;height:11px;border-radius:50%;border:2px solid var(--bg);z-index:1;transition:transform .2s}
+.entry:hover .edot{transform:scale(1.5)}
+.d-death{background:var(--red);box-shadow:0 0 8px rgba(201,74,74,0.5)}
+.d-suppressed{background:var(--orange);box-shadow:0 0 8px rgba(200,115,74,0.5)}
+.d-plasma{background:var(--accent2);box-shadow:0 0 8px rgba(123,94,167,0.6)}
+.d-classified{background:var(--blue);box-shadow:0 0 8px rgba(74,122,200,0.5)}
+.d-misfortune{background:var(--teal);box-shadow:0 0 8px rgba(74,156,138,0.5)}
+.d-aerospace{background:var(--green);box-shadow:0 0 8px rgba(90,156,90,0.5)}
+.d-network{background:#c8a94a;box-shadow:0 0 8px rgba(200,169,74,0.6)}
+.card{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:6px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.entry:hover .card{border-color:var(--border2);box-shadow:0 4px 20px rgba(0,0,0,0.4)}
+.ch{padding:12px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.chl{flex:1;min-width:0}
+.cn{font-size:.95rem;font-weight:bold;color:#e8e0c8;margin-bottom:2px;line-height:1.3}
+.cr{font-size:11px;color:var(--muted);font-family:'Courier New',monospace;letter-spacing:.4px}
+.nb{display:inline-block;font-family:'Courier New',monospace;font-size:9px;padding:1px 5px;border-radius:2px;background:rgba(200,169,74,0.2);color:var(--accent);border:1px solid rgba(200,169,74,0.3);margin-left:5px;vertical-align:middle;letter-spacing:1px}
+.cb{flex-shrink:0;font-family:'Courier New',monospace;font-size:10px;padding:3px 8px;border-radius:3px;letter-spacing:1px;text-transform:uppercase;border:1px solid;margin-top:1px;white-space:nowrap}
+.b-death{color:var(--red);border-color:rgba(201,74,74,0.4);background:rgba(201,74,74,0.08)}
+.b-suppressed{color:var(--orange);border-color:rgba(200,115,74,0.4);background:rgba(200,115,74,0.08)}
+.b-plasma{color:#b090d8;border-color:rgba(123,94,167,0.4);background:rgba(123,94,167,0.1)}
+.b-classified{color:#7098d8;border-color:rgba(74,122,200,0.4);background:rgba(74,122,200,0.08)}
+.b-misfortune{color:#60b0a0;border-color:rgba(74,156,138,0.4);background:rgba(74,156,138,0.08)}
+.b-aerospace{color:#80c080;border-color:rgba(90,156,90,0.4);background:rgba(90,156,90,0.08)}
+.b-network{color:#d4a820;border-color:rgba(200,169,74,0.4);background:rgba(200,169,74,0.08)}
+.cs{padding:10px 16px 13px;font-size:13.5px;color:var(--text);border-top:1px solid var(--border);line-height:1.75}
+.cd{display:none;border-top:1px solid var(--border)}
+.cd.open{display:block}
+.cd-section{padding:13px 16px;border-bottom:1px solid var(--border)}
+.cd-section:last-child{border-bottom:none}
+.dl{font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;display:block}
+.dl.r{color:var(--red)}.dl.b{color:#7098d8}.dl.g{color:#5a9c5a}.dl.a{color:var(--accent)}
+.cd-body{font-size:13px;line-height:1.85;color:#9a9ab0}
+.cd-body p{margin-bottom:10px}
+.cd-body p:last-child{margin-bottom:0}
+.sec-head{font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:8px;margin:18px 0 10px}
+.sec-head::before,.sec-head::after{content:'';flex:1;height:1px;background:var(--border2)}
+.sec-head:first-child{margin-top:4px}
+.summary-bar{background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:var(--muted);line-height:1.75;font-style:italic}
+.qb{border-left:2px solid var(--accent);padding:8px 14px;margin:10px 0 2px;font-style:italic;color:#b0a890;background:rgba(200,169,74,0.04);border-radius:0 4px 4px 0;font-size:13px;line-height:1.7}
+.eh{font-family:'Courier New',monospace;font-size:10px;color:var(--muted);text-align:right;padding:3px 16px 9px;letter-spacing:1px}
+.links-grid{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.ext-link{font-family:'Courier New',monospace;font-size:10px;padding:3px 9px;border:1px solid var(--border2);border-radius:3px;color:var(--accent);text-decoration:none;display:inline-block;transition:all .15s;line-height:1.5}
+.ext-link:hover{background:rgba(200,169,74,0.12);border-color:var(--accent);color:#d4b860}
+.sidebar{width:280px;flex-shrink:0;padding:2.5rem 1.3rem;border-left:1px solid var(--border);overflow-y:auto}
+.st{font-family:'Courier New',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.ss{margin-bottom:2rem}
+.lb{background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:11px;font-size:11.5px;color:var(--muted);margin-bottom:8px;line-height:1.7}
+.lb strong{color:var(--text);display:block;margin-bottom:3px;font-size:12.5px}
+.si{padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+.si strong{color:var(--text);font-size:11.5px}
+.si-num{color:var(--accent);font-weight:bold;font-family:'Courier New',monospace;font-size:13px}
+.rl{display:block;font-family:'Courier New',monospace;font-size:11px;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--border);line-height:1.5;text-decoration:none}
+.rl span{color:var(--accent)}
+.rl:hover{color:var(--text)}
+.cbar{height:5px;border-radius:3px;background:rgba(200,169,74,0.2);margin-top:3px;overflow:hidden}
+.cbar-fill{height:100%;background:var(--accent);border-radius:3px}
+footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--border);font-size:11.5px;color:var(--muted);font-family:'Courier New',monospace;line-height:2}
+@media(max-width:960px){.sidebar{display:none}.tl-track{left:calc(1.5rem + 90px + 16px)}.ey{width:90px}}
+@media(max-width:600px){.tl-track{display:none}.entry{flex-direction:column;gap:6px}.ey{width:auto;text-align:left;padding-top:0}.ey-flags{flex-direction:row}.edw{display:none}.stats{gap:10px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="eyebrow">☢ classified research · suppressed patents · unexplained deaths · aerospace misfortune · fossil fuel suppression</div>
+  <h1><span>Dead Inventors, Vanishing Scientists</span><br>&amp; The Energy They Knew</h1>
+  <p class="hero-sub">A global timeline of plasma researchers, fusion scientists, aerospace engineers, and free energy visionaries who met misfortune, ruin, imprisonment, or death on the road to discovery — from 1890 to 2026. The modern cluster: nine scientists and officials dead or missing from JPL, LANL, MIT, and AFRL in under three years.</p>
+  <div class="disc">⚠ This timeline presents documented facts alongside conspiracy claims and unverified reports. Official verdicts are noted where available. Many cases remain open. Expand each entry for full history, sources, and further reading.</div>
+</div>
+<div class="controls">
+  <span class="fl">Filter:</span>
+  <button class="fb active" onclick="setF('all',this)">All Cases</button>
+  <button class="fb td" onclick="setF('death',this)">☠ Deaths</button>
+  <button class="fb ts" onclick="setF('suppressed',this)">⊘ Suppressed</button>
+  <button class="fb tp" onclick="setF('plasma',this)">⚡ Plasma/Fusion</button>
+  <button class="fb ta" onclick="setF('aerospace',this)">🛸 Aerospace</button>
+  <button class="fb tc" onclick="setF('classified',this)">⬛ Classified</button>
+  <button class="fb tm" onclick="setF('misfortune',this)">⚑ Misfortune</button>
+  <button class="fb te" onclick="setF('network',this)">🕸 Network/Intel</button>
+</div>
+<div class="stats">
+  <div class="stat"><div class="sdot" style="background:var(--red)"></div><span class="slb">Deaths&nbsp;</span><span class="sct" id="c-death">0</span></div>
+  <div class="stat"><div class="sdot" style="background:var(--orange)"></div><span class="slb">Suppressed&nbsp;</span><span class="sct" id="c-suppressed">0</span></div>
+  <div class="stat"><div class="sdot" style="background:var(--accent2)"></div><span class="slb">Plasma/Fusion&nbsp;</span><span class="sct" id="c-plasma">0</span></div>
+  <div class="stat"><div class="sdot" style="background:var(--green)"></div><span class="slb">Aerospace&nbsp;</span><span class="sct" id="c-aerospace">0</span></div>
+  <div class="stat"><div class="sdot" style="background:var(--blue)"></div><span class="slb">Classified&nbsp;</span><span class="sct" id="c-classified">0</span></div>
+  <div class="stat"><div class="sdot" style="background:var(--teal)"></div><span class="slb">Misfortune&nbsp;</span><span class="sct" id="c-misfortune">0</span></div>
+  <div class="stat"><div class="sdot" style="background:#c8a94a"></div><span class="slb">Network&nbsp;</span><span class="sct" id="c-network">0</span></div>
+  <div class="stat" style="margin-left:auto"><span class="slb">Total&nbsp;</span><span class="sct" id="c-total">0</span></div>
+</div>
+<div class="main">
+<div class="tl-wrap"><div class="tl-track"></div><div id="tl"></div></div>
+<aside class="sidebar">
+  <div class="ss" id="sb-quickstats"><div class="st">Quick Stats</div></div>
+  <div class="ss" id="sb-countries"><div class="st">By Country of Incident</div></div>
+  <div class="ss">
+    <div class="st">The Modern Cluster (2023–2026)</div>
+    <div class="si"><strong>Jul 2023 — Hicks</strong><span style="color:var(--red)">Dead · JPL · no autopsy</span></div>
+    <div class="si"><strong>Jul 2024 — Maiwald</strong><span style="color:var(--red)">Dead · JPL · no autopsy</span></div>
+    <div class="si"><strong>May 2025 — Chavez</strong><span style="color:var(--orange)">Missing · LANL/DARHT</span></div>
+    <div class="si"><strong>Jun 2025 — Reza</strong><span style="color:var(--orange)">Missing · JPL/AFRL</span></div>
+    <div class="si"><strong>Jun 2025 — Casias</strong><span style="color:var(--orange)">Missing · LANL-adj.</span></div>
+    <div class="si"><strong>Dec 2025 — Thomas</strong><span style="color:var(--red)">Dead · Novartis/DoD</span></div>
+    <div class="si"><strong>Dec 2025 — Loureiro</strong><span style="color:var(--red)">Murdered · MIT Fusion</span></div>
+    <div class="si"><strong>Feb 2026 — Grillmair</strong><span style="color:var(--red)">Murdered · Caltech/IPAC</span></div>
+    <div class="si"><strong>Feb 2026 — McCasland</strong><span style="color:var(--orange)">Missing · AFRL Cmd.</span></div>
+  </div>
+  <div class="ss">
+    <div class="st">Global Secrecy Laws</div>
+    <div class="lb"><strong>🇺🇸 Invention Secrecy Act (1951)</strong>5,784+ active secrecy orders (2017). DoD, DOE, NSA, NASA. Includes Power Supply &amp; Propulsion.</div>
+    <div class="lb"><strong>🇺🇸 Atomic Energy Act (1954)</strong>DOE seizure authority over all fusion, plasma, and nuclear patents. No compensation.</div>
+    <div class="lb"><strong>🇬🇧 UK Official Secrets Act</strong>25 GEC-Marconi engineers died under this regime. No inquiry ever held.</div>
+  </div>
+  <div class="ss">
+    <div class="st">Recurring Signatures</div>
+    <div class="si"><strong>Personal effects left behind</strong><span>4 cases</span></div>
+    <div class="si"><strong>No autopsy performed</strong><span>Hicks · Maiwald</span></div>
+    <div class="si"><strong>No institutional comment</strong><span>Hicks · Maiwald · NASA</span></div>
+    <div class="si"><strong>Congressmen on record</strong><span>Burchett · Burlison</span></div>
+    <div class="si"><strong>"I'm not suicidal"</strong><span>Rep. Burchett, 2026</span></div>
+    <div class="si"><strong>Suppressed patents</strong><span>5,784 active (2017)</span></div>
+    <div class="si"><strong>Tesla trunks missing</strong><span>20 of 80</span></div>
+  </div>
+  <div class="ss">
+    <div class="st">Key References</div>
+    <a class="rl" href="https://thesentinel.network/p/the-blind-spot-rocks-are-falling" target="_blank" rel="noopener"><span>Sentinel</span> The Blind Spot (Mar 2026) ↗</a>
+    <a class="rl" href="https://thegrounded.ghost.io/the-pattern-nobody-wants-to-talk-about/" target="_blank" rel="noopener"><span>Grounded</span> Pattern Nobody Talks About ↗</a>
+    <a class="rl" href="https://sgp.fas.org/othergov/invention/" target="_blank" rel="noopener"><span>FAS</span> Patent Secrecy Tracking ↗</a>
+    <a class="rl" href="https://vault.fbi.gov/nikola-tesla" target="_blank" rel="noopener"><span>FBI</span> Tesla Declassified Files ↗</a>
+  </div>
+</aside>
+</div>
+<footer>
+  ☢ COMPILED FROM PUBLIC RECORDS · DECLASSIFIED FILES · COURT DOCUMENTS · FOIA RESPONSES · CONGRESSIONAL CORRESPONDENCE ☢<br>
+  OFFICIAL VERDICTS NOTED WHERE AVAILABLE · ALL CLAIMS SHOULD BE INDEPENDENTLY VERIFIED<br>
+  UPDATED APRIL 2026 · MODERN CLUSTER COUNT: 9 CASES CONFIRMED BY NEWSWEEK, DAILY MAIL, ABC NEWS, CNN<br>
+  TWO SITTING US CONGRESSMEN ON RECORD · FBI INVOLVED IN ACTIVE MISSING-PERSONS INVESTIGATION<br><br>
+  "The most dangerous man to any government is the man who is able to think things out for himself." — H.L. Mencken
+</footer>
+<script>
+const DATA=[
+{year:"1890s–1943",bornFlag:"🇷🇸",diedFlag:"🇺🇸",bornLabel:"Serbia",diedLabel:"USA",diedIn:"USA",
+name:"Nikola Tesla",role:"Wireless power · radiant energy · aether physics",type:"classified",badge:"⬛ Papers Seized",
+summary:"Tesla's Wardenclyffe Tower promised free wireless electricity broadcast through the Earth — metered by no one. J.P. Morgan pulled funding when he learned the true ambition. Tesla died alone in Room 3327 of the New Yorker Hotel, January 7, 1943. Within hours, the FBI seized everything. Twenty of 80 trunks seized remain unaccounted for 82 years later. The agent who evaluated the papers: MIT professor John G. Trump, uncle of the future President.",
+off:["Death: natural causes. FBI seizure confirmed in declassified files. No explanation for the 20 missing trunks has ever been given."],
+quote:"\"The present is theirs; the future, for which I really worked, is mine.\" — Nikola Tesla",
+links:[["Wikipedia — Nikola Tesla","https://en.wikipedia.org/wiki/Nikola_Tesla"],["FBI Vault — Tesla Files","https://vault.fbi.gov/nikola-tesla"]],
+tags:["classified","suppressed"]},
+
+{year:"1896–1917",bornFlag:"🇳🇴",diedFlag:"🇯🇵",bornLabel:"Norway (Oslo, 1867)",diedLabel:"Japan — Veronal overdose",diedIn:"Japan",
+name:"Kristian Birkeland",role:"Norwegian plasma physicist · Birkeland currents · nominated Nobel Prize 7 times",type:"misfortune",badge:"⚑ Ridiculed 50 Years — Proven Correct After Death",
+summary:"Birkeland proved space is filled with plasma currents — the aurora caused by charged particles from the Sun. Nominated for the Nobel Prize seven times, never received it. His theory was publicly attacked by British geophysicist Sydney Chapman for decades. Died in a Tokyo hotel room June 15, 1917, aged 49, having taken 20 times the prescribed dose of Veronal. Proven correct by US Navy satellite in 1967 — fifty years later.",
+off:["Death officially attributed to Veronal overdose. No evidence of third-party involvement. The institutional suppression by Sydney Chapman is fully documented."],
+quote:"\"A very few lonely pioneers make their way to high places never before visited.\" — Kristian Birkeland",
+links:[["Wikipedia — Kristian Birkeland","https://en.wikipedia.org/wiki/Kristian_Birkeland"]],
+tags:["death","plasma","misfortune"]},
+
+{year:"1913",bornFlag:"🇩🇪",diedFlag:"🇩🇪",bornLabel:"Germany",diedLabel:"English Channel",diedIn:"At Sea",
+name:"Rudolf Diesel",role:"Inventor — non-petroleum compression engine",type:"death",badge:"☠ Vanished at Sea",
+summary:"Diesel's engine ran on vegetable oil — no petroleum required. He vanished from the SS Dresden September 29, 1913, the night before meetings with the British Navy. Hat and coat found folded at the railing. Body surfaced 10 days later. Before boarding, he handed his wife a bag containing $1.2 million in cash and documents showing he was nearly bankrupt.",
+off:["Officially ruled suicide by drowning due to financial distress. No inquest. Body returned to sea before formal identification."],
+links:[["Wikipedia — Rudolf Diesel","https://en.wikipedia.org/wiki/Rudolf_Diesel"]],
+tags:["death"]},
+
+{year:"2007–2020",bornFlag:"🇮🇷",diedFlag:"🇮🇷",bornLabel:"Iran",diedLabel:"Iran — confirmed state-level operations",diedIn:"Iran",
+name:"Iranian Nuclear Scientists — Confirmed State-Level Targeted Killings",role:"Nuclear physicists · uranium enrichment · strategic elimination",type:"death",badge:"☠ Confirmed State Operations",
+summary:"Between 2007 and 2020, at least six Iranian nuclear scientists were killed in operations widely attributed to Israeli intelligence. These cases are not conspiracy theory — they are confirmed, documented, and publicly acknowledged as the deliberate elimination of strategic scientific personnel. They represent the clearest historical proof that scientists working in consequential technical fields are targeted as instruments of statecraft. The lesson: do not dismiss the pattern on this timeline as impossible. It has been real before.",
+sections:[{heading:"The documented assassinations",body:[
+"Ardeshir Hosseinpour died under disputed circumstances in January 2007. Masoud Ali-Mohammadi was killed by a remote-controlled bomb on January 12, 2010. Majid Shahriari was killed the same day by a magnetic bomb attached to his moving car. Darioush Rezaeinejad was shot outside his home in July 2011. Mostafa Ahmadi Roshan was killed by a magnetic bomb during morning rush hour on January 11, 2012.",
+"Mohsen Fakhrizadeh — widely described as the architect of Iran's covert nuclear programme — was killed on November 27, 2020, in a sophisticated ambush using a remote-controlled machine gun operated via satellite link with facial recognition software. No Iranian personnel were present at the scene. This is what state-level targeted killing of scientists looks like in the 21st century."
+]}],
+off:["All assassinations confirmed by international media and intelligence analysis. No government has officially confirmed responsibility. The pattern is, by any reasonable standard, unambiguous."],
+links:[["Wikipedia — Assassination of Iranian nuclear scientists","https://en.wikipedia.org/wiki/Assassination_of_Iranian_nuclear_scientists"]],
+tags:["death","classified"]},
+
+{year:"1948 / Ongoing",bornFlag:"🇳🇱",diedFlag:null,bornLabel:"Netherlands (Casimir, 1909)",diedLabel:"Experimentally confirmed 1997",diedIn:null,
+name:"The Casimir Effect — ZPE Made Measurable",role:"Quantum vacuum energy · zero-point force · proven foundation of free energy theory",type:"plasma",badge:"⚡ Experimentally Proven",
+summary:"The Casimir effect is confirmed physics: two uncharged metal plates placed nanometres apart in a vacuum are pushed together by a measurable force arising only from quantum fluctuations of empty space. Predicted by Hendrik Casimir in 1948, experimentally confirmed in 1997. It is the most direct proof that the quantum vacuum contains real energy. Whether that energy can be extracted for net useful work remains thermodynamically contested — but the energy is undeniably real. Every ZPE claim on this timeline ultimately rests here.",
+off:["Confirmed physics. The extraction question is open and subject to legitimate thermodynamic debate."],
+links:[["Wikipedia — Casimir Effect","https://en.wikipedia.org/wiki/Casimir_effect"]],
+tags:["plasma"]},
+
+{year:"1930s–1957",bornFlag:"🇦🇹",diedFlag:"🇺🇸",bornLabel:"Austria",diedLabel:"USA (in prison)",diedIn:"USA",
+name:"Wilhelm Reich",role:"Physicist · orgone energy · weather control",type:"death",badge:"☠ Died in Federal Prison",
+summary:"Reich, a protégé of Freud, claimed to have discovered a measurable biological energy he called 'orgone.' Imprisoned for defying an FDA injunction in 1956, he died of heart failure in Lewisburg Federal Penitentiary on November 3, 1957. The FDA then burned six tons of his books — one of the most extensively documented acts of book-burning in American history, carried out not by fascists but by a regulatory agency of the United States government.",
+off:["Convicted: criminal contempt. Died of cardiac arrest in federal prison. Book burnings confirmed historical fact. Orgone theory never validated by mainstream science."],
+links:[["Wikipedia — Wilhelm Reich","https://en.wikipedia.org/wiki/Wilhelm_Reich"]],
+tags:["death","suppressed","misfortune"]},
+
+{year:"1935–1958",bornFlag:"🇦🇹",diedFlag:"🇦🇹",bornLabel:"Austria",diedLabel:"Austria — 5 days after Texas",diedIn:"Austria",
+name:"Viktor Schauberger",role:"Naturalist-inventor — implosion / vortex energy",type:"misfortune",badge:"⚑ Patents Extracted / Dead 5 Days Later",
+summary:"Schauberger concluded energy in nature moves through centripetal implosion, not explosion. The SS coerced him into building disc-shaped aircraft during WWII. In 1958, aged 73, he was taken to Texas by representatives his family described as military-industrial. He signed over all his patents. He told his family: 'They took everything from me.' He was dead within five days.",
+off:["Death by natural causes — he was 73 and in poor health. No investigation into the patent transfer. PKS Institute in Bad Ischl, Austria holds remaining work."],
+links:[["Wikipedia — Viktor Schauberger","https://en.wikipedia.org/wiki/Viktor_Schauberger"]],
+tags:["misfortune","suppressed","aerospace"]},
+
+{year:"1930s–1985",bornFlag:"🇺🇸",diedFlag:"🇺🇸",bornLabel:"USA",diedLabel:"USA",diedIn:"USA",
+name:"Thomas Townsend Brown",role:"Physicist — electrogravitics / Biefeld-Brown effect",type:"suppressed",badge:"⊘ Research Classified 1956",
+summary:"Brown discovered high-voltage asymmetric capacitors produce a directional propulsive force. He attracted serious US Navy and Air Force interest in the early 1950s. Two declassified 1956 Aviation Studies reports confirm major aerospace companies including Glenn Martin, Convair, and GE were actively investigating electrogravitics as the next propulsion paradigm. Then all official support vanished simultaneously and the research went completely dark. Seventy years later, NASA's own electrostatics scientist Charles Buhler would claim to have independently replicated the same underlying effect in vacuum.",
+off:["Mainstream: Biefeld-Brown effect is ionic wind. Vacuum tests failed. Brown died in 1985 without official acknowledgment."],
+links:[["Wikipedia — Biefeld-Brown Effect","https://en.wikipedia.org/wiki/Biefeld%E2%80%93Brown_effect"]],
+tags:["suppressed","aerospace","misfortune"]},
+
+{year:"1951 / Ongoing",bornFlag:"🇺🇸",diedFlag:null,bornLabel:"USA",diedLabel:"Active law",diedIn:null,
+name:"The Invention Secrecy Act",role:"H.R. 4687, 82nd Congress · Signed Truman 1952 · DOE / DoD / NSA / NASA",type:"suppressed",badge:"⊘ Active Federal Law",
+summary:"Signed by Truman in 1952, this law authorises any federal agency to classify a private citizen's patent and gag the inventor indefinitely. 5,784 patents remain under active secrecy orders (2017). The DOE is specifically empowered to classify all atomic, plasma, fusion, and nuclear-adjacent inventions — with no compensation. One patent filed in 1936 was kept secret until the year 2000.",
+off:["Real, documented federal law: 35 U.S.C. ch. 17. The 5,784 figure is confirmed by USPTO FOIA #F-18-00003."],
+links:[["Wikipedia — Invention Secrecy Act","https://en.wikipedia.org/wiki/Invention_Secrecy_Act"],["FAS.org — Patent Secrecy Statistics","https://sgp.fas.org/othergov/invention/"]],
+tags:["suppressed"]},
+
+{year:"1960s–1989",bornFlag:"🇭🇺",diedFlag:"🇺🇸",bornLabel:"Hungary",diedLabel:"USA",diedIn:"USA",
+name:"Joseph Papp",role:"Hungarian-American engineer — noble gas plasma engine",type:"death",badge:"☠ Demo Explosion / Dead 1989",
+summary:"Papp claimed his engine extracted energy from sealed noble gas mixtures through a plasma process. At a 1968 demonstration attended by Richard Feynman, the device exploded, killing one man. Feynman claimed he had disconnected an external cable to test for fraud. Papp furiously denied this, accusing Feynman of interfering with the electromagnetic field.",
+off:["The 1968 explosion killed one person. Feynman's account disputed by Papp. No confirmed government suppression."],
+links:[["Wikipedia — Joseph Papp (inventor)","https://en.wikipedia.org/wiki/Joseph_Papp_(inventor)"]],
+tags:["death","plasma"]},
+
+{year:"1977–1981",bornFlag:"🇺🇸",diedFlag:"🇺🇸",bornLabel:"USA",diedLabel:"USA",diedIn:"USA",
+name:"Tom Ogle",role:"Mechanic-inventor — 100+ mpg vapour fuel system",type:"misfortune",badge:"⚑ Dead at 24",
+summary:"Tom Ogle, a 24-year-old El Paso mechanic, built a vapourisation system allowing a 1971 Ford to travel over 200 miles on two gallons of petrol. University of Texas engineers called it 'sound and feasible' with no hidden tanks. He demonstrated it to the Texas State Legislature to a standing ovation. ERDA declared it 'not practical' without publishing technical findings. He was dead of an accidental overdose by 1981.",
+off:["Death ruled accidental overdose. ERDA rejection letter exists but provides no detailed technical basis."],
+links:[["UTEP Library — Tom Ogle","https://epcc.libguides.com/c.php?g=754275&p=5406552"]],
+tags:["misfortune","suppressed"]},
+
+{year:"Late 1970s–1984",bornFlag:"🇺🇸",diedFlag:"🇺🇸",bornLabel:"USA (Illinois)",diedLabel:"USA (California)",diedIn:"USA",
+name:"Rory Johnson — Magnatron Inc.",role:"Illinois inventor — laser-activated cold fusion magnetic motor",type:"death",badge:"☠ DoE Gag Order / Fled / Died",
+summary:"Johnson developed the Magnatron — a laser-activated magnetic motor allegedly producing 525 horsepower running 100,000 miles on 2 pounds of deuterium. He negotiated with Greyhound Bus Lines to install it in their fleet. The US Department of Energy issued a formal gag order against Magnatron Inc. — confirmed via Congressional correspondence. Johnson fled his lab in the night, relocated to California, and died unexpectedly shortly after.",
+off:["Cause of death not widely documented. DOE gag order confirmed in Congressional correspondence. Motor never independently verified."],
+links:[["Wikipedia — Cold fusion (context)","https://en.wikipedia.org/wiki/Cold_fusion"]],
+tags:["death","suppressed","plasma"]},
+
+{year:"1982–1990",bornFlag:"🇬🇧",diedFlag:"🇬🇧",bornLabel:"UK",diedLabel:"UK",diedIn:"UK",
+name:"GEC-Marconi Scientists — 25 Deaths",role:"UK defence engineers — SDI · directed-energy · plasma weapons",type:"death",badge:"☠ 25 Mysterious Deaths",
+summary:"Between 1982 and 1990, at least 25 British scientists and engineers working on the Strategic Defence Initiative died under circumstances that individually might be explained but collectively strain credibility. Methods included driving into a building in a car packed with petrol; electrocution with leads in the mouth; carbon monoxide in a locked garage. All ruled accidents or suicides. The Official Secrets Act prevented any public inquiry into what they were working on. This is the most direct historical precedent for the modern cluster.",
+off:["All 25 deaths individually ruled accidents or suicides. No formal inquiry. Official Secrets Act prevents disclosure."],
+links:[["Wikipedia — GEC-Marconi scientist deaths","https://en.wikipedia.org/wiki/GEC-Marconi_scientist_deaths_conspiracy_theory"]],
+tags:["death"]},
+
+{year:"1989–2004",bornFlag:"🇺🇸🇬🇧",diedFlag:"🇺🇸",bornLabel:"USA / UK",diedLabel:"USA (Mallove murdered)",diedIn:"USA",
+name:"Cold Fusion — Pons, Fleischmann &amp; Mallove",role:"Electrochemists + MIT science writer — LENR",type:"misfortune",badge:"⚑ Destroyed / Murdered",
+summary:"On March 23, 1989, Pons and Fleischmann announced tabletop cold fusion. MIT science writer Eugene Mallove resigned in protest over alleged falsified replication data and founded Infinite Energy magazine. On May 14, 2004 — the eve of a major cold fusion announcement — he was beaten to death at his childhood home. The DOE's own 2004 review acknowledged that some LENR results 'warranted further scientific investigation.'",
+off:["Mallove murder: convicted tenants — evicted tenant motive. Cold fusion officially 'pathological science' after 1989. DOE 2004 review acknowledged some LENR results warrant study."],
+links:[["Wikipedia — Eugene Mallove","https://en.wikipedia.org/wiki/Eugene_Mallove"],["Wikipedia — Cold Fusion","https://en.wikipedia.org/wiki/Cold_fusion"]],
+tags:["misfortune","death","plasma"]},
+
+{year:"1975–1998",bornFlag:"🇺🇸",diedFlag:"🇺🇸",bornLabel:"USA",diedLabel:"USA",diedIn:"USA",
+name:"Stanley Meyer",role:"Inventor — water fuel cell · hydrogen electrolysis vehicle",type:"death",badge:"☠ Last Words: Poisoned",
+summary:"Meyer claimed his water fuel cell could power a dune buggy on tap water. He secured patents, attracted Pentagon interest, and allegedly refused a $1 billion buyout. On March 20, 1998, at a Cracker Barrel in Grove City, Ohio, he clutched his throat, ran to the car park, vomited violently, and gasped his final words: 'They poisoned me.' Ohio courts had ruled his fuel cell fraudulent two years earlier.",
+off:["Franklin County coroner: cerebral aneurysm — natural causes. Toxicology: no significant results. Ohio court 1996: ruled fraudulent."],
+quote:"\"They poisoned me!\" — Stanley Meyer's last words, March 20, 1998",
+links:[["Wikipedia — Water Fuel Cell","https://en.wikipedia.org/wiki/Water_fuel_cell"]],
+tags:["death"]},
+
+{year:"1991–2021",bornFlag:"🇨🇳",diedFlag:"🇺🇸",bornLabel:"China",diedLabel:"USA",diedIn:"USA",
+name:"Dr. Ning Li — AC Gravity LLC",role:"Physicist — superconductor anti-gravity / DoD classified",type:"classified",badge:"⬛ Classified / Absorbed by DoD",
+summary:"Dr. Ning Li's peer-reviewed papers outlined a practical method for producing anti-gravity using high-temperature superconductors. NASA called it 'the closest science has come to an anti-gravity device.' She received a $448,970 DoD grant in 2001, acquired a top-secret clearance, stopped publishing entirely, and was never publicly heard from again. Her son confirmed she had been required to stop publishing or discussing her research. FOIA requests for her research have reportedly been denied. She died in 2021. Her results have never been published.",
+off:["Death: natural causes. DoD grant confirmed by public records. Research results: never published. Security clearance confirmed by her son."],
+links:[["Wikipedia — Ning Li (physicist)","https://en.wikipedia.org/wiki/Ning_Li_(physicist)"]],
+tags:["classified","aerospace"]},
+
+{year:"1997–2001",bornFlag:"🇺🇸",diedFlag:"🇺🇸",bornLabel:"USA",diedLabel:"USA",diedIn:"USA",
+name:"Jim Reding — CETI",role:"CEO, Clean Energy Technologies Inc. — LENR",type:"death",badge:"☠ Brain Aneurysm at 31",
+summary:"Reding was CEO of CETI, one of the first companies to demonstrate convincing LENR excess heat. On July 16, 2001, he died of a sudden brain aneurysm at 31, reportedly in excellent health. The same mechanism — cerebral aneurysm — officially killed Stanley Meyer, who died claiming he had been poisoned. Both were working on water-based hydrogen-adjacent energy systems. Both died at critical moments in their work.",
+off:["Natural causes: brain aneurysm. No investigation."],
+links:[["US Patent 5,672,259 (CETI)","https://patents.google.com/patent/US5672259"]],
+tags:["death","plasma"]},
+
+{year:"1984–2015",bornFlag:"🇺🇸",diedFlag:"🇺🇸",bornLabel:"USA (Detroit)",diedLabel:"USA",diedIn:"USA",
+name:"Paul Pantone — GEET Plasma Reactor",role:"Inventor — plasma fuel reformer · any-liquid combustion",type:"misfortune",badge:"⚑ Imprisoned / Institutionalised",
+summary:"Pantone developed GEET — a plasma reformer converting almost any liquid into burnable gas. He received US Patent 5,794,601 in 1998. After refusing to sell his patents he was charged with securities fraud in 2003, then declared mentally incompetent as sentencing approached and remanded to Utah State Mental Hospital for nearly four years without sentencing. Released in 2009, physically broken. Died December 2015.",
+off:["Convicted: two counts securities fraud. Held in Utah State Hospital 2005–2009. Death: long illness, December 2015."],
+links:[["US Patent 5,794,601 (GEET)","https://patents.google.com/patent/US5794601"]],
+tags:["misfortune","suppressed","plasma"]},
+
+{year:"2004",bornFlag:"🇺🇸",diedFlag:"🇺🇸",bornLabel:"USA",diedLabel:"USA",diedIn:"USA",
+name:"Dr. John Mullen",role:"Nuclear physicist — McDonnell Douglas · zero-point energy",type:"death",badge:"☠ Arsenic Poisoning",
+summary:"Mullen was a nuclear physicist at McDonnell Douglas pursuing zero-point energy research. In 2004 — the same year as Eugene Mallove's murder — he died of arsenic poisoning. Arsenic in lethal quantities does not appear naturally in a person's system. 2004 has been described by alternative energy researchers as the deadliest year in the movement's history.",
+off:["Limited publicly verifiable documentation. Cannot be independently confirmed from public records — treat with appropriate caution."],
+links:[["Wikipedia — Zero-point energy","https://en.wikipedia.org/wiki/Zero-point_energy"]],
+tags:["death"]},
+
+{year:"2006–2019",bornFlag:"🇺🇸",diedFlag:"🇺🇸",bornLabel:"USA (New York)",diedLabel:"USA (in prison)",diedIn:"USA",
+name:"Jeffrey Epstein — The Physics Network",role:"Financier · Nobel laureate gatherer · gravity / ZPE / consciousness funder",type:"network",badge:"🕸 Intelligence Network / Died in Custody",
+summary:"Epstein was the man who systematically cultivated relationships with the world's leading physicists working on gravity, zero-point energy, and the quantum vacuum. His 2006 'Confronting Gravity' conference gathered Stephen Hawking, three Nobel laureates, and physicists from MIT, Harvard, Caltech, and CERN. He died in a federal prison cell in 2019. The official record calls it suicide. Independent forensic pathologist Michael Baden found three neck fractures and stated his opinion was strangulation, not hanging.",
+off:["Death ruled suicide by hanging by NYC Chief Medical Examiner. Independent forensic experts dispute this. Two prison guards indicted for falsifying records — charges dropped."],
+links:[["Wikipedia — Jeffrey Epstein","https://en.wikipedia.org/wiki/Jeffrey_Epstein"],["Wikipedia — Death of Jeffrey Epstein","https://en.wikipedia.org/wiki/Death_of_Jeffrey_Epstein"]],
+tags:["suppressed","death","classified","network"]},
+
+{year:"1990s–present",bornFlag:"🇺🇸",diedFlag:null,bornLabel:"USA (N. Carolina)",diedLabel:"Still active",diedIn:null,
+name:"Dr. Steven Greer — The ZPE / UFO Connection",role:"CSETI · Disclosure Project · The Lost Century · ZPE advocate",type:"network",badge:"🕸 The Connector",
+summary:"Greer is the central figure connecting UFO disclosure, zero-point energy suppression, and inventor deaths into a single unified theory. His 2001 National Press Club briefing compiled testimony from over 400 military and intelligence witnesses. His documentaries trace a direct line from Tesla through every major inventor on this timeline. He claims advanced ZPE and anti-gravity technology is operational in classified programs and its suppression has caused 23+ inventor deaths and 7+ imprisonments.",
+off:["Greer is a credentialed physician with no criminal record. His claims cannot be independently verified in their totality. He has never produced a working ZPE device under controlled conditions."],
+links:[["Wikipedia — Steven M. Greer","https://en.wikipedia.org/wiki/Steven_M._Greer"]],
+tags:["network","suppressed","classified"]},
+
+{year:"2014",bornFlag:"🌏",diedFlag:"🌊",bornLabel:"Malaysia · China · various",diedLabel:"Indian Ocean — 239 missing",diedIn:"At Sea",
+name:"MH370 — Freescale Engineers &amp; The Ashton Forbes Investigation",role:"Malaysia Airlines Flight 370 · 20 Freescale engineers · Gorgon Stare footage · plasma orb / ZPE propulsion theory",type:"network",badge:"🕸 Context Marker — Highly Speculative",
+summary:"On March 8, 2014, Malaysia Airlines Flight 370 vanished with 239 people aboard. Among those on board were 20 employees of Freescale Semiconductor — a major US defence-adjacent firm. Independent investigator Ashton Forbes has spent years analysing two videos he claims are leaked US military Gorgon Stare footage of the final moments of MH370, showing three plasma orbs encircling the aircraft before it vanishes without a heat signature. Forbes identifies the orbs as plasma MHD fusion propulsion devices — operational ZPE technology. One video shows what he argues is the nose of an MQ-9 Reaper drone in frame. Forbes cites US Navy officer Edward C. Lin, convicted of espionage in 2017, as the source of the leak. This entry is a context marker: the Freescale fact is confirmed, the Forbes theory is unverified.",
+off:["MH370 disappearance: unsolved. Freescale engineers on board: confirmed. Forbes' videos: not authenticated by any official body. Gorgon Stare match: Forbes' own analysis, not peer-reviewed. Edward C. Lin was convicted of espionage; the specific charges remain partially classified."],
+links:[["Wikipedia — Malaysia Airlines Flight 370","https://en.wikipedia.org/wiki/Malaysia_Airlines_Flight_370"],["Reuters — Freescale engineers on MH370","https://www.reuters.com/article/us-malaysia-airlines-freescale/freescale-says-20-employees-on-missing-malaysia-plane-idUSBREA270VH20140308"],["Wikipedia — Gorgon Stare","https://en.wikipedia.org/wiki/Gorgon_Stare"],["Ashton Forbes — X","https://x.com/JustXAshton"]],
+tags:["network","plasma","classified"]},
+
+{year:"2022",bornFlag:"🇺🇸",diedFlag:"🇺🇸",bornLabel:"USA (Huntsville, AL)",diedLabel:"USA — suicide ruling disputed",diedIn:"USA",
+name:"Dr. Amy Eskridge",role:"Institute for Exotic Science · anti-gravity · HoloChron Engineering · father: NASA plasma fusion engineer",type:"aerospace",badge:"🛸 Suicide Disputed / Congressional Testimony",
+summary:"Dr. Amy Catherine Eskridge, 34, co-founded the Institute for Exotic Science in Huntsville, Alabama, dedicated to public open-source anti-gravity research. Her father was a retired NASA plasma physics and fusion propulsion engineer. On June 11, 2022, she died at her home. Official ruling: suicide by gunshot. Critically, she had explicitly gone public with her research precisely so that her work could not be suppressed and she could not be harmed — a fact that those who knew her have cited. As one observer noted: 'Which suicidal person is worried about being harmed?' Retired UK intelligence officer Franc Milburn submitted formal written allegations to the US House of Representatives in November 2023 that she was murdered by a private aerospace company using directed energy weapons.",
+off:["Official ruling: suicide by gunshot. No detailed autopsy has been made publicly available. The Milburn allegations are unverified. The Congressional testimony is real; the underlying claims remain unverified. Some people who knew Eskridge noted she had been suffering from chronic pain."],
+quote:"\"Redstone Arsenal in Huntsville, AL is the biggest thing you've never heard of.\" — Amy Eskridge",
+links:[["Anomaly Archives — Amy Eskridge Profile","https://anomalyarchives.org/collections/file/pettigrew-amy-eskridge/"]],
+tags:["aerospace","death"]},
+
+{year:"2019–present",bornFlag:"🇺🇸",diedFlag:null,bornLabel:"USA (Kennedy Space Center, FL)",diedLabel:"Active — Exodus Propulsion Technologies",diedIn:null,
+name:"Dr. Charles Buhler — Exodus Propulsion / The Exodus Force",role:"NASA Lead Electrostatics Scientist · propellantless thrust · Townsend Brown vindicated",type:"aerospace",badge:"🛸 Active — 2,000 Vacuum Tests / Patent Filed",
+summary:"NASA's subject matter expert on electrostatics — founder of NASA's Electrostatics and Surface Physics Laboratory at Kennedy Space Center, veteran of the Shuttle, ISS, and Hubble — claims to have discovered what he calls a 'New Force': electrostatic asymmetry produces measurable propellantless thrust in vacuum that persists after power is switched off. Over 2,000 vacuum chamber experiments. In 2023 the device produced enough thrust to counteract its own propellant mass's gravitational force. He explicitly frames his work as the vindication of Thomas Townsend Brown, whose electrogravitics research was classified in 1956. His colleague Andrew Aurigema developed an independent parallel version from the same Townsend Brown lineage.",
+off:["Not suppressed — active private company. Patent filed 2019 confirmed. Independent replication and peer-reviewed publication pending. Mainstream physicists await independent verification."],
+links:[["Exodus Propulsion Technologies","https://www.exoduspropulsion.space/"],["The Debrief — NASA Veteran's Propellantless Drive","https://thedebrief.org/nasa-veterans-propellantless-propulsion-drive-that-physics-says-shouldnt-work-just-produced-enough-thrust-to-defeat-earths-gravity/"]],
+tags:["aerospace","suppressed","plasma"]},
+
+{year:"2024–present",bornFlag:"🇺🇸",diedFlag:null,bornLabel:"USA (Johnson Space Center)",diedLabel:"Active — Casimir Inc.",diedIn:null,
+name:"Dr. Harold 'Sonny' White — Casimir Inc. / ZPE on a Chip",role:"Former NASA Advanced Propulsion Team Lead · Casimir cavity power generation · DARPA-funded · peer-reviewed",type:"plasma",badge:"⚡ Active — Measured ZPE Output / Peer-Reviewed",
+summary:"Dr. Harold 'Sonny' White spent 20 years leading NASA's Advanced Propulsion Team at Johnson Space Center. He has now built a working chip — roughly the size of a pinky nail — that produces measurable, continuous electrical output of 1.5 volts at 25 microamps with no battery and no external power source. The energy comes from the quantum vacuum via engineered Casimir cavities. The paper is published in Physical Review Research. DARPA is funding the research. He appeared on the Joe Rogan Experience to discuss both the power chip and its connection to warp drive physics. This is the moment the ZPE thread running through this entire timeline crosses from theory to measured output.",
+off:["Not suppressed — active company with DARPA funding and peer-reviewed publication. Power output is currently minuscule. Independent replication pending. Thermodynamic debate ongoing."],
+quote:"\"What starts as a drop may become a flood of energy.\" — Harold 'Sonny' White",
+links:[["Casimir Inc. — Official Site","https://www.casimirspace.com/"],["Medium / Tim Ventura — ZPE on a Chip","https://medium.com/@timventura/physicist-puts-zero-point-energy-on-a-chip-7b2928fca387"],["Physical Review Research paper","https://journals.aps.org/prresearch/pdf/10.1103/l8y7-r3rm"],["Joe Rogan Experience #2318","https://www.youtube.com/watch?v=i9mLICnWEpU"]],
+tags:["plasma","aerospace","suppressed"]},
+
+{year:"Dec 2025",bornFlag:"🇺🇸",diedFlag:null,bornLabel:"USA (founded 1998, CA)",diedLabel:"Merger pending mid-2026",diedIn:null,
+name:"TAE Technologies + Trump Media — Aneutronic Fusion Goes Political",role:"Context marker · hydrogen-boron fusion · $6B merger announced same week as Loureiro killing",type:"network",badge:"🕸 Context Marker — No Suppression",
+summary:"On December 18, 2025 — three days after Nuno Loureiro was shot — Trump Media & Technology Group announced a $6 billion all-stock merger with TAE Technologies, pursuing aneutronic hydrogen-boron fusion since 1998. This is not a suppression story. It is the opposite: the sitting US president's family business publicly betting $6 billion on fusion in the same week the director of MIT's fusion laboratory was killed. The juxtaposition sits at the heart of this timeline's central question.",
+off:["No suppression alleged. TAE Technologies is a legitimate fusion company. The merger is pending regulatory approval mid-2026."],
+links:[["CNBC — Trump Media / TAE Merger","https://www.cnbc.com/2025/12/18/trump-media-merger-fusion-tmtg-tae-technologies.html"],["Wikipedia — Aneutronic Fusion","https://en.wikipedia.org/wiki/Aneutronic_fusion"]],
+tags:["plasma","network"]},
+
+{year:"Jul 2023",bornFlag:"🇺🇸",diedFlag:"🇺🇸",bornLabel:"USA (Sunland, CA / born Dayton OH)",diedLabel:"USA — Los Angeles, no autopsy performed",diedIn:"USA",
+name:"Michael David Hicks — JPL Asteroid Scientist",role:"NASA JPL research scientist · DART Project · Deep Space 1 · 80+ papers · comet & asteroid physics",type:"death",badge:"☠ Sudden Death — No Autopsy / No NASA Comment",
+summary:"Michael David Hicks, 59, died July 30, 2023 in Los Angeles. He worked at JPL from 1998 to 2022, authored over 80 peer-reviewed papers, and served on the science teams of the DART Project — NASA's asteroid deflection mission — the Near Earth Asteroid Tracking project, the Dawn Mission, and Deep Space 1. No cause of death has ever been made public. Authorities confirmed no autopsy was performed. NASA has never publicly commented on his death. Online obituaries contain no mention of any illness. The death appears to have been sudden, occurring roughly one year after he left JPL. He is the earliest known member of the modern cluster — predating Maiwald by a full year — and was a long-time colleague of Frank Maiwald at JPL.",
+brief:"Two JPL scientists from the same institutional corridor — both working on dual-use remote sensing, planetary science, and NEO detection — died suddenly within 12 months of each other with no disclosed cause of death, no autopsy, and no institutional acknowledgment from NASA or JPL. Hicks in July 2023. Maiwald in July 2024. Both are gone. Neither has an explanation.",
+sections:[{heading:"The DART connection — planetary defence and dual-use physics",body:[
+"The DART mission — Double Asteroid Redirection Test — was NASA's first full-scale planetary defence test, successfully deflecting the asteroid moonlet Dimorphos in September 2022. Hicks served on the DART science team. The physics of tracking, characterising, and deflecting near-Earth objects overlaps directly with the physics of tracking and intercepting fast-moving targets from space — a capability of obvious military interest. His work on asteroid physical properties — surface composition, spectral signatures, rotation rates — is directly analogous to the characterisation of fast-moving objects in military tracking contexts.",
+"He also worked on Deep Space 1, which flew by Comet Borrelly in 2001 using experimental ion propulsion — the same class of electric propulsion technology that Buhler's Exodus Force work intersects with. The NEAT project, which he contributed to, was the Near Earth Asteroid Tracking system — directly analogous in methodology to the NEO Surveyor pipeline that Carl Grillmair was validating when he was shot dead in February 2026. Three JPL scientists — Hicks, Maiwald, Grillmair — all contributing to the same planetary defence and remote sensing ecosystem. All three now gone."
+]},{heading:"The silence",body:[
+"No press release from JPL. No memorial statement from NASA. No coverage in the LA Times, Pasadena Star-News, or any regional outlet. No entry in the Los Angeles County Medical Examiner's public database. No autopsy was performed — confirmed. The University of Arizona's Lunar and Planetary Laboratory, where he earned his PhD, published a brief obituary. His Forest Lawn obituary describes no illness and no decline. He was a father and an artist as well as a scientist — he played the ukulele at observing runs at Mount Palomar. His colleagues described a man who was fully engaged with life and work. He died, and the institution he worked for for 24 years said nothing."
+]}],
+off:["Cause of death: not publicly disclosed. No autopsy performed — confirmed by authorities and reported by Daily Mail. NASA has not commented. No evidence of foul play has been reported. The pattern connection is The Sentinel Network's and The Daily Mail's analysis — not an official finding."],
+links:[["University of Arizona LPL — Obituary","https://www.lpl.arizona.edu/about/memoriam/michael-hicks"],["Forest Lawn — Obituary","https://obituaries.forestlawn.com/obituaries/michael-hicks"],["Daily Mail — Ninth JPL Scientist","https://www.msn.com/en-gb/news/other/ninth-nasa-linked-scientist-death-deepens-mystery-over-pattern/gm-GM328BEC9F"],["Wikipedia — DART Mission","https://en.wikipedia.org/wiki/Double_Asteroid_Redirection_Test"]],
+tags:["death","aerospace"]},
+
+{year:"Jul 2024",bornFlag:"🇩🇪",diedFlag:"🇺🇸",bornLabel:"Germany (Ratingen, 1964)",diedLabel:"USA — Los Angeles, no autopsy performed",diedIn:"USA",
+name:"Frank Werner Maiwald",role:"JPL Technical Group Supervisor · SBG-VSWIR · AMR-C · dual-use remote sensing",type:"death",badge:"☠ Sudden Death — No Autopsy / No NASA Comment",
+summary:"Frank Werner Maiwald, 61, died July 4, 2024 in Los Angeles. He was a JPL technical group supervisor managing the SBG-VSWIR instrument — a visible shortwave infrared spectrometer with direct dual-use civilian and classified defence applications — and had previously overseen delivery of instruments for AMR-C, COWVR, AMR/Jason 3, and HIFI. His obituary contains no cause of death. No illness is mentioned. Authorities confirmed no autopsy was performed. No press release from JPL. No memorial from NASA. No Caltech acknowledgment. No local news coverage. He was a longtime colleague of Michael David Hicks at JPL. Both died within 12 months, both without disclosed cause of death, both without autopsy, both without institutional acknowledgment. He died eleven months before JPL colleague Monica Reza vanished.",
+off:["Cause of death not disclosed. No autopsy performed — confirmed by authorities. NASA has not commented. No evidence of foul play reported. The pattern connection is analytical, not confirmed by any investigation."],
+links:[["Legacy.com — Frank Maiwald Obituary","https://www.legacy.com/us/obituaries/legacyremembers/frank-maiwald-obituary?id=55630404"],["The Sentinel — The Blind Spot","https://thesentinel.network/p/the-blind-spot-rocks-are-falling"]],
+tags:["death","aerospace"]},
+
+{year:"May 2025",bornFlag:"🇺🇸",diedFlag:null,bornLabel:"USA (Los Alamos, NM)",diedLabel:"Missing — whereabouts unknown",diedIn:null,
+name:"Anthony 'Tony' Chavez",role:"LANL R&D Engineer · Engineering, Operations &amp; Physics · DARHT · 25+ years",type:"misfortune",badge:"⚑ Missing — DARHT Nuclear Weapons Engineer",
+summary:"Anthony 'Tony' Chavez, 78, a retired Los Alamos National Laboratory R&D engineer, was last seen leaving his home on 37th Street in Los Alamos on foot on May 4, 2025. He was reported missing May 8. His wallet, keys, and cigarettes were left on the table. No cell phone. A LANL institutional profile identifies him as an R&D engineer in Engineering, Operations, and Physics who worked at the lab for more than 25 years, including at DARHT — the Dual Axis Radiographic Hydrodynamic Test Facility, the machine used to radiographically image the implosion of nuclear weapons primary components. He is not a generic laboratory employee. He has not been found.",
+off:["Missing person case. No body. No evidence of foul play. LAPD continues to request tips: (505) 662-8222. His DARHT role is sourced from a LANL institutional profile referenced by The Grounded. No official connection to any national security programme has been established."],
+links:[["Los Alamos Reporter — Missing Person","https://losalamosreporter.com/2025/05/12/social-media-pages-voice-concern-about-anthony-tony-chavez-of-los-alamos-last-seen-may-4/"],["Boomtown Los Alamos — 7 Weeks Missing","https://www.boomtownlosalamos.org/p/los-alamos-resident-still-missing"],["The Grounded — The Pattern","https://thegrounded.ghost.io/the-pattern-nobody-wants-to-talk-about/"]],
+tags:["misfortune","classified"]},
+
+{year:"Jun 2025",bornFlag:"🇺🇸",diedFlag:null,bornLabel:"USA (Los Angeles)",diedLabel:"Missing — Angeles National Forest",diedIn:null,
+name:"Monica Jacinto Reza",role:"JPL Director of Materials Processing · Mondaloy superalloy inventor · AFRL Space Vehicles Directorate funded",type:"aerospace",badge:"🛸 Missing — JPL Director / AFRL Connection",
+summary:"Monica Jacinto Reza, 60, was JPL's Director of the Materials Processing Group and the co-inventor of Mondaloy — a nickel-based superalloy specifically engineered for advanced rocket propulsion that enabled major breakthroughs in US rocket engine technology in 2016, helping reduce US dependence on foreign propulsion. Her work was funded through the AFRL Space Vehicles Directorate — the same directorate commanded by Maj. Gen. McCasland from 2001 to 2004. On June 22, 2025, she went hiking in the Angeles National Forest near Mount Waterman with two companions. Around 9 a.m. she was seen waving from approximately 30 feet away — and then ceased to exist. FLIR thermal search: negative. Scent trail ended at a misplaced beanie. No body. No trace. She has never been found.",
+sections:[{heading:"The JPL corridor — three scientists, one pipeline",body:[
+"Reza is the third of three JPL scientists now gone from the same institutional corridor. Michael David Hicks died July 2023 — no cause, no autopsy. Frank Maiwald died July 2024 — no cause, no autopsy. Monica Reza vanished June 2025. All three worked in overlapping domains of advanced sensing, propulsion materials, and planetary science with dual civilian and defence applications. All three connected to the same JPL/Caltech/AFRL institutional ecosystem. The Sentinel Network documented this corridor first. Mainstream media followed.",
+"The specific link to McCasland is documented and precise: Reza's Mondaloy work was funded through the AFRL Space Vehicles Directorate during the period McCasland commanded it. Her work enabled breakthroughs in US rocket propulsion. His work oversaw the budget that funded it. She vanished June 2025. He vanished February 2026. Rep. Tim Burchett and Rep. Eric Burlison have both publicly named them as non-coincidental."
+]}],
+off:["Missing person. Los Angeles County Sheriff's Department treated her as at-risk. FLIR search and extensive ground operations produced no results. No body. No confirmed cause. No criminal investigation publicly opened."],
+links:[["People Magazine — Monica Reza missing","https://people.com"],["The Sentinel — Long Count","https://thesentinelnetwork.substack.com/p/the-long-count-we-started-with-two"],["Newsweek — McCasland and Reza connection","https://www.newsweek.com/disappearance-of-ufo-expert-is-national-security-crisis-11645230"]],
+tags:["aerospace","classified","misfortune"]},
+
+{year:"Jun 2025",bornFlag:"🇺🇸",diedFlag:null,bornLabel:"USA (New Mexico)",diedLabel:"Missing — Ranchos de Taos, NM",diedIn:null,
+name:"Melissa Casias",role:"LANL-adjacent · DOE-connected · husband: LANL Superintendent III",type:"misfortune",badge:"⚑ Missing — Phones Factory-Reset",
+summary:"Melissa Shirley Casias, 53, is listed on NamUs (the federal missing persons database) as having disappeared from Ranchos de Taos, New Mexico, on June 26, 2025 — four weeks after Anthony Chavez vanished from Los Alamos, 60 miles to the south. Her husband Mark Casias is a Superintendent III at Los Alamos National Laboratory. Both of her phones were factory-reset. Surveillance footage from a Talpa residence on NM-518 captured her walking eastbound carrying a backpack approximately one hour after she dropped off lunch for her daughter. A witness reported she was 'staggering across the road like she was hurt or intoxicated, which she's not a drinker.' She has never been found.",
+off:["Missing person, NamUs confirmed. No evidence of foul play established. No body recovered. Her connection to LANL is through her husband, not direct employment. Some reporting describes her as an administrative assistant at LANL; other reporting describes her as DOE-advisory-connected — the precise role remains unconfirmed."],
+links:[["NamUs — Missing Persons Database","https://www.namus.gov/"],["The Grounded — The Pattern","https://thegrounded.ghost.io/the-pattern-nobody-wants-to-talk-about/"]],
+tags:["misfortune","classified"]},
+
+{year:"Dec 2025",bornFlag:"🇺🇸",diedFlag:"🇺🇸",bornLabel:"USA (Wakefield, MA)",diedLabel:"USA — body recovered Lake Quannapowitt",diedIn:"USA",
+name:"Jason Thomas",role:"Novartis chemical biologist · active DoD contracts · cancer treatment research",type:"misfortune",badge:"⚑ Missing / Body Recovered — Edge of Pattern",
+summary:"Jason Thomas, 45, assistant director of chemical biology at Novartis, was reported missing on December 13, 2025 — two days before Nuno Loureiro was shot. He left home on foot. His phone and wallet were left behind. His research focused on developing new medicines including potential cancer treatments, and he held active contracts with the Department of Defence through Novartis. A body recovered from Lake Quannapowitt in Wakefield in March 2026 was believed to be his. Investigators did not suspect foul play. He had recently lost both parents, who died within an hour of each other. He is included here with a clear caveat: he sits at the edge of this pattern, not at its centre. The likely explanation is personal tragedy.",
+off:["Body recovered March 17, 2026. No foul play suspected. The personal grief context is well-documented. His research was pharmaceutical — the DoD contracts through Novartis are noted but his work was not directly defence-adjacent in the same way as other entries."],
+links:[["The Grounded — The Pattern","https://thegrounded.ghost.io/the-pattern-nobody-wants-to-talk-about/"]],
+tags:["misfortune","death"]},
+
+{year:"Dec 2025",bornFlag:"🇵🇹",diedFlag:"🇺🇸",bornLabel:"Portugal (Viseu, 1977)",diedLabel:"USA — shot at home, Brookline MA",diedIn:"USA",
+name:"Prof. Nuno Loureiro",role:"Director MIT Plasma Science & Fusion Center · magnetic reconnection · SPARC architect",type:"plasma",badge:"⚡ Targeted Killing — No Motive Given",
+summary:"Nuno Loureiro was the theorist who cracked magnetic reconnection — the fundamental plasma physics problem standing between humanity and working fusion energy — and the director of the most important fusion research laboratory in the Western world. He was shot dead at his Brookline home on December 15, 2025 by a former university classmate from Portugal who drove from Florida specifically to kill him. In four video confessions, the killer gave no motive. SPARC — the device Loureiro shepherded — was targeting net-positive fusion energy in 2027. He was killed weeks before its planned first plasma.",
+off:["Homicide confirmed. Perpetrator identified — died by suicide. Rhode Island AG: 'We are 100% confident.' No evidence links the killing to fusion research. MIT and federal investigators have stated this explicitly."],
+quote:"\"Fusion energy will change the course of human history.\" — Nuno Loureiro, 2024",
+links:[["Wikipedia — Nuno Loureiro","https://en.wikipedia.org/wiki/Nuno_Loureiro"],["Wikipedia — 2025 Brown University Shooting","https://en.wikipedia.org/wiki/2025_Brown_University_shooting"],["MIT News — Obituary","https://news.mit.edu/2025/nuno-loureiro-professor-director-plasma-science-and-fusion-center-dies-1216"],["Commonwealth Fusion Systems — SPARC","https://www.cfs.energy/technology/sparc"]],
+tags:["plasma","death"]},
+
+{year:"Feb 2026",bornFlag:"🇺🇸",diedFlag:"🇺🇸",bornLabel:"USA (Llano CA)",diedLabel:"USA — shot at home, Llano CA",diedIn:"USA",
+name:"Carl Grillmair — Caltech Astronomer",role:"Caltech / IPAC · NEOWISE quality assurance · NEO Surveyor instrument validation",type:"death",badge:"☠ Shot at Home — Prior Armed Trespass Dismissed",
+summary:"Carl Grillmair, 67, research scientist at Caltech's IPAC, ran quality assurance on the NEOWISE Science Data Center and was validating NEO Surveyor's instrument performance — the spacecraft designed to find asteroids before they hit Earth. He contributed to the discovery of water on a distant planet. He was found shot on the front porch of his rural Llano home at 6 a.m. on February 16, 2026. What makes this more than a rural homicide: suspect Freddy Snyder, 29, had previously been arrested for trespassing on Grillmair's property while carrying a rifle. Those charges were dismissed. He then allegedly returned and killed Grillmair. Armed trespass — release — murder. That sequence is documented court record, reported by the LA Times and ABC7.",
+off:["Homicide. Suspect Freddy Snyder charged with murder, carjacking, and burglary. The killing appears to be a criminal incident. Grillmair's work was not energy research. The pattern connection is to the JPL/Caltech corridor and NEO detection pipeline."],
+links:[["KTLA — Caltech Scientist Identified","https://ktla.com/news/local-news/caltech-scientist-identified-as-victim-in-antelope-valley-homicide/"],["Caltech IPAC","https://www.ipac.caltech.edu/"]],
+tags:["death"]},
+
+{year:"Feb 2026",bornFlag:"🇺🇸",diedFlag:null,bornLabel:"USA",diedLabel:"Missing — Albuquerque, NM",diedIn:null,
+name:"Maj. Gen. William Neil McCasland",role:"AFRL Commander · Space Vehicles Directorate · GPS · Space Based Laser · Director Special Programs",type:"aerospace",badge:"🛸 Missing — FBI Involved",
+summary:"Retired USAF Major General William Neil McCasland, 68 — the man who commanded AFRL and directly oversaw the AFRL Space Vehicles Directorate that funded Monica Reza's Mondaloy work — vanished from his Albuquerque home on February 27, 2026, seven days after President Trump posted on Truth Social directing the Pentagon to release files on UFOs, alien life, and UAPs. His phone, prescription glasses, and wearable devices were left behind. Nobody witnessed him leave. The FBI joined the search. Over 700 homes canvassed. Zero confirmed sightings. Two sitting US Congressmen have named his disappearance as a non-coincidental national security concern.",
+sections:[{heading:"The career — classified at the highest levels",body:[
+"GPS Chief Engineer. Space Based Laser Program Director. Director of Special Programs at the Pentagon. Commander of the AFRL Space Vehicles Directorate at Kirtland AFB (2001–2004) — overseeing the funding stream Monica Reza's Mondaloy work fell under. Finally: Commander of Air Force Research Laboratory at Wright-Patterson, overseeing 10,000 personnel and a $4 billion annual S&T portfolio. After retirement, he briefly worked with Tom DeLonge, whose role in the Pentagon's release of Navy UFO videos is documented. McCasland's name appeared in the 2016 WikiLeaks Podesta emails, with DeLonge describing him as a key UAP adviser with 'first-hand knowledge' of crash retrieval programs."
+]},{heading:"The Trump UAP directive and the 7-day window",body:[
+"On February 20, 2026, President Trump posted on Truth Social directing the Pentagon and other agencies to identify and release government files on 'alien and extraterrestrial life, unidentified aerial phenomena (UAP), unidentified flying objects (UFOs).' No major releases had occurred by mid-March. McCasland — named in classified UAP correspondence as having first-hand knowledge of crash retrieval programs — disappeared seven days later, on February 27, 2026. Whether the timing is coincidence, cause, or consequence has not been established. It is documented fact."
+]},{heading:"The disappearance",body:[
+"A repairman interacted with McCasland at approximately 10 a.m. His wife left for a medical appointment at 11:10 a.m. When she returned at 12:04 p.m., he was gone. Phone, glasses, smartwatch remained. Missing: red backpack, wallet, .38-caliber revolver. BCSO canvassed over 700 homes, reviewed footage from both ends of his street. Zero confirmed sightings. Ross Coulthart: 'A grave national security crisis. If you were Russia, or China, God forbid, General Neil McCasland would be one of your targets.' Rep. Tim Burchett and Rep. Eric Burlison have both publicly named him as a non-coincidental disappearance. As of April 2026, he has not been found."
+]}],
+off:["Silver Alert active. FBI involved. No confirmed sighting. No body recovered. His wife noted 'mental fog' in preceding months; investigators stated 'there's no indication he was disoriented.' No evidence of criminal activity confirmed."],
+links:[["Wikipedia — Neil McCasland","https://en.wikipedia.org/wiki/Neil_McCasland"],["CNN — FBI Joins Search","https://www.cnn.com/2026/03/11/us/retired-air-force-general-fbi-search"],["Newsweek — National Security Crisis","https://www.newsweek.com/disappearance-of-ufo-expert-is-national-security-crisis-11645230"],["Air Force — Official Biography","https://www.af.mil/About-Us/Biographies/Display/Article/104776/major-general-william-n-mccasland/"]],
+tags:["aerospace","classified","misfortune"]},
+
+{year:"2026",bornFlag:"🇺🇸",diedFlag:null,bornLabel:"USA (Tennessee / Missouri)",diedLabel:"Still active — US Congress",diedIn:null,
+name:"Rep. Burchett &amp; Rep. Burlison — Congressional Voices",role:"US Congressmen (R-TN / R-MO) · UAP briefings · pattern on record · 'chilling effect'",type:"network",badge:"🕸 Active — Pattern in Congress",
+summary:"Two sitting US Congressmen have now publicly raised the cluster of scientist deaths and disappearances documented in this timeline. Rep. Tim Burchett (R-TN) stated that if the public knew what he had been briefed on regarding extraterrestrial matters, people would be 'up at night' and the country would come 'unglued.' He explicitly named McCasland and Reza as non-coincidental. And he stated, for the public record: 'I'm not suicidal.' Rep. Eric Burlison (R-MO) formally requested FBI involvement, calling the pattern 'deeply concerning,' and stated: 'It's remarkable that General McCasland apparently walked out of his home, left all of his devices and never came back. And Monica Reza, she was on a hike as well and mysteriously disappeared. And I've heard of others.' Burchett put the broader effect plainly: 'This has had a real chilling effect. People don't want to talk about this issue of Unidentified Flying Objects anymore, and it's kind of difficult to get to people because they are afraid.'",
+off:["Both are sitting US Congressmen. Their public statements are on record. Neither has produced classified evidence publicly. Their role in this timeline is as political data points, not evidentiary sources."],
+links:[["Newsweek — Mystery Over 8 Missing or Dead Experts","https://www.newsweek.com/mystery-over-8-missing-or-dead-experts-linked-to-ufo-research-11792852"],["The Grounded — The Pattern","https://thegrounded.ghost.io/the-pattern-nobody-wants-to-talk-about/"]],
+tags:["network","classified"]}
+];
+
+const ct={death:0,suppressed:0,plasma:0,classified:0,misfortune:0,aerospace:0,network:0};
+DATA.forEach(e=>e.tags.forEach(t=>{if(ct[t]!==undefined)ct[t]++}));
+Object.keys(ct).forEach(k=>{const el=document.getElementById('c-'+k);if(el)el.textContent=ct[k]});
+document.getElementById('c-total').textContent=DATA.length;
+
+const cMap={};
+DATA.forEach(e=>{if(e.diedIn)cMap[e.diedIn]=(cMap[e.diedIn]||0)+1});
+const maxC=Math.max(...Object.values(cMap));
+const cEl=document.getElementById('sb-countries');
+cEl.innerHTML='<div class="st">By Country of Incident</div>'+
+  Object.entries(cMap).sort((a,b)=>b[1]-a[1]).map(([c,n])=>
+    `<div class="si"><strong>${c}</strong><span class="si-num">${n}</span></div>
+     <div class="cbar"><div class="cbar-fill" style="width:${Math.round(n/maxC*100)}%"></div></div>`
+  ).join('');
+
+const totalDeaths=DATA.filter(e=>e.tags.includes('death')).length;
+const totalSupp=DATA.filter(e=>e.tags.includes('suppressed')).length;
+const stillMissing=DATA.filter(e=>e.diedLabel&&e.diedLabel.includes('Missing')).length;
+const sEl=document.getElementById('sb-quickstats');
+sEl.innerHTML=`<div class="st">Quick Stats</div>
+  <div class="si"><strong>Total documented cases</strong><span class="si-num">${DATA.length}</span></div>
+  <div class="si"><strong>Deaths / suspicious deaths</strong><span class="si-num">${totalDeaths}</span></div>
+  <div class="si"><strong>Suppressed / classified</strong><span class="si-num">${totalSupp}</span></div>
+  <div class="si"><strong>Currently missing (known)</strong><span class="si-num">${stillMissing}</span></div>
+  <div class="si"><strong>Modern cluster cases (2023–26)</strong><span class="si-num">9</span></div>
+  <div class="si"><strong>Active secrecy orders (2017)</strong><span class="si-num">5,784</span></div>
+  <div class="si"><strong>Congressmen on public record</strong><span class="si-num">2</span></div>`;
+
+const tl=document.getElementById('tl');
+const newSet=new Set(["Michael David Hicks — JPL Asteroid Scientist","Monica Jacinto Reza","Rep. Burchett & Rep. Burlison — Congressional Voices"]);
+DATA.forEach((e,i)=>{
+  const div=document.createElement('div');
+  div.className='entry';
+  div.setAttribute('data-tags',e.tags.join(' '));
+  const nm=newSet.has(e.name)?'<span class="nb">NEW</span>':'';
+  const br=`<div class="flag-row"><span>${e.bornFlag}</span>born</div>`;
+  const dl=e.diedLabel||'';
+  const dr=e.diedFlag?`<div class="flag-row"><span>${e.diedFlag}</span>died</div>`:
+    dl.includes('alive')?`<div class="flag-row" style="color:var(--green)"><span>✓</span>alive</div>`:
+    dl.includes('Missing')?`<div class="flag-row" style="color:var(--orange)"><span>?</span>missing</div>`:
+    (dl.includes('Active')||dl.includes('pending')||dl.includes('active'))?`<div class="flag-row" style="color:var(--orange)"><span>⊘</span>ongoing</div>`:'';
+  function renderSections(sects){
+    if(!sects||!sects.length)return'';
+    return sects.map(s=>{
+      if(typeof s==='string')return`<p>${s}</p>`;
+      const h=s.heading?`<div class="sec-head">${s.heading}</div>`:'';
+      const b=Array.isArray(s.body)?s.body.map(p=>`<p>${p}</p>`).join(''):`<p>${s.body}</p>`;
+      return h+b;
+    }).join('');
+  }
+  const conHtml=e.sections?renderSections(e.sections):(Array.isArray(e.con)?e.con:e.con?[e.con]:[]).map(p=>`<p>${p}</p>`).join('');
+  const offHtml=(Array.isArray(e.off)?e.off:e.off?[e.off]:[]).map(p=>`<p>${p}</p>`).join('');
+  const briefHtml=e.brief?`<div class="summary-bar">${e.brief}</div>`:'';
+  const linksHtml=e.links&&e.links.length?`<div class="cd-section"><span class="dl g">📚 Further Reading &amp; Sources</span><div class="links-grid">${e.links.map(([l,u])=>`<a href="${u}" target="_blank" rel="noopener noreferrer" class="ext-link">${l} ↗</a>`).join('')}</div></div>`:'';
+  div.innerHTML=`
+<div class="ey"><div class="ey-year">${e.year}</div><div class="ey-flags">${br}${dr}</div></div>
+<div class="edw"><div class="edot d-${e.type}"></div></div>
+<div class="card">
+  <div class="ch"><div class="chl"><div class="cn">${e.name}${nm}</div><div class="cr">${e.role}</div></div><div class="cb b-${e.type}">${e.badge}</div></div>
+  <div class="cs">${e.summary}</div>
+  <div class="eh" id="h${i}">▼ expand — full history · sources · further reading</div>
+  <div class="cd" id="d${i}">
+    ${conHtml?`<div class="cd-section"><span class="dl r">☢ Full history &amp; what researchers claim</span>${briefHtml}<div class="cd-body">${conHtml}</div></div>`:''}
+    ${offHtml?`<div class="cd-section"><span class="dl b">⬛ Official verdict &amp; confirmed facts</span><div class="cd-body">${offHtml}</div></div>`:''}
+    ${e.quote?`<div class="cd-section"><div class="qb">${e.quote}</div></div>`:''}
+    ${linksHtml}
+  </div>
+</div>`;
+  div.querySelector('.card').addEventListener('click',()=>{
+    const d=document.getElementById('d'+i),h=document.getElementById('h'+i);
+    const o=d.classList.toggle('open');
+    h.textContent=o?'▲ collapse':'▼ expand — full history · sources · further reading';
+  });
+  tl.appendChild(div);
+});
+
+function setF(tag,btn){
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.entry').forEach(el=>{
+    const t=el.getAttribute('data-tags')||'';
+    el.classList.toggle('hidden',tag!=='all'&&!t.includes(tag));
+  });
+}
+</script>
+</body>
+</html>
