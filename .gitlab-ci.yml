@@ -1,0 +1,17 @@
+# GitLab Pages: publish repo root into public/ so img/ and index.html are deployed together.
+# https://docs.gitlab.com/user/project/pages/getting_started_part_one/
+
+stages:
+  - deploy
+
+pages:
+  stage: deploy
+  script:
+    - mkdir -p public
+    - cp index.html public/
+    - cp -r img public/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
