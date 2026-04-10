@@ -1,0 +1,2 @@
+# Git LFS — raster images (see README for clone requirements)
+img/** filter=lfs diff=lfs merge=lfs -text
