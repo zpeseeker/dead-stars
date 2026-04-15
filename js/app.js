@@ -16,6 +16,11 @@
       .replace(/&quot;/g, '"');
   }
 
+  /** Markdown-style **bold** → <strong> (data is trusted; not a full MD parser). */
+  function formatInlineMd(s) {
+    return String(s).replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>');
+  }
+
   function yearKey(entry) {
     const s = String(entry.year);
     const multi = s.match(/(\d{4})/g);
@@ -154,14 +159,14 @@
     if (!sects || !sects.length) return '';
     return sects
       .map(function (s) {
-        if (typeof s === 'string') return '<p>' + s + '</p>';
-        const h = s.heading ? '<div class="sec-head">' + s.heading + '</div>' : '';
+        if (typeof s === 'string') return '<p>' + formatInlineMd(s) + '</p>';
+        const h = s.heading ? '<div class="sec-head">' + formatInlineMd(s.heading) + '</div>' : '';
         const b = Array.isArray(s.body)
           ? s.body.map(function (p) {
-              return '<p>' + p + '</p>';
+              return '<p>' + formatInlineMd(p) + '</p>';
             }).join('')
           : s.body
-            ? '<p>' + s.body + '</p>'
+            ? '<p>' + formatInlineMd(s.body) + '</p>'
             : '';
         const fig = s.figure
           ? '<figure class="tl-figure"><img class="tl-figure-img" src="' +
@@ -169,7 +174,7 @@
             '" alt="' +
             escAttr(s.figure.alt || '') +
             '" loading="lazy" decoding="async"><figcaption class="tl-figure-cap">' +
-            (s.figure.caption || '') +
+            formatInlineMd(s.figure.caption || '') +
             '</figcaption></figure>'
           : '';
         return h + b + fig;
@@ -200,7 +205,7 @@
       ? renderSections(e.sections)
       : (Array.isArray(e.con) ? e.con : e.con ? [e.con] : [])
           .map(function (p) {
-            return '<p>' + p + '</p>';
+            return '<p>' + formatInlineMd(p) + '</p>';
           })
           .join('');
     const connHtml =
@@ -208,17 +213,17 @@
         ? '<div class="cd-section"><span class="dl g">🔗 Cluster connections</span><div class="cd-body">' +
           e.connections
             .map(function (p) {
-              return '<p>' + p + '</p>';
+              return '<p>' + formatInlineMd(p) + '</p>';
             })
             .join('') +
           '</div></div>'
         : '';
     const offHtml = (Array.isArray(e.off) ? e.off : e.off ? [e.off] : [])
       .map(function (p) {
-        return '<p>' + p + '</p>';
+        return '<p>' + formatInlineMd(p) + '</p>';
       })
       .join('');
-    const briefHtml = e.brief ? '<div class="summary-bar">' + e.brief + '</div>' : '';
+    const briefHtml = e.brief ? '<div class="summary-bar">' + formatInlineMd(e.brief) + '</div>' : '';
     const linksHtml =
       e.links && e.links.length
         ? '<div class="cd-section"><span class="dl g">📚 Further Reading &amp; Sources</span><div class="links-grid">' +
@@ -264,15 +269,11 @@
       '">' +
       e.badge +
       '</div></div></div></div><div class="cs">' +
-      e.summary +
+      formatInlineMd(e.summary) +
       '</div><div class="eh" id="h' +
       i +
       '" aria-expanded="false" aria-label="Show or hide full history, sources and links">' +
-      '<span class="eh__icon" aria-hidden="true">' +
-      '<svg class="eh__chev" viewBox="0 0 24 24" width="24" height="24" focusable="false">' +
-      '<path fill="currentColor" d="M12 15.4 4.6 8l1.4-1.4L12 12.5l6-5.9L19.4 8z"/>' +
-      '</svg>' +
-      '</span>' +
+      '<span class="eh__icon" aria-hidden="true"><i class="fa-solid fa-chevron-down eh__chev"></i></span>' +
       '<span class="eh__text">' +
       '<span class="eh__line"><span class="eh__strong eh__when-collapsed">More</span><span class="eh__strong eh__when-open">Less</span></span>' +
       '<span class="eh__sub">Full history · sources · links</span>' +
@@ -293,7 +294,7 @@
           offHtml +
           '</div></div>'
         : '') +
-      (e.quote ? '<div class="cd-section"><div class="qb">' + e.quote + '</div></div>' : '') +
+      (e.quote ? '<div class="cd-section"><div class="qb">' + formatInlineMd(e.quote) + '</div></div>' : '') +
       linksHtml +
       '</div></div>';
     div.querySelector('.card').addEventListener('click', function () {
@@ -361,6 +362,116 @@
       scrollToEntry(parseInt(v, 10));
       mobileJump.value = '';
     });
+  }
+
+  const clusterList = document.getElementById('sb-cluster-list');
+  if (clusterList) {
+    const MODERN_CLUSTER = [
+      {
+        find: function (e) {
+          return /Michael David Hicks/.test(e.name);
+        },
+        when: 'Jul 2023',
+        last: 'Hicks',
+        st: 'Dead · JPL',
+        cls: 'bad',
+      },
+      {
+        find: function (e) {
+          return /Frank Werner Maiwald/.test(e.name);
+        },
+        when: 'Jul 2024',
+        last: 'Maiwald',
+        st: 'Dead · JPL',
+        cls: 'bad',
+      },
+      {
+        find: function (e) {
+          return e.name.indexOf("Tony' Chavez") >= 0;
+        },
+        when: 'May 2025',
+        last: 'Chavez',
+        st: 'Missing · LANL',
+        cls: 'warn',
+      },
+      {
+        find: function (e) {
+          return e.name === 'Monica Jacinto Reza';
+        },
+        when: 'Jun 2025',
+        last: 'Reza',
+        st: 'Missing · JPL',
+        cls: 'warn',
+      },
+      {
+        find: function (e) {
+          return e.name === 'Melissa Casias';
+        },
+        when: 'Jun 2025',
+        last: 'Casias',
+        st: 'Missing · LANL-linked',
+        cls: 'warn',
+      },
+      {
+        find: function (e) {
+          return e.name === 'Jason Thomas';
+        },
+        when: 'Dec 2025',
+        last: 'Thomas',
+        st: 'Dead · Novartis',
+        cls: 'bad',
+      },
+      {
+        find: function (e) {
+          return /Nuno Loureiro/.test(e.name);
+        },
+        when: 'Dec 2025',
+        last: 'Loureiro',
+        st: 'Dead · MIT Fusion',
+        cls: 'bad',
+      },
+      {
+        find: function (e) {
+          return /Carl Grillmair/.test(e.name);
+        },
+        when: 'Feb 2026',
+        last: 'Grillmair',
+        st: 'Dead · Caltech',
+        cls: 'bad',
+      },
+      {
+        find: function (e) {
+          return /William Neil McCasland/.test(e.name);
+        },
+        when: 'Feb 2026',
+        last: 'McCasland',
+        st: 'Missing · AFRL',
+        cls: 'warn',
+      },
+    ];
+    clusterList.innerHTML = MODERN_CLUSTER.map(function (row) {
+      const idx = DATA.findIndex(row.find);
+      const href = idx >= 0 ? '#entry-' + idx : '#timeline';
+      const who =
+        idx >= 0
+          ? '<a class="cluster-list__link" href="' +
+            escAttr(href) +
+            '">' +
+            escAttr(row.last) +
+            '</a>'
+          : escAttr(row.last);
+      return (
+        '<li class="cluster-list__item"><span class="cluster-list__when">' +
+        escAttr(row.when) +
+        '</span><span class="cluster-list__who">' +
+        who +
+        '</span><span class="cluster-list__st cluster-list__st--' +
+        escAttr(row.cls) +
+        '">' +
+        escAttr(row.st) +
+        '</span></li>'
+      );
+    }).join('');
   }
 
   function setFilter(tag) {

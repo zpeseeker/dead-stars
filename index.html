@@ -8,7 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./css/styles.css?v=4">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="./css/styles.css?v=7">
 </head>
 <body>
 <a class="nav-skip" href="#timeline">Skip to timeline</a>
@@ -16,11 +17,6 @@
 <div class="hero" id="top">
   <div class="hero__bg" aria-hidden="true"></div>
   <div class="hero__inner">
-    <div class="hero__meta" aria-label="Publication and disclaimer">
-      <p class="hero__updated"><time datetime="2026-04-15">Last updated: 15 April 2026</time></p>
-      <p class="hero__contrib"><a href="https://github.com/zpeseeker/dead-stars" target="_blank" rel="noopener noreferrer">Contributions and corrections</a> are welcome on GitHub.</p>
-      <p class="hero__disclaimer"><strong>AI-assisted research.</strong> This project was developed with AI support. While care is taken to verify sources and wording, errors or misleading facts may still appear. Please <a href="https://github.com/zpeseeker/dead-stars/issues" target="_blank" rel="noopener noreferrer">open an issue</a> to report corrections and help keep this timeline accurate.</p>
-    </div>
     <p class="hero__kicker" id="intro">Investigative timeline</p>
     <p class="hero__tags">Classified research · Suppressed patents · Unexplained deaths · Aerospace · Energy suppression</p>
     <h1 class="hero__title"><span class="hero__title-line">Dead Inventors,</span> <span class="hero__title-line hero__title-line--accent">Vanishing Scientists</span> <span class="hero__title-amp">&amp;</span> <span class="hero__title-sub">The Energy They Knew</span></h1>
@@ -28,6 +24,11 @@
     <div class="hero__notice" role="note">
       <span class="hero__notice-icon" aria-hidden="true">!</span>
       <p>This timeline mixes <strong>documented facts</strong> with <strong>claims and open questions</strong>. Official verdicts are noted where available. Expand any card for sources and context.</p>
+    </div>
+    <div class="hero__meta" aria-label="Last updated, contributions, and disclaimer">
+      <p class="hero__updated"><time datetime="2026-04-15">Last updated: 15 April 2026</time></p>
+      <p class="hero__contrib"><a href="https://github.com/zpeseeker/dead-stars" target="_blank" rel="noopener noreferrer">Contributions and corrections</a> are welcome on GitHub.</p>
+      <p class="hero__disclaimer"><strong>AI-assisted research.</strong> This project was developed with AI support. While care is taken to verify sources and wording, errors or misleading facts may still appear. Please <a href="https://github.com/zpeseeker/dead-stars/issues" target="_blank" rel="noopener noreferrer">open an issue</a> to report corrections and help keep this timeline accurate.</p>
     </div>
   </div>
 </div>
@@ -98,17 +99,7 @@
     <div class="panel" id="sb-countries"><div class="panel__title">By country of incident</div></div>
     <div class="panel">
       <div class="panel__title">Modern cluster (2023–2026)</div>
-      <ul class="cluster-list">
-        <li class="cluster-list__item"><span class="cluster-list__when">Jul 2023</span><span class="cluster-list__who">Hicks</span><span class="cluster-list__st cluster-list__st--bad">Dead · JPL</span></li>
-        <li class="cluster-list__item"><span class="cluster-list__when">Jul 2024</span><span class="cluster-list__who">Maiwald</span><span class="cluster-list__st cluster-list__st--bad">Dead · JPL</span></li>
-        <li class="cluster-list__item"><span class="cluster-list__when">May 2025</span><span class="cluster-list__who">Chavez</span><span class="cluster-list__st cluster-list__st--warn">Missing · LANL</span></li>
-        <li class="cluster-list__item"><span class="cluster-list__when">Jun 2025</span><span class="cluster-list__who">Reza</span><span class="cluster-list__st cluster-list__st--warn">Missing · JPL</span></li>
-        <li class="cluster-list__item"><span class="cluster-list__when">Jun 2025</span><span class="cluster-list__who">Casias</span><span class="cluster-list__st cluster-list__st--warn">Missing</span></li>
-        <li class="cluster-list__item"><span class="cluster-list__when">Dec 2025</span><span class="cluster-list__who">Thomas</span><span class="cluster-list__st cluster-list__st--bad">Dead</span></li>
-        <li class="cluster-list__item"><span class="cluster-list__when">Dec 2025</span><span class="cluster-list__who">Loureiro</span><span class="cluster-list__st cluster-list__st--bad">MIT Fusion</span></li>
-        <li class="cluster-list__item"><span class="cluster-list__when">Feb 2026</span><span class="cluster-list__who">Grillmair</span><span class="cluster-list__st cluster-list__st--bad">Caltech</span></li>
-        <li class="cluster-list__item"><span class="cluster-list__when">Feb 2026</span><span class="cluster-list__who">McCasland</span><span class="cluster-list__st cluster-list__st--warn">Missing · AFRL</span></li>
-      </ul>
+      <ul class="cluster-list" id="sb-cluster-list"></ul>
     </div>
     <div class="panel">
       <div class="panel__title">Secrecy &amp; law</div>
@@ -139,7 +130,7 @@
   </div>
 </footer>
 
-<script src="./js/data.js?v=3"></script>
-<script src="./js/app.js?v=3" defer></script>
+<script src="./js/data.js?v=4"></script>
+<script src="./js/app.js?v=6" defer></script>
 </body>
 </html>
