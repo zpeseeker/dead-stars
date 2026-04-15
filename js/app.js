@@ -138,7 +138,7 @@
       '<div class="stat-row"><span class="stat-row__label">Currently missing (known)</span><span class="stat-row__num">' +
       stillMissing +
       '</span></div>' +
-      '<div class="stat-row"><span class="stat-row__label">Modern cluster (2023–26)</span><span class="stat-row__num">9</span></div>' +
+      '<div class="stat-row"><span class="stat-row__label">Modern cluster (2023–26)</span><span class="stat-row__num">10</span></div>' +
       '<div class="stat-row"><span class="stat-row__label">Active secrecy orders (2017)</span><span class="stat-row__num">5,784</span></div>' +
       '<div class="stat-row"><span class="stat-row__label">Congressmen on record</span><span class="stat-row__num">2</span></div>';
   }
@@ -203,6 +203,16 @@
             return '<p>' + p + '</p>';
           })
           .join('');
+    const connHtml =
+      e.connections && e.connections.length
+        ? '<div class="cd-section"><span class="dl g">🔗 Cluster connections</span><div class="cd-body">' +
+          e.connections
+            .map(function (p) {
+              return '<p>' + p + '</p>';
+            })
+            .join('') +
+          '</div></div>'
+        : '';
     const offHtml = (Array.isArray(e.off) ? e.off : e.off ? [e.off] : [])
       .map(function (p) {
         return '<p>' + p + '</p>';
@@ -257,7 +267,17 @@
       e.summary +
       '</div><div class="eh" id="h' +
       i +
-      '">▼ expand — full history · sources · further reading</div><div class="cd" id="d' +
+      '" aria-expanded="false" aria-label="Show or hide full history, sources and links">' +
+      '<span class="eh__icon" aria-hidden="true">' +
+      '<svg class="eh__chev" viewBox="0 0 24 24" width="24" height="24" focusable="false">' +
+      '<path fill="currentColor" d="M12 15.4 4.6 8l1.4-1.4L12 12.5l6-5.9L19.4 8z"/>' +
+      '</svg>' +
+      '</span>' +
+      '<span class="eh__text">' +
+      '<span class="eh__line"><span class="eh__strong eh__when-collapsed">More</span><span class="eh__strong eh__when-open">Less</span></span>' +
+      '<span class="eh__sub">Full history · sources · links</span>' +
+      '</span>' +
+      '</div><div class="cd" id="d' +
       i +
       '">' +
       (conHtml
@@ -267,6 +287,7 @@
           conHtml +
           '</div></div>'
         : '') +
+      connHtml +
       (offHtml
         ? '<div class="cd-section"><span class="dl b">⬛ Official verdict &amp; confirmed facts</span><div class="cd-body">' +
           offHtml +
@@ -279,9 +300,8 @@
       const d = document.getElementById('d' + i);
       const h = document.getElementById('h' + i);
       const o = d.classList.toggle('open');
-      h.textContent = o
-        ? '▲ collapse'
-        : '▼ expand — full history · sources · further reading';
+      h.classList.toggle('is-open', o);
+      h.setAttribute('aria-expanded', o ? 'true' : 'false');
     });
     tl.appendChild(div);
   });
