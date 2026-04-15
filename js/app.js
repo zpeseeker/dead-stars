@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  const TL_ORDER_KEY = 'dead-stars-tl-order';
+
   function escAttr(s) {
     return String(s)
       .replace(/&/g, '&amp;')
@@ -21,6 +23,98 @@
     return String(s).replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>');
   }
 
+  /**
+   * Institutional badges for each timeline entry (keys on DATA[].affiliations).
+   * All pills use `abbr` text — FA brand icons were unreliable (empty glyphs in some browsers).
+   */
+  const ORG_BADGES = {
+    nasa: { label: 'NASA', abbr: 'NASA' },
+    jpl: { label: 'NASA Jet Propulsion Laboratory', abbr: 'JPL' },
+    caltech: { label: 'California Institute of Technology', abbr: 'Caltech' },
+    ipac: { label: 'Caltech IPAC', abbr: 'IPAC' },
+    mit: { label: 'Massachusetts Institute of Technology', abbr: 'MIT' },
+    harvard: { label: 'Harvard University', abbr: 'Harvard' },
+    cern: { label: 'CERN', abbr: 'CERN' },
+    google: { label: 'Google', abbr: 'Google' },
+    dod: { label: 'U.S. Department of Defense', abbr: 'DoD' },
+    doe: { label: 'U.S. Department of Energy', abbr: 'DOE' },
+    lanl: { label: 'Los Alamos National Laboratory', abbr: 'LANL' },
+    afrl: { label: 'Air Force Research Laboratory', abbr: 'AFRL' },
+    'wright-patterson': { label: 'Wright-Patterson Air Force Base', abbr: 'WPAFB' },
+    usaf: { label: 'U.S. Air Force', abbr: 'USAF' },
+    darpa: { label: 'Defense Advanced Research Projects Agency', abbr: 'DARPA' },
+    nrl: { label: 'Naval Research Laboratory', abbr: 'NRL' },
+    onr: { label: 'Office of Naval Research', abbr: 'ONR' },
+    fbi: { label: 'Federal Bureau of Investigation', abbr: 'FBI' },
+    nsa: { label: 'National Security Agency', abbr: 'NSA' },
+    uspto: { label: 'United States Patent and Trademark Office', abbr: 'USPTO' },
+    congress: { label: 'United States Congress', abbr: 'Congress' },
+    westinghouse: { label: 'Westinghouse Electric', abbr: 'Westinghouse' },
+    'continental-edison': { label: 'Continental Edison Company', abbr: 'Edison' },
+    oap: { label: 'Office of Alien Property Custodian', abbr: 'OAP' },
+    'univ-oslo': { label: 'University of Oslo', abbr: 'UiO' },
+    'norsk-hydro': { label: 'Norsk Hydro', abbr: 'Hydro' },
+    'us-navy': { label: 'U.S. Navy', abbr: 'USN' },
+    tum: { label: 'Technical University of Munich', abbr: 'TUM' },
+    man: { label: 'MAN SE', abbr: 'MAN' },
+    'british-admiralty': { label: 'British Admiralty', abbr: 'Admiralty' },
+    'univ-tehran': { label: 'University of Tehran', abbr: 'Tehran' },
+    philips: { label: 'Philips Research', abbr: 'Philips' },
+    'univ-washington': { label: 'University of Washington', abbr: 'UW' },
+    fda: { label: 'U.S. Food and Drug Administration', abbr: 'FDA' },
+    'new-school': { label: 'The New School', abbr: 'New School' },
+    pks: { label: 'PKS Institute (Schauberger)', abbr: 'PKS' },
+    denison: { label: 'Denison University', abbr: 'Denison' },
+    utep: { label: 'University of Texas at El Paso', abbr: 'UTEP' },
+    'univ-utah': { label: 'University of Utah', abbr: 'Utah' },
+    southampton: { label: 'University of Southampton', abbr: 'Soton' },
+    'royal-society': { label: 'Royal Society', abbr: 'RS' },
+    uah: { label: 'University of Alabama in Huntsville', abbr: 'UAH' },
+    msfc: { label: 'NASA Marshall Space Flight Center', abbr: 'MSFC' },
+    jsc: { label: 'NASA Johnson Space Center', abbr: 'JSC' },
+    ksc: { label: 'NASA Kennedy Space Center', abbr: 'KSC' },
+    freescale: { label: 'Freescale Semiconductor', abbr: 'Freescale' },
+    novartis: { label: 'Novartis', abbr: 'Novartis' },
+    cfs: { label: 'Commonwealth Fusion Systems', abbr: 'CFS' },
+    kcnsc: { label: 'Kansas City National Security Campus', abbr: 'KCNSC' },
+    nnsa: { label: 'National Nuclear Security Administration', abbr: 'NNSA' },
+    mod: { label: 'UK Ministry of Defence', abbr: 'MoD' },
+    gec: { label: 'GEC-Marconi', abbr: 'GEC' },
+    sdi: { label: 'Strategic Defense Initiative', abbr: 'SDI' },
+    tae: { label: 'TAE Technologies', abbr: 'TAE' },
+    'trump-media': { label: 'Trump Media & Technology Group', abbr: 'TMTG' },
+    etsu: { label: 'East Tennessee State University', abbr: 'ETSU' },
+    greyhound: { label: 'Greyhound Lines', abbr: 'Greyhound' },
+    'utah-hosp': { label: 'Utah State Hospital', abbr: 'Utah Hosp' },
+    afit: { label: 'Air Force Institute of Technology', abbr: 'AFIT' },
+    aflcmc: { label: 'Air Force Life Cycle Management Center', abbr: 'AFLCMC' },
+  };
+
+  function renderOrgBadges(ids) {
+    if (!ids || !ids.length) return '';
+    const parts = [];
+    ids.forEach(function (id) {
+      const o = ORG_BADGES[id];
+      if (!o) return;
+      const title = escAttr(o.label);
+      const t = escAttr(o.abbr || o.label);
+      if (!t) return;
+      parts.push(
+        '<span class="org-badge org-badge--abbr" role="img" aria-label="' +
+          title +
+          '" title="' +
+          title +
+          '">' +
+          t +
+          '</span>'
+      );
+    });
+    if (!parts.length) return '';
+    return (
+      '<div class="ch-aff" aria-label="Institutional affiliations">' + parts.join('') + '</div>'
+    );
+  }
+
   function yearKey(entry) {
     const s = String(entry.year);
     const multi = s.match(/(\d{4})/g);
@@ -36,11 +130,51 @@
     return 0;
   }
 
+  /**
+   * DATA[] display order for timeline + nav: sort by yearKey (first year in `entry.year` string).
+   * Unparseable years sort to the end (oldest-first) or start (newest-first).
+   */
+  function orderIndices(newestFirst) {
+    const n = DATA.length;
+    const pairs = [];
+    for (let i = 0; i < n; i++) {
+      let k = yearKey(DATA[i]);
+      if (k === 0) k = newestFirst ? -1e9 : 1e9;
+      pairs.push({ i: i, k: k });
+    }
+    pairs.sort(function (a, b) {
+      if (a.k !== b.k) return newestFirst ? b.k - a.k : a.k - b.k;
+      return a.i - b.i;
+    });
+    return pairs.map(function (p) {
+      return p.i;
+    });
+  }
+
+  /** First entry in chronological order that matches each era (for dock jump chips). */
   function findEraIndices() {
-    const pre1950 = DATA.findIndex((e) => yearKey(e) > 0 && yearKey(e) < 1950);
-    const y1950 = DATA.findIndex((e) => yearKey(e) >= 1950 && yearKey(e) < 1990);
-    const y1990 = DATA.findIndex((e) => yearKey(e) >= 1990 && yearKey(e) < 2020);
-    const cluster = DATA.findIndex((e) => yearKey(e) >= 2022 || /202[3-6]/.test(e.year));
+    const chrono = orderIndices(false);
+    function firstMatching(pred) {
+      for (let j = 0; j < chrono.length; j++) {
+        const i = chrono[j];
+        const e = DATA[i];
+        const y = yearKey(e);
+        if (pred(e, y)) return i;
+      }
+      return -1;
+    }
+    const pre1950 = firstMatching(function (e, y) {
+      return y > 0 && y < 1950;
+    });
+    const y1950 = firstMatching(function (e, y) {
+      return y >= 1950 && y < 1990;
+    });
+    const y1990 = firstMatching(function (e, y) {
+      return y >= 1990 && y < 2020;
+    });
+    const cluster = firstMatching(function (e, y) {
+      return y >= 2022 || /202[3-6]/.test(e.year);
+    });
     return {
       pre1950: pre1950 >= 0 ? pre1950 : 0,
       mid: y1950 >= 0 ? y1950 : 0,
@@ -149,6 +283,14 @@
   }
 
   const tl = document.getElementById('tl');
+  const tlWrap = document.querySelector('.tl-wrap');
+  const sbNav = document.getElementById('sb-timeline-nav');
+  const mobileJump = document.getElementById('mobile-jump');
+  let timelineNewestFirst = false;
+  try {
+    timelineNewestFirst = localStorage.getItem(TL_ORDER_KEY) === 'newest';
+  } catch (_) {}
+
   const newSet = new Set([
     'Michael David Hicks — JPL Asteroid Scientist',
     'Monica Jacinto Reza',
@@ -182,7 +324,8 @@
       .join('');
   }
 
-  DATA.forEach(function (e, i) {
+  orderIndices(timelineNewestFirst).forEach(function (i) {
+    const e = DATA[i];
     const div = document.createElement('div');
     div.className = 'entry';
     div.id = 'entry-' + i;
@@ -249,6 +392,7 @@
         escAttr(e.name) +
         '" width="168" height="168" loading="lazy" decoding="async"></div>'
       : '';
+    const affHtml = renderOrgBadges(e.affiliations);
     div.innerHTML =
       '<div class="ey"><div class="ey-year">' +
       e.year +
@@ -268,14 +412,18 @@
       e.type +
       '">' +
       e.badge +
-      '</div></div></div></div><div class="cs">' +
+      '</div></div>' +
+      affHtml +
+      '</div></div><div class="cs">' +
       formatInlineMd(e.summary) +
       '</div><div class="eh" id="h' +
       i +
       '" aria-expanded="false" aria-label="Show or hide full history, sources and links">' +
-      '<span class="eh__icon" aria-hidden="true"><i class="fa-solid fa-chevron-down eh__chev"></i></span>' +
       '<span class="eh__text">' +
+      '<span class="eh__row">' +
       '<span class="eh__line"><span class="eh__strong eh__when-collapsed">More</span><span class="eh__strong eh__when-open">Less</span></span>' +
+      '<span class="eh__icon" aria-hidden="true"><i class="fa-solid fa-chevron-down eh__chev"></i></span>' +
+      '</span>' +
       '<span class="eh__sub">Full history · sources · links</span>' +
       '</span>' +
       '</div><div class="cd" id="d' +
@@ -307,6 +455,75 @@
     tl.appendChild(div);
   });
 
+  function reorderTimelineDom(newestFirst) {
+    if (!tl) return;
+    orderIndices(newestFirst).forEach(function (i) {
+      const el = document.getElementById('entry-' + i);
+      if (el) tl.appendChild(el);
+    });
+  }
+
+  function populateJumpNav(newestFirst) {
+    const indices = orderIndices(newestFirst);
+    if (sbNav) {
+      sbNav.innerHTML = '<div class="panel__title">Along the timeline</div>';
+      const wrap = document.createElement('div');
+      wrap.className = 'tl-nav-scroll';
+      indices.forEach(function (i) {
+        const e = DATA[i];
+        const raw = decodeEntities(e.name);
+        const shortName = raw.length > 42 ? raw.slice(0, 40) + '…' : raw;
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'tl-jump';
+        const y = document.createElement('span');
+        y.className = 'tl-jump-year';
+        y.textContent = e.year;
+        b.appendChild(y);
+        b.appendChild(document.createTextNode(shortName));
+        b.addEventListener('click', function () {
+          scrollToEntry(i);
+        });
+        wrap.appendChild(b);
+      });
+      sbNav.appendChild(wrap);
+    }
+    if (mobileJump) {
+      mobileJump.innerHTML = '';
+      const opt0 = document.createElement('option');
+      opt0.value = '';
+      opt0.textContent = 'Jump to an entry…';
+      mobileJump.appendChild(opt0);
+      indices.forEach(function (i) {
+        const e = DATA[i];
+        const opt = document.createElement('option');
+        opt.value = String(i);
+        const nameDecoded = decodeEntities(e.name);
+        opt.textContent =
+          e.year +
+          ' — ' +
+          (nameDecoded.length > 48 ? nameDecoded.slice(0, 46) + '…' : nameDecoded);
+        mobileJump.appendChild(opt);
+      });
+    }
+  }
+
+  function applyTimelineOrder(newestFirst) {
+    timelineNewestFirst = newestFirst;
+    try {
+      localStorage.setItem(TL_ORDER_KEY, newestFirst ? 'newest' : 'oldest');
+    } catch (_) {}
+    if (tlWrap) tlWrap.classList.toggle('tl-wrap--newest-first', newestFirst);
+    document.querySelectorAll('[data-tl-order]').forEach(function (btn) {
+      const isNewest = btn.getAttribute('data-tl-order') === 'newest';
+      const on = isNewest === newestFirst;
+      btn.classList.toggle('active', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    reorderTimelineDom(newestFirst);
+    populateJumpNav(newestFirst);
+  }
+
   const era = findEraIndices();
   document.querySelectorAll('[data-era-jump]').forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -316,46 +533,7 @@
     });
   });
 
-  const sbNav = document.getElementById('sb-timeline-nav');
-  const mobileJump = document.getElementById('mobile-jump');
-  if (sbNav) {
-    sbNav.innerHTML = '<div class="panel__title">Along the timeline</div>';
-    const wrap = document.createElement('div');
-    wrap.className = 'tl-nav-scroll';
-    DATA.forEach(function (e, i) {
-      const raw = decodeEntities(e.name);
-      const shortName = raw.length > 42 ? raw.slice(0, 40) + '…' : raw;
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'tl-jump';
-      const y = document.createElement('span');
-      y.className = 'tl-jump-year';
-      y.textContent = e.year;
-      b.appendChild(y);
-      b.appendChild(document.createTextNode(shortName));
-      b.addEventListener('click', function () {
-        scrollToEntry(i);
-      });
-      wrap.appendChild(b);
-    });
-    sbNav.appendChild(wrap);
-  }
   if (mobileJump) {
-    const opt0 = document.createElement('option');
-    opt0.value = '';
-    opt0.textContent = 'Jump to an entry…';
-    mobileJump.appendChild(opt0);
-    DATA.forEach(function (e, i) {
-      const opt = document.createElement('option');
-      opt.value = String(i);
-      opt.textContent =
-        e.year +
-        ' — ' +
-        (decodeEntities(e.name).length > 48
-          ? decodeEntities(e.name).slice(0, 46) + '…'
-          : decodeEntities(e.name));
-      mobileJump.appendChild(opt);
-    });
     mobileJump.addEventListener('change', function () {
       const v = mobileJump.value;
       if (v === '') return;
@@ -363,6 +541,19 @@
       mobileJump.value = '';
     });
   }
+
+  const orderBar = document.getElementById('tl-order-bar');
+  if (orderBar) {
+    orderBar.addEventListener('click', function (ev) {
+      const btn = ev.target.closest('[data-tl-order]');
+      if (!btn || !orderBar.contains(btn)) return;
+      const newest = btn.getAttribute('data-tl-order') === 'newest';
+      if (newest === timelineNewestFirst) return;
+      applyTimelineOrder(newest);
+    });
+  }
+
+  applyTimelineOrder(timelineNewestFirst);
 
   const clusterList = document.getElementById('sb-cluster-list');
   if (clusterList) {
