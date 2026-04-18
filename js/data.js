@@ -246,10 +246,16 @@ const DATA = [
     ],
     videos:[
     {youtubeId:"RTEWLSTyUic",title:"*The CIA Scientist Who Built UFOs Before Bob Lazar* (Townsend Brown Documentary)",caption:"Third-party documentary; claims and re-enactments are not independently verified."}
+    ]},
+    {heading:"Interview — Brown's daughter",body:[
+    "An interview with Thomas Townsend Brown's daughter on his life, research, and family recollections of the electrogravitics years."
+    ],
+    videos:[
+    {youtubeId:"hh-Z8P-HABI",title:"Interview — Thomas Townsend Brown's daughter",caption:"Family perspective; verify factual claims independently."}
     ]}],
     off:["Biefeld-Brown effect: mainstream physics attributes it to electrohydrodynamics / ionic wind in air. The 1952 ONR Cady Report (File 24-185) concluded it was electric wind; this report is declassified and available. Vacuum tests in mainstream laboratories have not replicated thrust. The 1956 Aviation Studies reports are real declassified documents confirming industry-wide classified investigation. The SNCASO vacuum tests were reported by Brown but not independently confirmed. The B-2 electrostatic hull allegation is not confirmed by any declassified document. Brown died in 1985 without official acknowledgment of the effect."],
     connections:["Nikola Tesla: Brown explicitly cited Tesla's longitudinal wave theory as conceptual foundation for his electrogravitics work.","Charles Buhler / Exodus Propulsion: Buhler describes his 2026 vacuum experiments as a direct vindication of Brown; his colleague Aurigema worked from the Townsend Brown literature."],
-    links:[["Wikipedia — Thomas Townsend Brown","https://en.wikipedia.org/wiki/Thomas_Townsend_Brown"],["Wikipedia — Biefeld-Brown Effect","https://en.wikipedia.org/wiki/Biefeld%E2%80%93Brown_effect"],["Wikipedia — Electrogravitics","https://en.wikipedia.org/wiki/Electrogravitics"],["YouTube — *The CIA Scientist Who Built UFOs Before Bob Lazar* (Townsend Brown Documentary)","https://www.youtube.com/watch?v=RTEWLSTyUic"],["ONR Cady Report (1952) — RexResearch","http://www.rexresearch.com/ttbrown/ttbrown.htm"],["Project Winterhaven PDF","https://starburstfound.org/aerospace/projectwinterhaven.pdf"]],
+    links:[["Wikipedia — Thomas Townsend Brown","https://en.wikipedia.org/wiki/Thomas_Townsend_Brown"],["Wikipedia — Biefeld-Brown Effect","https://en.wikipedia.org/wiki/Biefeld%E2%80%93Brown_effect"],["Wikipedia — Electrogravitics","https://en.wikipedia.org/wiki/Electrogravitics"],["YouTube — *The CIA Scientist Who Built UFOs Before Bob Lazar* (Townsend Brown Documentary)","https://www.youtube.com/watch?v=RTEWLSTyUic"],["YouTube — Interview — Brown's daughter","https://www.youtube.com/watch?v=hh-Z8P-HABI"],["ONR Cady Report (1952) — RexResearch","http://www.rexresearch.com/ttbrown/ttbrown.htm"],["Project Winterhaven PDF","https://starburstfound.org/aerospace/projectwinterhaven.pdf"]],
     tags:["suppressed","aerospace","misfortune"]},
     
     // ─────────────────────────────────────────────
