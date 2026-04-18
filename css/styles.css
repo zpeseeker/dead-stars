@@ -1747,21 +1747,26 @@ body.tl-lightbox-open {
 .name-index__item {
   display: grid;
   grid-template-columns: minmax(4.25rem, 7rem) minmax(0, 1fr);
-  gap: 8px 12px;
-  align-items: baseline;
-  padding: 7px 0;
+  gap: 10px 14px;
+  align-items: start;
+  padding: 12px 0 14px;
   border-bottom: 1px solid var(--line);
   font-size: 12px;
 }
+.name-index__item:first-child {
+  padding-top: 4px;
+}
 .name-index__item:last-child {
   border-bottom: none;
+  padding-bottom: 4px;
 }
 .name-index__year {
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--ink-faint);
   word-break: break-word;
-  line-height: 1.35;
+  line-height: 1.45;
+  padding-top: 3px;
 }
 .name-index__link {
   font-family: var(--font-display);
@@ -1769,18 +1774,17 @@ body.tl-lightbox-open {
   font-size: 0.95rem;
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 1px solid rgba(232, 188, 74, 0.35);
-  transition: color 0.15s ease, border-color 0.15s ease;
-  line-height: 1.35;
+  border-bottom: none;
+  transition: color 0.15s ease;
+  line-height: 1.45;
 }
 .name-index__link:hover {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  color: var(--accent-2);
 }
 .name-index__link:focus-visible {
   outline: 2px solid var(--ring);
-  outline-offset: 2px;
-  border-radius: 2px;
+  outline-offset: 3px;
+  border-radius: 3px;
 }
 
 .fact-card {
