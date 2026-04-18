@@ -18,6 +18,55 @@
       .replace(/&quot;/g, '"');
   }
 
+  /** URL-safe slug for shareable anchors (optional DATA[].slug overrides name). */
+  function slugFromName(name) {
+    let s = decodeEntities(String(name).replace(/<[^>]+>/g, ''));
+    s = s.toLowerCase();
+    try {
+      s = s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    } catch (_) {}
+    s = s.replace(/&/g, ' and ');
+    s = s.replace(/[^a-z0-9]+/g, '-');
+    s = s.replace(/^-+|-+$/g, '');
+    if (!s) s = 'case';
+    return s;
+  }
+
+  /** Stable per-entry id: `bio-…` avoids collisions with page anchors (#top, #timeline, …). */
+  function buildEntrySlugs() {
+    const used = {};
+    const slugByIndex = [];
+    const slugToIndex = {};
+    const PREFIX = 'bio-';
+    const RESERVED = {
+      top: 1,
+      timeline: 1,
+      filters: 1,
+      context: 1,
+      dock: 1,
+      intro: 1,
+    };
+    for (let i = 0; i < DATA.length; i++) {
+      const e = DATA[i];
+      let base = e.slug && String(e.slug).trim() ? slugFromName(e.slug) : slugFromName(e.name);
+      if (!base) base = 'case-' + i;
+      let slug = PREFIX + base;
+      let n = 2;
+      while (used[slug] || RESERVED[slug]) {
+        slug = PREFIX + base + '-' + n;
+        n++;
+      }
+      used[slug] = true;
+      slugByIndex[i] = slug;
+      slugToIndex[slug] = i;
+    }
+    return { slugByIndex: slugByIndex, slugToIndex: slugToIndex };
+  }
+
+  const _slugs = buildEntrySlugs();
+  const slugByIndex = _slugs.slugByIndex;
+  const slugToIndex = _slugs.slugToIndex;
+
   /** Markdown-style **bold** → <strong> and *italic* → <em> (data is trusted; not a full MD parser). */
   function formatInlineMd(s) {
     let r = String(s).replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>');
@@ -186,22 +235,36 @@
   }
 
   function scrollToEntry(index) {
-    const el = document.getElementById('entry-' + index);
+    const slug = slugByIndex[index];
+    if (!slug) return;
+    const el = document.getElementById(slug);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       try {
-        history.replaceState(null, '', '#entry-' + index);
+        history.replaceState(null, '', '#' + slug);
       } catch (_) {}
     }
   }
 
   function applyHash() {
-    const m = /^#entry-(\d+)$/.exec(location.hash || '');
-    if (!m) return;
-    const i = parseInt(m[1], 10);
-    if (i >= 0 && i < DATA.length) {
+    const raw = (location.hash || '').replace(/^#/, '').trim();
+    if (!raw) return;
+    let decoded;
+    try {
+      decoded = decodeURIComponent(raw);
+    } catch (_) {
+      decoded = raw;
+    }
+    let index = -1;
+    const mLegacy = /^entry-(\d+)$/.exec(decoded);
+    if (mLegacy) {
+      index = parseInt(mLegacy[1], 10);
+    } else if (slugToIndex[decoded] !== undefined) {
+      index = slugToIndex[decoded];
+    }
+    if (index >= 0 && index < DATA.length) {
       requestAnimationFrame(function () {
-        scrollToEntry(i);
+        scrollToEntry(index);
       });
     }
   }
@@ -404,9 +467,11 @@
 
   orderIndices(timelineNewestFirst).forEach(function (i) {
     const e = DATA[i];
+    const entrySlug = slugByIndex[i];
     const div = document.createElement('div');
     div.className = 'entry';
-    div.id = 'entry-' + i;
+    div.id = entrySlug;
+    div.setAttribute('data-entry-index', String(i));
     div.setAttribute('data-tags', e.tags.join(' '));
     const nm = newSet.has(e.name) ? '<span class="nb">NEW</span>' : '';
     const br = '<div class="flag-row"><span>' + e.bornFlag + '</span>born</div>';
@@ -486,11 +551,15 @@
       nm +
       '</div><div class="cr">' +
       e.role +
-      '</div></div><div class="cb b-' +
+      '</div></div><div class="ch-actions"><button type="button" class="entry-share" data-share-slug="' +
+      escAttr(entrySlug) +
+      '" aria-label="Copy link to this case" title="Copy link to this case">' +
+      '<i class="fa-solid fa-link" aria-hidden="true"></i>' +
+      '</button><div class="cb b-' +
       e.type +
       '">' +
       e.badge +
-      '</div></div>' +
+      '</div></div></div>' +
       affHtml +
       '</div></div><div class="cs">' +
       formatInlineMd(e.summary) +
@@ -527,6 +596,7 @@
       // Don't toggle when interacting with the image carousel or external links.
       if (ev.target.closest('.tl-gallery')) return;
       if (ev.target.closest('a')) return;
+      if (ev.target.closest('.entry-share')) return;
       const d = document.getElementById('d' + i);
       const h = document.getElementById('h' + i);
       const o = d.classList.toggle('open');
@@ -539,7 +609,7 @@
   function reorderTimelineDom(newestFirst) {
     if (!tl) return;
     orderIndices(newestFirst).forEach(function (i) {
-      const el = document.getElementById('entry-' + i);
+      const el = document.getElementById(slugByIndex[i]);
       if (el) tl.appendChild(el);
     });
   }
@@ -723,7 +793,7 @@
     ];
     clusterList.innerHTML = MODERN_CLUSTER.map(function (row) {
       const idx = DATA.findIndex(row.find);
-      const href = idx >= 0 ? '#entry-' + idx : '#timeline';
+      const href = idx >= 0 ? '#' + slugByIndex[idx] : '#timeline';
       const who =
         idx >= 0
           ? '<a class="cluster-list__link" href="' +
@@ -768,6 +838,44 @@
 
   window.addEventListener('hashchange', applyHash);
   applyHash();
+
+  document.addEventListener('click', function (ev) {
+    const btn = ev.target.closest('.entry-share');
+    if (!btn) return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    const slug = btn.getAttribute('data-share-slug');
+    if (!slug) return;
+    const url =
+      location.origin +
+      location.pathname +
+      (location.search || '') +
+      '#' +
+      slug;
+    function flashOk() {
+      btn.classList.add('entry-share--copied');
+      const icon = btn.querySelector('i');
+      if (icon) icon.className = 'fa-solid fa-check';
+      clearTimeout(btn._copyReset);
+      btn._copyReset = setTimeout(function () {
+        btn.classList.remove('entry-share--copied');
+        if (icon) icon.className = 'fa-solid fa-link';
+      }, 2000);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(flashOk).catch(function () {
+        try {
+          history.replaceState(null, '', '#' + slug);
+          flashOk();
+        } catch (_) {}
+      });
+    } else {
+      try {
+        history.replaceState(null, '', '#' + slug);
+        flashOk();
+      } catch (_) {}
+    }
+  });
 
   // ─────────────────────────────────────────────
   // Image gallery carousel + click-to-zoom lightbox

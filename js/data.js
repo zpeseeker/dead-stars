@@ -10,6 +10,7 @@
 //   • Steven Garcia (Aug 2025) — NM DPS confirmed missing, Daily Mail sourced
 //
 // FIELD GUIDE:
+//   slug       — optional URL fragment override (ASCII slug); default is derived from name → #bio-…
 //   photo      — relative path to portrait image; renders if present, silent fail if not
 //   sections   — array of {heading, body[], figure?}; figure: {src, alt, caption}
 //   connections — array of strings describing cross-timeline links; rendered in expanded view

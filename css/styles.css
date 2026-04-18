@@ -824,6 +824,47 @@ body {
   background: linear-gradient(135deg, var(--accent), #c99a2e);
 }
 
+.ch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+  max-width: min(100%, 340px);
+}
+.entry-share {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  margin-top: 2px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--line-strong);
+  background: rgba(232, 188, 74, 0.06);
+  color: var(--accent-2);
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.12s;
+}
+.entry-share:hover,
+.entry-share:focus-visible {
+  background: rgba(232, 188, 74, 0.14);
+  border-color: var(--accent);
+  color: var(--accent);
+  outline: none;
+}
+.entry-share:active {
+  transform: scale(0.96);
+}
+.entry-share--copied {
+  border-color: rgba(78, 201, 176, 0.55);
+  background: rgba(78, 201, 176, 0.12);
+  color: #a8f0e6;
+}
+
 .cb {
   flex-shrink: 0;
   font-family: var(--font-mono);
@@ -1909,6 +1950,10 @@ body.tl-lightbox-open {
   .ch-row {
     flex-direction: column;
     align-items: center;
+  }
+  .ch-actions {
+    justify-content: center;
+    max-width: 100%;
   }
   .cb {
     align-self: center;
