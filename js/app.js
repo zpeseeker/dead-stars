@@ -290,33 +290,6 @@
   const totalEl = document.getElementById('c-total');
   if (totalEl) totalEl.textContent = DATA.length;
 
-  const cMap = {};
-  DATA.forEach(function (e) {
-    if (e.diedIn) cMap[e.diedIn] = (cMap[e.diedIn] || 0) + 1;
-  });
-  const maxC = Math.max.apply(null, Object.values(cMap).concat([1]));
-  const cEl = document.getElementById('sb-countries');
-  if (cEl) {
-    cEl.innerHTML =
-      '<div class="panel__title">By country of incident</div>' +
-      Object.entries(cMap)
-        .sort(function (a, b) {
-          return b[1] - a[1];
-        })
-        .map(function ([c, n]) {
-          return (
-            '<div class="stat-row"><span class="stat-row__label">' +
-            escAttr(c) +
-            '</span><span class="stat-row__num">' +
-            n +
-            '</span></div><div class="bar-track"><div class="bar-fill" style="width:' +
-            Math.round((n / maxC) * 100) +
-            '%"></div></div>'
-          );
-        })
-        .join('');
-  }
-
   const totalDeaths = DATA.filter(function (e) {
     return e.tags.indexOf('death') >= 0;
   }).length;
@@ -607,15 +580,15 @@
       nm +
       '</div><div class="cr">' +
       e.role +
-      '</div></div><div class="ch-actions"><button type="button" class="entry-share" data-share-slug="' +
-      escAttr(entrySlug) +
-      '" aria-label="Copy link to this case" title="Copy link to this case">' +
-      '<i class="fa-solid fa-link" aria-hidden="true"></i>' +
-      '</button><div class="cb b-' +
+      '</div></div><div class="ch-actions"><div class="cb b-' +
       e.type +
       '">' +
       e.badge +
-      '</div></div></div>' +
+      '</div><button type="button" class="entry-share" data-share-slug="' +
+      escAttr(entrySlug) +
+      '" aria-label="Copy link to this case" title="Copy link to this case">' +
+      '<i class="fa-solid fa-link" aria-hidden="true"></i>' +
+      '</button></div></div>' +
       affHtml +
       '</div></div><div class="cs">' +
       formatInlineMd(e.summary) +
@@ -765,112 +738,37 @@
 
   const clusterList = document.getElementById('sb-cluster-list');
   if (clusterList) {
-    const MODERN_CLUSTER = [
-      {
-        find: function (e) {
-          return /Michael David Hicks/.test(e.name);
-        },
-        when: 'Jul 2023',
-        last: 'Hicks',
-        st: 'Dead · JPL',
-        cls: 'bad',
-      },
-      {
-        find: function (e) {
-          return /Frank Werner Maiwald/.test(e.name);
-        },
-        when: 'Jul 2024',
-        last: 'Maiwald',
-        st: 'Dead · JPL',
-        cls: 'bad',
-      },
-      {
-        find: function (e) {
-          return e.name.indexOf("Tony' Chavez") >= 0;
-        },
-        when: 'May 2025',
-        last: 'Chavez',
-        st: 'Missing · LANL',
-        cls: 'warn',
-      },
-      {
-        find: function (e) {
-          return e.name === 'Monica Jacinto Reza';
-        },
-        when: 'Jun 2025',
-        last: 'Reza',
-        st: 'Missing · JPL',
-        cls: 'warn',
-      },
-      {
-        find: function (e) {
-          return e.name === 'Melissa Casias';
-        },
-        when: 'Jun 2025',
-        last: 'Casias',
-        st: 'Missing · LANL-linked',
-        cls: 'warn',
-      },
-      {
-        find: function (e) {
-          return e.name === 'Jason Thomas';
-        },
-        when: 'Dec 2025',
-        last: 'Thomas',
-        st: 'Dead · Novartis',
-        cls: 'bad',
-      },
-      {
-        find: function (e) {
-          return /Nuno Loureiro/.test(e.name);
-        },
-        when: 'Dec 2025',
-        last: 'Loureiro',
-        st: 'Dead · MIT Fusion',
-        cls: 'bad',
-      },
-      {
-        find: function (e) {
-          return /Carl Grillmair/.test(e.name);
-        },
-        when: 'Feb 2026',
-        last: 'Grillmair',
-        st: 'Dead · Caltech',
-        cls: 'bad',
-      },
-      {
-        find: function (e) {
-          return /William Neil McCasland/.test(e.name);
-        },
-        when: 'Feb 2026',
-        last: 'McCasland',
-        st: 'Missing · AFRL',
-        cls: 'warn',
-      },
-    ];
-    clusterList.innerHTML = MODERN_CLUSTER.map(function (row) {
-      const idx = DATA.findIndex(row.find);
-      const href = idx >= 0 ? '#' + slugByIndex[idx] : '#timeline';
-      const who =
-        idx >= 0
-          ? '<a class="cluster-list__link" href="' +
-            escAttr(href) +
-            '">' +
-            escAttr(row.last) +
-            '</a>'
-          : escAttr(row.last);
-      return (
-        '<li class="cluster-list__item"><span class="cluster-list__when">' +
-        escAttr(row.when) +
-        '</span><span class="cluster-list__who">' +
-        who +
-        '</span><span class="cluster-list__st cluster-list__st--' +
-        escAttr(row.cls) +
-        '">' +
-        escAttr(row.st) +
-        '</span></li>'
-      );
-    }).join('');
+    function indexStatusClass(e) {
+      if (e.diedLabel && e.diedLabel.indexOf('Missing') >= 0) return 'warn';
+      if (e.tags && e.tags.indexOf('death') >= 0) return 'bad';
+      return 'ok';
+    }
+    function indexStatusLine(e) {
+      const b = e.badge || '';
+      if (b.length > 56) return b.slice(0, 54) + '…';
+      return b;
+    }
+    clusterList.innerHTML = orderIndices(false)
+      .map(function (i) {
+        const e = DATA[i];
+        const href = '#' + slugByIndex[i];
+        const nameDecoded = decodeEntities(e.name);
+        const shortName = nameDecoded.length > 48 ? nameDecoded.slice(0, 46) + '…' : nameDecoded;
+        return (
+          '<li class="cluster-list__item"><span class="cluster-list__when">' +
+          escAttr(e.year) +
+          '</span><span class="cluster-list__who"><a class="cluster-list__link" href="' +
+          escAttr(href) +
+          '">' +
+          escAttr(shortName) +
+          '</a></span><span class="cluster-list__st cluster-list__st--' +
+          indexStatusClass(e) +
+          '">' +
+          escAttr(indexStatusLine(e)) +
+          '</span></li>'
+        );
+      })
+      .join('');
   }
 
   function setFilter(tag) {
