@@ -647,7 +647,8 @@
   function populateJumpNav(newestFirst) {
     const indices = orderIndices(newestFirst);
     if (sbNameIndexList) {
-      sbNameIndexList.innerHTML = indices
+      const nameIndices = orderIndices(true);
+      sbNameIndexList.innerHTML = nameIndices
         .map(function (i) {
           const e = DATA[i];
           const href = '#' + slugByIndex[i];
