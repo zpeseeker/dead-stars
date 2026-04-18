@@ -362,6 +362,61 @@
     'Rep. Burchett &amp; Rep. Burlison — Congressional Voices',
   ]);
 
+  /** 11-char YouTube video id or full watch / youtu.be URL. */
+  function normalizeYoutubeId(raw) {
+    if (!raw) return '';
+    const s = String(raw).trim();
+    const m = s.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/);
+    if (m) return m[1];
+    if (/^[a-zA-Z0-9_-]{11}$/.test(s)) return s;
+    return '';
+  }
+
+  function renderYoutubeVideos(videos) {
+    if (!videos || !videos.length) return '';
+    return videos
+      .map(function (v) {
+        const id = normalizeYoutubeId(v.youtubeId || v.url || '');
+        if (!id) return '';
+        const title = v.title || 'YouTube video';
+        const titleEsc = escAttr(title);
+        const thumb = 'https://img.youtube.com/vi/' + id + '/maxresdefault.jpg';
+        const thumbFb = 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg';
+        const sub =
+          v.caption
+            ? '<div class="tl-video-cap__sub">' + formatInlineMd(v.caption) + '</div>'
+            : '';
+        return (
+          '<figure class="tl-video">' +
+          '<div class="tl-video__wrap">' +
+          '<button type="button" class="tl-video__poster" data-youtube-id="' +
+          escAttr(id) +
+          '" data-youtube-title="' +
+          titleEsc +
+          '" aria-label="Play video: ' +
+          titleEsc +
+          '">' +
+          '<img class="tl-video__thumb" src="' +
+          thumb +
+          '" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'' +
+          thumbFb +
+          '\'">' +
+          '<span class="tl-video__play" aria-hidden="true"><i class="fa-solid fa-circle-play"></i></span>' +
+          '</button>' +
+          '</div>' +
+          '<figcaption class="tl-video-cap">' +
+          '<div class="tl-video-cap__title">' +
+          formatInlineMd(title) +
+          '</div>' +
+          sub +
+          '</figcaption>' +
+          '</figure>'
+        );
+      })
+      .filter(Boolean)
+      .join('');
+  }
+
   let __galleryUid = 0;
   function renderGallery(images) {
     if (!images || !images.length) return '';
@@ -459,8 +514,9 @@
             formatInlineMd(s.figure.caption || '') +
             '</figcaption></figure>'
           : '';
+        const vid = s.videos ? renderYoutubeVideos(s.videos) : '';
         const gal = s.gallery ? renderGallery(s.gallery) : '';
-        return h + b + fig + gal;
+        return h + b + fig + vid + gal;
       })
       .join('');
   }
@@ -595,6 +651,7 @@
     div.querySelector('.card').addEventListener('click', function (ev) {
       // Don't toggle when interacting with the image carousel or external links.
       if (ev.target.closest('.tl-gallery')) return;
+      if (ev.target.closest('.tl-video')) return;
       if (ev.target.closest('a')) return;
       if (ev.target.closest('.entry-share')) return;
       const d = document.getElementById('d' + i);
@@ -838,6 +895,25 @@
 
   window.addEventListener('hashchange', applyHash);
   applyHash();
+
+  document.addEventListener('click', function (ev) {
+    const post = ev.target.closest('.tl-video__poster');
+    if (post) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      const id = post.getAttribute('data-youtube-id');
+      const title = post.getAttribute('data-youtube-title') || 'YouTube video';
+      const wrap = post.closest('.tl-video__wrap');
+      if (!wrap || !id) return;
+      wrap.innerHTML =
+        '<iframe class="tl-video__iframe" src="https://www.youtube-nocookie.com/embed/' +
+        encodeURIComponent(id) +
+        '?autoplay=1&rel=0" title="' +
+        escAttr(title) +
+        '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>';
+      return;
+    }
+  });
 
   document.addEventListener('click', function (ev) {
     const btn = ev.target.closest('.entry-share');

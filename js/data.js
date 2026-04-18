@@ -12,7 +12,7 @@
 // FIELD GUIDE:
 //   slug       — optional URL fragment override (ASCII slug); default is derived from name → #bio-…
 //   photo      — relative path to portrait image; renders if present, silent fail if not
-//   sections   — array of {heading, body[], figure?}; figure: {src, alt, caption}
+//   sections   — array of {heading, body[], figure?, gallery?, videos?}; figure: {src, alt, caption}; videos: [{youtubeId, title, caption?}]
 //   connections — array of strings describing cross-timeline links; rendered in expanded view
 //   brief      — italic summary bar shown above detailed sections
 //   off        — official verdict / confirmed facts; clearly separated from speculation
@@ -520,6 +520,10 @@ const DATA = [
     {heading:"Talks & video recordings (YouTube)",body:[
     "**HAL5 (Huntsville Alabama L5 Society), December 2018.** Eskridge presented *A Historical Perspective on Anti-Gravity Technology* at the Huntsville-Madison County Library main auditorium. The talk walks through a timeline of anti-gravity research — from **Thomas Townsend Brown**'s Gravitator and the **Biefeld–Brown** effect (often written *Biefield–Brown*) through modern electrostatic and propulsion efforts — situating gravity modification as a thread that runs from early experiments to contemporary work.",
     "**Long-form live stream** (~2 hours). A single extended session covering a wide range of topics beyond the HAL5 talk — useful for hearing Eskridge at length in an informal format."
+    ],
+    videos:[
+    {youtubeId:"H8lfH19tZbM",title:"HAL5 — *A Historical Perspective on Anti-Gravity Technology* (Dec 2018)",caption:"Huntsville Alabama L5 Society · Thomas Townsend Brown, Biefeld–Brown effect, gravity modification."},
+    {youtubeId:"fqKEgAVGxEU",title:"~2 hour live stream",caption:"Informal session — wide-ranging topics."}
     ]},
     {heading:"Samuel Reid — co-founder, CEO of Geometric Energy Corporation, DOGE-1",body:[
     "**Samuel Reid** is the CEO of **Geometric Energy Corporation (GEC)**, an Alberta/Delaware-registered advanced technology firm Reid co-founded with Eskridge and others. GEC is best known publicly for **DOGE-1 Mission to the Moon** — the first commercial lunar payload mission paid for entirely in Dogecoin, announced by GEC and SpaceX in May 2021 and publicly endorsed by Elon Musk. GEC's portfolio also includes hypersonic propulsion research, advanced energy systems, and satellite payload services. Reid and Eskridge's working relationship predated GEC's public visibility; Reid has described Amy as GEC's scientific co-founder.",
