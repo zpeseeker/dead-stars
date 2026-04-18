@@ -18,9 +18,11 @@
       .replace(/&quot;/g, '"');
   }
 
-  /** Markdown-style **bold** → <strong> (data is trusted; not a full MD parser). */
+  /** Markdown-style **bold** → <strong> and *italic* → <em> (data is trusted; not a full MD parser). */
   function formatInlineMd(s) {
-    return String(s).replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>');
+    let r = String(s).replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>');
+    r = r.replace(/(^|[^*\w])\*([^*\n][^*]*?)\*(?![\w*])/g, '$1<em>$2</em>');
+    return r;
   }
 
   /**
@@ -297,6 +299,81 @@
     'Rep. Burchett &amp; Rep. Burlison — Congressional Voices',
   ]);
 
+  let __galleryUid = 0;
+  function renderGallery(images) {
+    if (!images || !images.length) return '';
+    const gid = 'gal-' + ++__galleryUid;
+    const slides = images
+      .map(function (im, idx) {
+        return (
+          '<figure class="tl-gallery__slide" data-gal-idx="' +
+          idx +
+          '"' +
+          (idx === 0 ? '' : ' hidden') +
+          '>' +
+          '<button type="button" class="tl-gallery__imgbtn" data-gal-zoom="' +
+          idx +
+          '" aria-label="Zoom image ' +
+          (idx + 1) +
+          ' of ' +
+          images.length +
+          '">' +
+          '<img class="tl-gallery__img" src="' +
+          encodeURI(im.src) +
+          '" alt="' +
+          escAttr(im.alt || '') +
+          '" loading="lazy" decoding="async">' +
+          '<span class="tl-gallery__zoom-hint" aria-hidden="true"><i class="fa-solid fa-magnifying-glass-plus"></i></span>' +
+          '</button>' +
+          '<figcaption class="tl-gallery__cap">' +
+          formatInlineMd(im.caption || '') +
+          '</figcaption>' +
+          '</figure>'
+        );
+      })
+      .join('');
+    const dots = images
+      .map(function (_, idx) {
+        return (
+          '<button type="button" class="tl-gallery__dot' +
+          (idx === 0 ? ' is-active' : '') +
+          '" data-gal-dot="' +
+          idx +
+          '" aria-label="Go to image ' +
+          (idx + 1) +
+          '"></button>'
+        );
+      })
+      .join('');
+    return (
+      '<div class="tl-gallery" id="' +
+      gid +
+      '" data-gal-count="' +
+      images.length +
+      '" data-gal-index="0">' +
+      '<div class="tl-gallery__viewport">' +
+      '<button type="button" class="tl-gallery__nav tl-gallery__nav--prev" data-gal-prev aria-label="Previous image">' +
+      '<i class="fa-solid fa-chevron-left"></i>' +
+      '</button>' +
+      '<div class="tl-gallery__track">' +
+      slides +
+      '</div>' +
+      '<button type="button" class="tl-gallery__nav tl-gallery__nav--next" data-gal-next aria-label="Next image">' +
+      '<i class="fa-solid fa-chevron-right"></i>' +
+      '</button>' +
+      '</div>' +
+      '<div class="tl-gallery__bar">' +
+      '<span class="tl-gallery__counter"><span data-gal-current>1</span> / ' +
+      images.length +
+      '</span>' +
+      '<div class="tl-gallery__dots" role="tablist">' +
+      dots +
+      '</div>' +
+      '</div>' +
+      '</div>'
+    );
+  }
+
   function renderSections(sects) {
     if (!sects || !sects.length) return '';
     return sects
@@ -319,7 +396,8 @@
             formatInlineMd(s.figure.caption || '') +
             '</figcaption></figure>'
           : '';
-        return h + b + fig;
+        const gal = s.gallery ? renderGallery(s.gallery) : '';
+        return h + b + fig + gal;
       })
       .join('');
   }
@@ -445,7 +523,10 @@
       (e.quote ? '<div class="cd-section"><div class="qb">' + formatInlineMd(e.quote) + '</div></div>' : '') +
       linksHtml +
       '</div></div>';
-    div.querySelector('.card').addEventListener('click', function () {
+    div.querySelector('.card').addEventListener('click', function (ev) {
+      // Don't toggle when interacting with the image carousel or external links.
+      if (ev.target.closest('.tl-gallery')) return;
+      if (ev.target.closest('a')) return;
       const d = document.getElementById('d' + i);
       const h = document.getElementById('h' + i);
       const o = d.classList.toggle('open');
@@ -687,4 +768,186 @@
 
   window.addEventListener('hashchange', applyHash);
   applyHash();
+
+  // ─────────────────────────────────────────────
+  // Image gallery carousel + click-to-zoom lightbox
+  // ─────────────────────────────────────────────
+  function galleryGoTo(gal, nextIdx) {
+    const count = parseInt(gal.getAttribute('data-gal-count'), 10) || 0;
+    if (!count) return;
+    let i = ((nextIdx % count) + count) % count;
+    gal.setAttribute('data-gal-index', String(i));
+    gal.querySelectorAll('[data-gal-idx]').forEach(function (sl) {
+      const idx = parseInt(sl.getAttribute('data-gal-idx'), 10);
+      if (idx === i) sl.removeAttribute('hidden');
+      else sl.setAttribute('hidden', '');
+    });
+    gal.querySelectorAll('[data-gal-dot]').forEach(function (d) {
+      const idx = parseInt(d.getAttribute('data-gal-dot'), 10);
+      d.classList.toggle('is-active', idx === i);
+    });
+    const cur = gal.querySelector('[data-gal-current]');
+    if (cur) cur.textContent = String(i + 1);
+  }
+
+  document.addEventListener('click', function (ev) {
+    const prev = ev.target.closest('[data-gal-prev]');
+    const next = ev.target.closest('[data-gal-next]');
+    const dot = ev.target.closest('[data-gal-dot]');
+    const zoom = ev.target.closest('[data-gal-zoom]');
+    if (prev || next || dot || zoom) {
+      ev.stopPropagation();
+      ev.preventDefault();
+    }
+    if (prev) {
+      const gal = prev.closest('.tl-gallery');
+      if (gal) {
+        const i = parseInt(gal.getAttribute('data-gal-index'), 10) || 0;
+        galleryGoTo(gal, i - 1);
+      }
+      return;
+    }
+    if (next) {
+      const gal = next.closest('.tl-gallery');
+      if (gal) {
+        const i = parseInt(gal.getAttribute('data-gal-index'), 10) || 0;
+        galleryGoTo(gal, i + 1);
+      }
+      return;
+    }
+    if (dot) {
+      const gal = dot.closest('.tl-gallery');
+      if (gal) {
+        galleryGoTo(gal, parseInt(dot.getAttribute('data-gal-dot'), 10) || 0);
+      }
+      return;
+    }
+    if (zoom) {
+      const gal = zoom.closest('.tl-gallery');
+      if (gal) openLightbox(gal);
+      return;
+    }
+  });
+
+  // Keyboard nav: when a gallery is focused / hovered, arrow keys move.
+  document.addEventListener('keydown', function (ev) {
+    if (lightboxEl && lightboxEl.classList.contains('is-open')) {
+      if (ev.key === 'Escape') {
+        closeLightbox();
+      } else if (ev.key === 'ArrowLeft') {
+        lightboxStep(-1);
+      } else if (ev.key === 'ArrowRight') {
+        lightboxStep(1);
+      }
+      return;
+    }
+  });
+
+  // ─── Lightbox ──────────────────────────────────
+  let lightboxEl = null;
+  let lightboxImgEl = null;
+  let lightboxCapEl = null;
+  let lightboxCounterEl = null;
+  let lightboxActiveGal = null;
+  let lightboxActiveIdx = 0;
+
+  function ensureLightbox() {
+    if (lightboxEl) return;
+    lightboxEl = document.createElement('div');
+    lightboxEl.className = 'tl-lightbox';
+    lightboxEl.setAttribute('role', 'dialog');
+    lightboxEl.setAttribute('aria-modal', 'true');
+    lightboxEl.setAttribute('aria-label', 'Image viewer');
+    lightboxEl.innerHTML =
+      '<button type="button" class="tl-lightbox__close" aria-label="Close">' +
+      '<i class="fa-solid fa-xmark"></i>' +
+      '</button>' +
+      '<button type="button" class="tl-lightbox__nav tl-lightbox__nav--prev" aria-label="Previous image">' +
+      '<i class="fa-solid fa-chevron-left"></i>' +
+      '</button>' +
+      '<button type="button" class="tl-lightbox__nav tl-lightbox__nav--next" aria-label="Next image">' +
+      '<i class="fa-solid fa-chevron-right"></i>' +
+      '</button>' +
+      '<div class="tl-lightbox__stage">' +
+      '<img class="tl-lightbox__img" alt="">' +
+      '<div class="tl-lightbox__meta">' +
+      '<span class="tl-lightbox__counter"></span>' +
+      '<div class="tl-lightbox__cap"></div>' +
+      '</div>' +
+      '</div>';
+    document.body.appendChild(lightboxEl);
+    lightboxImgEl = lightboxEl.querySelector('.tl-lightbox__img');
+    lightboxCapEl = lightboxEl.querySelector('.tl-lightbox__cap');
+    lightboxCounterEl = lightboxEl.querySelector('.tl-lightbox__counter');
+
+    lightboxEl.addEventListener('click', function (ev) {
+      if (ev.target.closest('.tl-lightbox__close')) {
+        closeLightbox();
+        return;
+      }
+      if (ev.target.closest('.tl-lightbox__nav--prev')) {
+        lightboxStep(-1);
+        return;
+      }
+      if (ev.target.closest('.tl-lightbox__nav--next')) {
+        lightboxStep(1);
+        return;
+      }
+      // click on backdrop (not on img/meta) closes
+      if (ev.target === lightboxEl || ev.target.classList.contains('tl-lightbox__stage')) {
+        closeLightbox();
+      }
+    });
+
+    // Toggle zoom on image click
+    lightboxImgEl.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      lightboxImgEl.classList.toggle('is-zoomed');
+    });
+  }
+
+  function openLightbox(gal) {
+    ensureLightbox();
+    lightboxActiveGal = gal;
+    lightboxActiveIdx = parseInt(gal.getAttribute('data-gal-index'), 10) || 0;
+    updateLightbox();
+    lightboxEl.classList.add('is-open');
+    document.body.classList.add('tl-lightbox-open');
+  }
+
+  function closeLightbox() {
+    if (!lightboxEl) return;
+    lightboxEl.classList.remove('is-open');
+    if (lightboxImgEl) lightboxImgEl.classList.remove('is-zoomed');
+    document.body.classList.remove('tl-lightbox-open');
+    lightboxActiveGal = null;
+  }
+
+  function lightboxStep(delta) {
+    if (!lightboxActiveGal) return;
+    const count = parseInt(lightboxActiveGal.getAttribute('data-gal-count'), 10) || 0;
+    if (!count) return;
+    lightboxActiveIdx = ((lightboxActiveIdx + delta) % count + count) % count;
+    galleryGoTo(lightboxActiveGal, lightboxActiveIdx);
+    updateLightbox();
+  }
+
+  function updateLightbox() {
+    if (!lightboxActiveGal || !lightboxImgEl) return;
+    const count = parseInt(lightboxActiveGal.getAttribute('data-gal-count'), 10) || 0;
+    const slide = lightboxActiveGal.querySelector('[data-gal-idx="' + lightboxActiveIdx + '"]');
+    if (!slide) return;
+    const img = slide.querySelector('img');
+    const cap = slide.querySelector('.tl-gallery__cap');
+    if (img) {
+      lightboxImgEl.src = img.src;
+      lightboxImgEl.alt = img.alt || '';
+      lightboxImgEl.classList.remove('is-zoomed');
+    }
+    if (lightboxCapEl && cap) lightboxCapEl.innerHTML = cap.innerHTML;
+    else if (lightboxCapEl) lightboxCapEl.innerHTML = '';
+    if (lightboxCounterEl) {
+      lightboxCounterEl.textContent = lightboxActiveIdx + 1 + ' / ' + count;
+    }
+  }
 })();
