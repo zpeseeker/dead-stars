@@ -322,7 +322,7 @@
 
   const tl = document.getElementById('tl');
   const tlWrap = document.querySelector('.tl-wrap');
-  const sbNav = document.getElementById('sb-timeline-nav');
+  const sbNameIndexList = document.getElementById('sb-name-index-list');
   const mobileJump = document.getElementById('mobile-jump');
   let timelineNewestFirst = false;
   try {
@@ -646,28 +646,24 @@
 
   function populateJumpNav(newestFirst) {
     const indices = orderIndices(newestFirst);
-    if (sbNav) {
-      sbNav.innerHTML = '<div class="panel__title">Along the timeline</div>';
-      const wrap = document.createElement('div');
-      wrap.className = 'tl-nav-scroll';
-      indices.forEach(function (i) {
-        const e = DATA[i];
-        const raw = decodeEntities(e.name);
-        const shortName = raw.length > 42 ? raw.slice(0, 40) + '…' : raw;
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'tl-jump';
-        const y = document.createElement('span');
-        y.className = 'tl-jump-year';
-        y.textContent = e.year;
-        b.appendChild(y);
-        b.appendChild(document.createTextNode(shortName));
-        b.addEventListener('click', function () {
-          scrollToEntry(i);
-        });
-        wrap.appendChild(b);
-      });
-      sbNav.appendChild(wrap);
+    if (sbNameIndexList) {
+      sbNameIndexList.innerHTML = indices
+        .map(function (i) {
+          const e = DATA[i];
+          const href = '#' + slugByIndex[i];
+          const raw = decodeEntities(e.name);
+          const shortName = raw.length > 56 ? raw.slice(0, 54) + '…' : raw;
+          return (
+            '<li class="name-index__item"><span class="name-index__year">' +
+            escAttr(e.year) +
+            '</span><a class="name-index__link" href="' +
+            escAttr(href) +
+            '">' +
+            escAttr(shortName) +
+            '</a></li>'
+          );
+        })
+        .join('');
     }
     if (mobileJump) {
       mobileJump.innerHTML = '';
@@ -735,41 +731,6 @@
   }
 
   applyTimelineOrder(timelineNewestFirst);
-
-  const clusterList = document.getElementById('sb-cluster-list');
-  if (clusterList) {
-    function indexStatusClass(e) {
-      if (e.diedLabel && e.diedLabel.indexOf('Missing') >= 0) return 'warn';
-      if (e.tags && e.tags.indexOf('death') >= 0) return 'bad';
-      return 'ok';
-    }
-    function indexStatusLine(e) {
-      const b = e.badge || '';
-      if (b.length > 56) return b.slice(0, 54) + '…';
-      return b;
-    }
-    clusterList.innerHTML = orderIndices(false)
-      .map(function (i) {
-        const e = DATA[i];
-        const href = '#' + slugByIndex[i];
-        const nameDecoded = decodeEntities(e.name);
-        const shortName = nameDecoded.length > 48 ? nameDecoded.slice(0, 46) + '…' : nameDecoded;
-        return (
-          '<li class="cluster-list__item"><span class="cluster-list__when">' +
-          escAttr(e.year) +
-          '</span><span class="cluster-list__who"><a class="cluster-list__link" href="' +
-          escAttr(href) +
-          '">' +
-          escAttr(shortName) +
-          '</a></span><span class="cluster-list__st cluster-list__st--' +
-          indexStatusClass(e) +
-          '">' +
-          escAttr(indexStatusLine(e)) +
-          '</span></li>'
-        );
-      })
-      .join('');
-  }
 
   function setFilter(tag) {
     document.querySelectorAll('#filter-bar [data-filter]').forEach(function (b) {
