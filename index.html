@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="A global timeline of plasma researchers, fusion scientists, and inventors — documented facts, official verdicts, and open questions from 1890 to 2026.">
+<meta name="description" content="A global timeline of plasma researchers, fusion scientists, and inventors, documented facts, official verdicts, and open questions from 1890 to 2026.">
 <title>Dead Inventors, Vanishing Scientists & The Energy They Knew</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" crossorigin="anonymous">
-<link rel="stylesheet" href="./css/styles.css?v=27">
+<link rel="stylesheet" href="./css/styles.css?v=30">
 </head>
 <body>
 <a class="nav-skip" href="#timeline">Skip to timeline</a>
@@ -20,9 +20,11 @@
     <p class="hero__kicker" id="intro">Investigative timeline</p>
     <p class="hero__tags">Classified research · Suppressed patents · Unexplained deaths · Aerospace · Energy suppression</p>
     <h1 class="hero__title"><span class="hero__title-line">Dead Inventors,</span> <span class="hero__title-line hero__title-line--accent">Vanishing Scientists</span> <span class="hero__title-amp">&amp;</span> <span class="hero__title-sub">The Energy They Knew</span></h1>
-    <p class="hero__lead">A global chronicle of plasma researchers, fusion scientists, aerospace engineers, and free-energy visionaries who met misfortune, ruin, imprisonment, or death on the road to discovery — from <strong>1890</strong> to <strong>2026</strong>. The modern cluster: nine scientists and officials dead or missing from JPL, LANL, MIT, and AFRL in under three years.</p>
+    <p class="hero__lead">A global chronicle of plasma researchers, fusion scientists, aerospace engineers, and free-energy visionaries who met misfortune, ruin, imprisonment, or death on the road to discovery, from <strong>1890</strong> to <strong>2026</strong>. The modern cluster: nine scientists and officials dead or missing from JPL, LANL, MIT, and AFRL in under three years.</p>
     <div class="hero__meta" aria-label="Last updated">
-      <p class="hero__updated"><time datetime="2026-04-18">Last updated: 18 April 2026</time></p>
+      <p class="hero__updated">
+        <a class="hero__updated-link" href="#changelog" title="View site changelog">Last updated: <time datetime="2026-04-28">28 April 2026</time></a>
+      </p>
     </div>
   </div>
 </div>
@@ -35,6 +37,7 @@
       <a class="dock__link" href="#timeline">Timeline</a>
       <a class="dock__link" href="#filters">Filters</a>
       <a class="dock__link" href="#context">Context</a>
+      <a class="dock__link" href="#changelog">Changelog</a>
     </nav>
   </div>
   <div class="dock__filters" id="filters">
@@ -54,9 +57,9 @@
     <span class="dock__label">Era</span>
     <div class="era-group">
       <button type="button" class="era-chip" data-era-jump="pre1950">Pre-1950</button>
-      <button type="button" class="era-chip" data-era-jump="mid">1950–1989</button>
-      <button type="button" class="era-chip" data-era-jump="recent">1990–2019</button>
-      <button type="button" class="era-chip era-chip--hot" data-era-jump="cluster">2022–2026</button>
+      <button type="button" class="era-chip" data-era-jump="mid">1950-1989</button>
+      <button type="button" class="era-chip" data-era-jump="recent">1990-2019</button>
+      <button type="button" class="era-chip era-chip--hot" data-era-jump="cluster">2022-2026</button>
     </div>
     <select id="mobile-jump" class="jump-select" aria-label="Jump to timeline entry"></select>
   </div>
@@ -84,8 +87,8 @@
         <div class="timeline-zone__order" role="group" aria-label="Timeline order">
           <span class="timeline-zone__order-label">Order</span>
           <div class="timeline-order-bar" id="tl-order-bar">
-            <button type="button" class="pill pill--order active" data-tl-order="oldest" aria-pressed="true">Oldest first</button>
-            <button type="button" class="pill pill--order" data-tl-order="newest" aria-pressed="false">Newest first</button>
+            <button type="button" class="pill pill--order" data-tl-order="oldest" aria-pressed="false">Oldest first</button>
+            <button type="button" class="pill pill--order active" data-tl-order="newest" aria-pressed="true">Newest first</button>
           </div>
         </div>
       </div>
@@ -105,8 +108,8 @@
     </div>
     <div class="panel">
       <div class="panel__title">Secrecy &amp; law</div>
-      <div class="fact-card"><strong class="fact-card__flag">🇺🇸 Invention Secrecy Act (1951)</strong><p>5,784+ active secrecy orders (2017). DoD, DOE, NSA, NASA — including power and propulsion.</p></div>
-      <div class="fact-card"><strong class="fact-card__flag">🇺🇸 Atomic Energy Act (1954)</strong><p>DOE may classify fusion, plasma, and nuclear-adjacent patents — no compensation.</p></div>
+      <div class="fact-card"><strong class="fact-card__flag">🇺🇸 Invention Secrecy Act (1951)</strong><p>5,784+ active secrecy orders (2017). DoD, DOE, NSA, NASA, including power and propulsion.</p></div>
+      <div class="fact-card"><strong class="fact-card__flag">🇺🇸 Atomic Energy Act (1954)</strong><p>DOE may classify fusion, plasma, and nuclear-adjacent patents, no compensation.</p></div>
       <div class="fact-card"><strong class="fact-card__flag">🇬🇧 UK Official Secrets Act</strong><p>25 GEC-Marconi engineers died under this regime; no public inquiry.</p></div>
     </div>
     <div class="panel" id="sb-quickstats"><div class="panel__title">Quick stats</div></div>
@@ -128,17 +131,31 @@
 <footer class="foot">
   <div class="foot__inner">
     <p class="foot__line">Compiled from public records, declassified files, court documents, FOIA, and congressional correspondence.</p>
-    <p class="foot__line foot__line--muted">Verify claims independently · Updated 18 April 2026</p>
+    <p class="foot__line foot__line--muted">Verify claims independently · <a href="#changelog" class="foot__inline-link">Updated 28 April 2026</a></p>
     <div class="foot__about" role="region" aria-label="About this project">
       <p class="foot__notice">This timeline mixes <strong>documented facts</strong> with <strong>claims and open questions</strong>. Official verdicts are noted where available. Expand any card for sources and context.</p>
       <p class="foot__contrib"><a href="https://github.com/zpeseeker/dead-stars" target="_blank" rel="noopener noreferrer">Contributions and corrections</a> are welcome on GitHub.</p>
       <p class="foot__disclaimer"><strong>AI-assisted research.</strong> This project was developed with AI support. While care is taken to verify sources and wording, errors or misleading facts may still appear. Please <a href="https://github.com/zpeseeker/dead-stars/issues" target="_blank" rel="noopener noreferrer">open an issue</a> to report corrections and help keep this timeline accurate.</p>
     </div>
-    <blockquote class="foot__quote">“The most dangerous man to any government is the man who is able to think things out for himself.” <cite>— H.L. Mencken</cite></blockquote>
+    <blockquote class="foot__quote">“The most dangerous man to any government is the man who is able to think things out for himself.” <cite>- H.L. Mencken</cite></blockquote>
+    <section class="foot__changelog" id="changelog" aria-labelledby="changelog-heading" tabindex="-1">
+      <h2 id="changelog-heading" class="foot__changelog-title">Changelog</h2>
+      <p class="foot__changelog-lead">Summary of site and data changes. <a href="https://github.com/zpeseeker/dead-stars/commits" target="_blank" rel="noopener noreferrer">Full git history on GitHub</a>.</p>
+      <ol class="foot__changelog-list">
+        <li>
+          <time class="foot__changelog-date" datetime="2026-04-28">28 April 2026</time>
+          Last updated line links here. <strong>Quick stats</strong> in the sidebar now recompute from <code>DATA</code> where possible: &quot;Suppressed / classified&quot; counts entries with either the <code>suppressed</code> or <code>classified</code> tag; &quot;Modern cluster (2023-26)&quot; counts entries whose timeline year key falls in 2023 through 2026. Dock adds a Changelog link. This page section added.
+        </li>
+        <li>
+          <time class="foot__changelog-date" datetime="2026-04-27">27 April 2026</time>
+          Timeline: Joshua LeBlanc (NASA Marshall, Jul 22, 2025) entry; case cross-linked with Livelsberger. Default timeline order: newest first. Order toggle contrast fix. Chinese scientist cluster, McCandlish, Sullivan, Moffatt, Wilcock/Free, Cole Allen, and other entries. Sidebar &quot;Along the timeline&quot; name list: removed inner scroll. Punctuation pass (standard hyphens) across copy.
+        </li>
+      </ol>
+    </section>
   </div>
 </footer>
 
-<script src="./js/data.js?v=10"></script>
-<script src="./js/app.js?v=19" defer></script>
+<script src="./js/data.js?v=14"></script>
+<script src="./js/app.js?v=22" defer></script>
 </body>
 </html>

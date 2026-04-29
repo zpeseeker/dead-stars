@@ -76,7 +76,7 @@
 
   /**
    * Institutional badges for each timeline entry (keys on DATA[].affiliations).
-   * All pills use `abbr` text — FA brand icons were unreliable (empty glyphs in some browsers).
+   * All pills use `abbr` text, FA brand icons were unreliable (empty glyphs in some browsers).
    */
   const ORG_BADGES = {
     nasa: { label: 'NASA', abbr: 'NASA' },
@@ -293,12 +293,17 @@
   const totalDeaths = DATA.filter(function (e) {
     return e.tags.indexOf('death') >= 0;
   }).length;
-  const totalSupp = DATA.filter(function (e) {
-    return e.tags.indexOf('suppressed') >= 0;
+  const totalSuppClass = DATA.filter(function (e) {
+    return e.tags.indexOf('suppressed') >= 0 || e.tags.indexOf('classified') >= 0;
   }).length;
   const stillMissing = DATA.filter(function (e) {
     return e.diedLabel && e.diedLabel.indexOf('Missing') >= 0;
   }).length;
+  var cluster2023_26 = 0;
+  for (var _ci = 0; _ci < DATA.length; _ci++) {
+    var _yk = yearKey(DATA[_ci]);
+    if (_yk >= 2023 && _yk <= 2026) cluster2023_26++;
+  }
   const sEl = document.getElementById('sb-quickstats');
   if (sEl) {
     sEl.innerHTML =
@@ -306,16 +311,18 @@
       '<div class="stat-row"><span class="stat-row__label">Total documented cases</span><span class="stat-row__num">' +
       DATA.length +
       '</span></div>' +
-      '<div class="stat-row"><span class="stat-row__label">Deaths / suspicious deaths</span><span class="stat-row__num">' +
+      '<div class="stat-row"><span class="stat-row__label">Deaths / suspicious deaths (tag: death)</span><span class="stat-row__num">' +
       totalDeaths +
       '</span></div>' +
-      '<div class="stat-row"><span class="stat-row__label">Suppressed / classified</span><span class="stat-row__num">' +
-      totalSupp +
+      '<div class="stat-row"><span class="stat-row__label">Suppressed / classified (either tag)</span><span class="stat-row__num">' +
+      totalSuppClass +
       '</span></div>' +
       '<div class="stat-row"><span class="stat-row__label">Currently missing (known)</span><span class="stat-row__num">' +
       stillMissing +
       '</span></div>' +
-      '<div class="stat-row"><span class="stat-row__label">Modern cluster (2023–26)</span><span class="stat-row__num">10</span></div>' +
+      '<div class="stat-row"><span class="stat-row__label">Modern cluster (2023-26, by year key)</span><span class="stat-row__num">' +
+      cluster2023_26 +
+      '</span></div>' +
       '<div class="stat-row"><span class="stat-row__label">Active secrecy orders (2017)</span><span class="stat-row__num">5,784</span></div>' +
       '<div class="stat-row"><span class="stat-row__label">Congressmen on record</span><span class="stat-row__num">2</span></div>';
   }
@@ -324,15 +331,18 @@
   const tlWrap = document.querySelector('.tl-wrap');
   const sbNameIndexList = document.getElementById('sb-name-index-list');
   const mobileJump = document.getElementById('mobile-jump');
-  let timelineNewestFirst = false;
+  let timelineNewestFirst = true;
   try {
-    timelineNewestFirst = localStorage.getItem(TL_ORDER_KEY) === 'newest';
+    const stored = localStorage.getItem(TL_ORDER_KEY);
+    if (stored === 'oldest') timelineNewestFirst = false;
+    else if (stored === 'newest') timelineNewestFirst = true;
   } catch (_) {}
 
   const newSet = new Set([
-    'Michael David Hicks — JPL Asteroid Scientist',
+    'Michael David Hicks, JPL Asteroid Scientist',
     'Monica Jacinto Reza',
-    'Rep. Burchett &amp; Rep. Burlison — Congressional Voices',
+    'Rep. Burchett &amp; Rep. Burlison, Congressional Voices',
+    'Joshua LeBlanc, NASA Marshall / SNP and DRACO',
   ]);
 
   /** 11-char YouTube video id or full watch / youtu.be URL. */
@@ -679,7 +689,7 @@
         const nameDecoded = decodeEntities(e.name);
         opt.textContent =
           e.year +
-          ' — ' +
+          ', ' +
           (nameDecoded.length > 48 ? nameDecoded.slice(0, 46) + '…' : nameDecoded);
         mobileJump.appendChild(opt);
       });
