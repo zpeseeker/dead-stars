@@ -743,8 +743,8 @@ const DATA = [
     role:"NAWCAD aerospace engineer · inertial mass reduction craft · compact/plasma-compression fusion reactor · HF gravitational-wave generator · room-temperature superconductor",
     type:"aerospace",badge:"🛸 Active · Navy 'UFO Patents' · Pais Effect Unproven",
     affiliations:["us-navy","nawcad","uspto"],
-    summary:"Dr. Salvatore Cezar Pais is a Romanian-American aerospace engineer who, beginning in 2015 while at the Naval Air Warfare Center Aircraft Division (NAWCAD) at Patuxent River, filed a series of patents assigned to the U.S. Navy so radical the press dubbed them the 'UFO patents': a room-temperature superconductor, a high-frequency gravitational wave generator, a compact plasma-compression fusion reactor, and, most famously, 'Craft using an inertial mass reduction device' (US 10,144,532 B2, filed April 28, 2016, granted December 4, 2018) — a craft that vibrates a charged resonant cavity to create a 'local polarized vacuum' and shed inertial mass. The unifying mechanism he claims is the 'Pais Effect': controlled motion of electrically charged matter generating extreme electromagnetic energy fields. When the USPTO initially balked, NAWCAD's Chief Technology Officer Dr. James Sheehy intervened by letter (December 2017), asserting the technology was 'operable' and warning that China was already investing in comparable capability — an appeal to national-security stakes that helped push the fusion patent through.",
-    off:["Not suppressed — the patents are public and assigned to the Navy. The Navy spent over $500,000 (2016–2019) testing the core 'Pais Effect'; NAWCAD concluded it 'could not be proven,' and no working prototype of any patented invention has ever been produced. Multiple physicists who reviewed the filings for journalists described the language as pseudoscientific. What is documented and unusual is the Navy's institutional behaviour: filing, defending, and funding tests of physics the mainstream rejects, with a CTO formally vouching for operability. Pais has since moved to the U.S. Space Force. Treat the claimed devices as unproven; treat the paper trail as real."],
+    summary:"Dr. Salvatore Cezar Pais is a Romanian-American aerospace engineer who, beginning in 2015 while at the Naval Air Warfare Center Aircraft Division (NAWCAD) at Patuxent River, filed a series of patents assigned to the U.S. Navy so radical the press dubbed them the 'UFO patents': a room-temperature superconductor, a high-frequency gravitational wave generator, a compact plasma-compression fusion reactor, and, most famously, 'Craft using an inertial mass reduction device' (US 10,144,532 B2, filed April 28, 2016, granted December 4, 2018) - a craft that vibrates a charged resonant cavity to create a 'local polarized vacuum' and shed inertial mass. The unifying mechanism he claims is the 'Pais Effect': controlled motion of electrically charged matter generating extreme electromagnetic energy fields. When the USPTO initially balked, NAWCAD's Chief Technology Officer Dr. James Sheehy intervened by letter (December 2017), asserting the technology was 'operable' and warning that China was already investing in comparable capability - an appeal to national-security stakes that helped push the fusion patent through.",
+    off:["Not suppressed - the patents are public and assigned to the Navy. The Navy spent over $500,000 (2016-2019) testing the core 'Pais Effect'; NAWCAD concluded it 'could not be proven,' and no working prototype of any patented invention has ever been produced. Multiple physicists who reviewed the filings for journalists described the language as pseudoscientific. What is documented and unusual is the Navy's institutional behaviour: filing, defending, and funding tests of physics the mainstream rejects, with a CTO formally vouching for operability. Pais has since moved to the U.S. Space Force. Treat the claimed devices as unproven; treat the paper trail as real."],
     connections:["Harold 'Sonny' White & Charles Buhler: all three are U.S. defence-adjacent engineers pursuing propellantless propulsion / vacuum-energy effects that mainstream physics does not accept.","Thomas Townsend Brown: Pais's 'polarized vacuum' craft is the same electrogravitic lineage the Navy classified in 1956.","TAE Technologies: a competing, credentialed route to the compact-fusion prize Pais's reactor patent claims."],
     links:[["Wikipedia, Salvatore Pais","https://en.wikipedia.org/wiki/Salvatore_Pais"],["Google Patents, US 10,144,532 B2 (inertial mass reduction craft)","https://patents.google.com/patent/US10144532B2/en"],["The War Zone / TheDrive, Navy 'UFO' patents FOIA reporting","https://www.twz.com/30256/the-navys-ufo-patents-that-are-supposedly-operable-may-be-worthless"],["Forbes, What Is Behind The Navy's 'UFO' Fusion Energy Patent","https://www.forbes.com/sites/arielcohen/2021/02/08/what-is-behind-the-us-navys-ufo-fusion-energy-patent/"]],
     tags:["classified","aerospace","plasma"]},
@@ -756,14 +756,14 @@ const DATA = [
     role:"Physicist · SRI remote viewing (Project STARGATE) · zero-point energy / polarizable vacuum · DIA AAWSAP · To The Stars Academy VP Science",
     type:"plasma",badge:"⊘ Active · SRI Remote Viewing · ZPE / Polarizable Vacuum · TTSA",
     affiliations:["sri","dia","ttsa","iasa"],
-    summary:"Dr. Harold E. 'Hal' Puthoff is a physicist whose career runs straight through the seam between fringe and state. In the early 1970s at Stanford Research Institute (SRI), he and Russell Targ founded the CIA- and DIA-funded remote-viewing program that became Project STARGATE, working with Ingo Swann, Uri Geller, and Pat Price on purported psychic perception. He later founded EarthTech International and the Institute for Advanced Studies at Austin, where his physics work centred on the zero-point energy of the quantum vacuum and a 'polarizable vacuum' (PV) model of gravitation — the theoretical claim that inertia and gravity are electromagnetic vacuum effects that could, in principle, be engineered. In the modern UAP era he authored and curated reference studies for the Defense Intelligence Agency's AAWSAP program and co-founded To The Stars Academy with Tom DeLonge and Luis Elizondo, serving as Vice President for Science and Technology. He is one of the very few people who has been an inside scientific voice for U.S. government exotic-research efforts across five decades.",
-    off:["Not suppressed — Puthoff is alive, prolific, and publicly active. The SRI remote-viewing program and its government funding are fully documented and declassified; the scientific validity of its psi results remains contested and is not accepted as established. His zero-point-energy and polarizable-vacuum propulsion ideas are theoretical and unproven — serious physics vocabulary applied to claims mainstream physics has not validated. The honest reading separates the documented institutional history (real programs, real budgets, real government interest) from the physics claims (open at best). His significance here is as connective tissue: the throughline linking Cold-War psi, ZPE propulsion, and the modern disclosure apparatus."],
+    summary:"Dr. Harold E. 'Hal' Puthoff is a physicist whose career runs straight through the seam between fringe and state. In the early 1970s at Stanford Research Institute (SRI), he and Russell Targ founded the CIA- and DIA-funded remote-viewing program that became Project STARGATE, working with Ingo Swann, Uri Geller, and Pat Price on purported psychic perception. He later founded EarthTech International and the Institute for Advanced Studies at Austin, where his physics work centred on the zero-point energy of the quantum vacuum and a 'polarizable vacuum' (PV) model of gravitation - the theoretical claim that inertia and gravity are electromagnetic vacuum effects that could, in principle, be engineered. In the modern UAP era he authored and curated reference studies for the Defense Intelligence Agency's AAWSAP program and co-founded To The Stars Academy with Tom DeLonge and Luis Elizondo, serving as Vice President for Science and Technology. He is one of the very few people who has been an inside scientific voice for U.S. government exotic-research efforts across five decades.",
+    off:["Not suppressed - Puthoff is alive, prolific, and publicly active. The SRI remote-viewing program and its government funding are fully documented and declassified; the scientific validity of its psi results remains contested and is not accepted as established. His zero-point-energy and polarizable-vacuum propulsion ideas are theoretical and unproven - serious physics vocabulary applied to claims mainstream physics has not validated. The honest reading separates the documented institutional history (real programs, real budgets, real government interest) from the physics claims (open at best). His significance here is as connective tissue: the throughline linking Cold-War psi, ZPE propulsion, and the modern disclosure apparatus."],
     connections:["Dr. Steven Greer: overlapping disclosure/ZPE advocacy and the claim that vacuum-energy propulsion is being withheld.","Jeffrey Epstein: the same quantum-vacuum physics network Epstein's 'Confronting Gravity' funding orbited.","Harold 'Sonny' White & Nikola Tesla / Casimir: Puthoff's polarizable-vacuum work is the theoretical frame for the ZPE-extraction lineage running from Tesla through Casimir to White's chip."],
     links:[["Wikipedia, Harold E. Puthoff","https://en.wikipedia.org/wiki/Harold_E._Puthoff"],["CIA declassified, SRI / STARGATE remote viewing","https://www.cia.gov/readingroom/collection/stargate"],["EarthTech International","https://earthtech.org/"],["To The Stars Academy","https://tothestars.media/"]],
     tags:["plasma","suppressed","network"]},
 
     // ─────────────────────────────────────────────
-    // DIRDs — AAWSAP/AATIP reference documents (context marker)
+    // DIRDs - AAWSAP/AATIP reference documents (context marker)
     // ─────────────────────────────────────────────
     {year:"2008-2022",bornFlag:"🇺🇸",diedFlag:null,
     bornLabel:"USA, DIA / AAWSAP program (BAASS contract, 2008-2010)",
@@ -776,61 +776,61 @@ const DATA = [
     brief:"The DIRDs are the connective tissue of the modern era: the point where the U.S. government put names, budgets, and letterhead behind surveys of the exact physics, vacuum energy, warp metrics, antigravity, the same names recur across this timeline. Hal Puthoff and Eric Davis authored several of them.",
     sections:[
     {heading:"Exotic propulsion and spacetime physics (13)",body:[
-    "**Inertial Electrostatic Confinement Fusion** (Miley) — a real, established approach trapping ions in electric fields, pitched as compact power/propulsion. *Mainstream.*",
-    "**Advanced Nuclear Propulsion for Manned Deep Space Missions** (Winterberg) — survey of nuclear-rocket concepts for crewed interplanetary travel. *Mainstream.*",
-    "**Space Access** (Czysz) — cheaper, more reliable routes to orbit; launch-vehicle futures. *Mainstream.*",
-    "**Advanced Space Propulsion Based on Vacuum (Spacetime Metric) Engineering** (Puthoff) — propelling craft by manipulating the geometry of spacetime rather than expelling propellant. *Highly speculative.*",
-    "**Traversable Wormholes, Stargates, and Negative Energy** (Davis) — the theoretical physics of stable wormholes and the exotic negative energy they'd require. *Speculative.*",
-    "**Antigravity for Aerospace Applications** (Davis) — whether gravity could be shielded or countered. *Fringe; unsupported by mainstream physics.*",
-    "**Warp Drive, Dark Energy, and the Manipulation of Extra Dimensions** (Obousy) — Alcubierre warp-metric math plus string-theory extra dimensions. *Deeply theoretical.*",
-    "**Positron Aerospace Propulsion** (Smith) — antimatter propulsion, real in principle but bottlenecked by antimatter production/storage. *Speculative-but-grounded.*",
-    "**Aneutronic Fusion Propulsion** (Teofilo) — fusion releasing energy as charged particles, not neutrons; cleaner propulsion. *Mainstream research.*",
-    "**Aneutronic Fusion Propulsion II** (Culbreth) — follow-on treatment of the same theme. *Mainstream research.*",
-    "**Magnetohydrodynamic (MHD) Air-Breathing Propulsion and Power** (Macheret) — electromagnetic control of ionized airflow. *Active real research.*",
-    "**Negative Mass Propulsion** (Winterberg) — what propulsion could look like if negative mass existed. *Thought experiment; no evidence negative mass exists.*",
-    "**Cockpits in the Era of Breakthrough Flight** (Millis) — human-factors speculation on piloting exotic-propulsion craft. *Speculative.*"
+    "**Inertial Electrostatic Confinement Fusion** (Miley) - a real, established approach trapping ions in electric fields, pitched as compact power/propulsion. *Mainstream.*",
+    "**Advanced Nuclear Propulsion for Manned Deep Space Missions** (Winterberg) - survey of nuclear-rocket concepts for crewed interplanetary travel. *Mainstream.*",
+    "**Space Access** (Czysz) - cheaper, more reliable routes to orbit; launch-vehicle futures. *Mainstream.*",
+    "**Advanced Space Propulsion Based on Vacuum (Spacetime Metric) Engineering** (Puthoff) - propelling craft by manipulating the geometry of spacetime rather than expelling propellant. *Highly speculative.*",
+    "**Traversable Wormholes, Stargates, and Negative Energy** (Davis) - the theoretical physics of stable wormholes and the exotic negative energy they'd require. *Speculative.*",
+    "**Antigravity for Aerospace Applications** (Davis) - whether gravity could be shielded or countered. *Fringe; unsupported by mainstream physics.*",
+    "**Warp Drive, Dark Energy, and the Manipulation of Extra Dimensions** (Obousy) - Alcubierre warp-metric math plus string-theory extra dimensions. *Deeply theoretical.*",
+    "**Positron Aerospace Propulsion** (Smith) - antimatter propulsion, real in principle but bottlenecked by antimatter production/storage. *Speculative-but-grounded.*",
+    "**Aneutronic Fusion Propulsion** (Teofilo) - fusion releasing energy as charged particles, not neutrons; cleaner propulsion. *Mainstream research.*",
+    "**Aneutronic Fusion Propulsion II** (Culbreth) - follow-on treatment of the same theme. *Mainstream research.*",
+    "**Magnetohydrodynamic (MHD) Air-Breathing Propulsion and Power** (Macheret) - electromagnetic control of ionized airflow. *Active real research.*",
+    "**Negative Mass Propulsion** (Winterberg) - what propulsion could look like if negative mass existed. *Thought experiment; no evidence negative mass exists.*",
+    "**Cockpits in the Era of Breakthrough Flight** (Millis) - human-factors speculation on piloting exotic-propulsion craft. *Speculative.*"
     ]},
     {heading:"Energy and the quantum vacuum (3)",body:[
-    "**Concepts for Extracting Energy from the Quantum Vacuum** (Davis) — whether zero-point energy of empty space could be tapped. *Contentious; not demonstrated as usable power.*",
-    "**Quantum Tomography of Negative Energy States in the Vacuum** (Davis) — measuring/characterizing negative-energy states, tied to the wormhole and warp material. *Speculative.*",
-    "**Ultracapacitors as Energy and Power Storage Devices** (Golightly) — high-power storage that already exists commercially. *Entirely mainstream.*"
+    "**Concepts for Extracting Energy from the Quantum Vacuum** (Davis) - whether zero-point energy of empty space could be tapped. *Contentious; not demonstrated as usable power.*",
+    "**Quantum Tomography of Negative Energy States in the Vacuum** (Davis) - measuring/characterizing negative-energy states, tied to the wormhole and warp material. *Speculative.*",
+    "**Ultracapacitors as Energy and Power Storage Devices** (Golightly) - high-power storage that already exists commercially. *Entirely mainstream.*"
     ]},
     {heading:"Gravity and superconductors (2)",body:[
-    "**High Frequency Gravitational Wave Communications** (Baker) — signalling via gravitational waves; generating them at useful strength is beyond known technology. *Speculative.*",
-    "**Role of Superconductors in Gravity Research** (Hathaway) — fringe claims that spinning superconductors affect gravity, which have not replicated. *Fringe.*"
+    "**High Frequency Gravitational Wave Communications** (Baker) - signalling via gravitational waves; generating them at useful strength is beyond known technology. *Speculative.*",
+    "**Role of Superconductors in Gravity Research** (Hathaway) - fringe claims that spinning superconductors affect gravity, which have not replicated. *Fringe.*"
     ]},
     {heading:"Materials (7)",body:[
-    "**Metamaterials for Aerospace Applications** (Shvets) — engineered materials with properties not found in nature. *Real, active field.*",
-    "**Invisibility Cloaking** (Leonhardt) — metamaterial cloaking that works in limited lab conditions, not the sci-fi version. *Legitimate research.*",
-    "**Metallic Glasses** (Hufnagel) — amorphous metal alloys with unusual strength. *Solid materials science.*",
-    "**Materials for Advanced Aerospace Platforms** (Williams) — high-performance structural materials for aircraft/spacecraft. *Mainstream.*",
-    "**Aerospace Applications of Programmable Matter** (McCarthy) — matter engineered to change shape/properties on command. *Early-stage but real.*",
-    "**Metallic Spintronics** (Tsoi) — using electron spin rather than charge. *Mainstream physics.*",
-    "**Biomaterials** (Towe) — materials that interface with living tissue. *Standard biomedical engineering.*"
+    "**Metamaterials for Aerospace Applications** (Shvets) - engineered materials with properties not found in nature. *Real, active field.*",
+    "**Invisibility Cloaking** (Leonhardt) - metamaterial cloaking that works in limited lab conditions, not the sci-fi version. *Legitimate research.*",
+    "**Metallic Glasses** (Hufnagel) - amorphous metal alloys with unusual strength. *Solid materials science.*",
+    "**Materials for Advanced Aerospace Platforms** (Williams) - high-performance structural materials for aircraft/spacecraft. *Mainstream.*",
+    "**Aerospace Applications of Programmable Matter** (McCarthy) - matter engineered to change shape/properties on command. *Early-stage but real.*",
+    "**Metallic Spintronics** (Tsoi) - using electron spin rather than charge. *Mainstream physics.*",
+    "**Biomaterials** (Towe) - materials that interface with living tissue. *Standard biomedical engineering.*"
     ]},
     {heading:"Sensing, communications, and computing (5)",body:[
-    "**Pulsed High-Power Microwave Technology** (Wells) — intense microwave bursts; directed-energy and electronics disruption. *Real directed-energy area.*",
-    "**Space Communication Implications of Quantum Entanglement and Nonlocality** (Cramer) — what entanglement can and cannot do; physics forbids faster-than-light messaging. *Mainstream.*",
-    "**Quantum Computing and Utilizing Organic Molecules in Automation Technology** (Genik) — quantum and molecular computation. *Real, fast-moving.*",
-    "**Detection and High-Resolution Tracking of Vehicles at Hypersonic Velocities** (Culbreth) — the genuine hard problem of tracking hypersonic objects. *Mainstream.*",
-    "**An Introduction to the Statistical Drake Equation** (Maccone) — a statistical reworking of the Drake equation. *Mainstream (astrobiology math).*"
+    "**Pulsed High-Power Microwave Technology** (Wells) - intense microwave bursts; directed-energy and electronics disruption. *Real directed-energy area.*",
+    "**Space Communication Implications of Quantum Entanglement and Nonlocality** (Cramer) - what entanglement can and cannot do; physics forbids faster-than-light messaging. *Mainstream.*",
+    "**Quantum Computing and Utilizing Organic Molecules in Automation Technology** (Genik) - quantum and molecular computation. *Real, fast-moving.*",
+    "**Detection and High-Resolution Tracking of Vehicles at Hypersonic Velocities** (Culbreth) - the genuine hard problem of tracking hypersonic objects. *Mainstream.*",
+    "**An Introduction to the Statistical Drake Equation** (Maccone) - a statistical reworking of the Drake equation. *Mainstream (astrobiology math).*"
     ]},
     {heading:"Human factors and biology (4)",body:[
-    "**Biosensors and BioMEMS** (Towe) — tiny sensors and micro-machines for monitoring the body. *Mainstream biomedical.*",
-    "**Field Effects on Biological Tissues** (Green) — how electromagnetic fields affect living tissue; relevant to injury claims. *Real medical/safety topic.*",
-    "**Technological Approaches to Controlling External Devices Without Limb-Operated Interfaces** (Genik) — brain-machine interfaces. *Legitimate, advancing.*",
-    "**Cognitive Limits on Simultaneous Control of Multiple Unmanned Spacecraft** (Genik) — how many craft one operator can realistically manage. *Human-factors study.*"
+    "**Biosensors and BioMEMS** (Towe) - tiny sensors and micro-machines for monitoring the body. *Mainstream biomedical.*",
+    "**Field Effects on Biological Tissues** (Green) - how electromagnetic fields affect living tissue; relevant to injury claims. *Real medical/safety topic.*",
+    "**Technological Approaches to Controlling External Devices Without Limb-Operated Interfaces** (Genik) - brain-machine interfaces. *Legitimate, advancing.*",
+    "**Cognitive Limits on Simultaneous Control of Multiple Unmanned Spacecraft** (Genik) - how many craft one operator can realistically manage. *Human-factors study.*"
     ]},
     {heading:"Innovation culture (1)",body:[
-    "**Maverick Inventor Versus Corporate Inventor** (Hathaway) — not a physics paper at all, but an essay on whether breakthroughs come from lone inventors or big organizations."
+    "**Maverick Inventor Versus Corporate Inventor** (Hathaway) - not a physics paper at all, but an essay on whether breakthroughs come from lone inventors or big organizations."
     ]},
     {heading:"Directed energy (3)",body:[
-    "**Laser Lightcraft Nanosatellites** (Davis) — ground-based lasers to launch/propel very small satellites. *Real experimental concept.*",
-    "**State of the Art and Evolution of High-Energy Laser Weapons — unclassified** (Albertine) — a straight directed-energy laser-weapons survey. *Mainstream.*",
-    "**State of the Art and Evolution of High-Energy Laser Weapons — classified** (Albertine) — the SECRET-classified counterpart, and the single document withheld when the DIA released the other 37 on March 25, 2022. *Still classified.*"
+    "**Laser Lightcraft Nanosatellites** (Davis) - ground-based lasers to launch/propel very small satellites. *Real experimental concept.*",
+    "**State of the Art and Evolution of High-Energy Laser Weapons - unclassified** (Albertine) - a straight directed-energy laser-weapons survey. *Mainstream.*",
+    "**State of the Art and Evolution of High-Energy Laser Weapons - classified** (Albertine) - the SECRET-classified counterpart, and the single document withheld when the DIA released the other 37 on March 25, 2022. *Still classified.*"
     ]}],
     off:["The DIRDs are largely literature reviews, not reports of working hardware; at least one was shown to be a repackaged pre-existing journal paper. A topic getting a DIRD reflects what the program chose to survey, not proof that anything was built or works. The collection is a genuine mix: roughly half is solid mainstream science and engineering, the other half speculative theory or, in a few cases, fringe. Titles/authors are confirmed genuine (Knapp/Adams list, July 2018, matched to the DIA's January 2018 letter to Congress). 37 of 38 released via FOIA (The Black Vault) on March 25, 2022; the classified high-energy laser weapons report (Albertine) is the lone holdout."],
-    connections:["Hal Puthoff: authored the 'Advanced Space Propulsion Based on Vacuum (Spacetime Metric) Engineering' DIRD; his polarizable-vacuum work is the theoretical spine of the ZPE-propulsion papers.","Eric Davis: authored several DIRDs (wormholes/negative energy, antigravity, quantum-vacuum energy, quantum tomography, laser lightcraft) — the single most prolific DIRD author on the exotic side.","Harold 'Sonny' White: the warp-metric and quantum-vacuum DIRDs are the same physics White later pursued at NASA and Casimir Inc.","TAE Technologies: the aneutronic-fusion DIRDs (Teofilo, Culbreth) survey exactly the hydrogen-boron route TAE is commercialising."],
+    connections:["Hal Puthoff: authored the 'Advanced Space Propulsion Based on Vacuum (Spacetime Metric) Engineering' DIRD; his polarizable-vacuum work is the theoretical spine of the ZPE-propulsion papers.","Eric Davis: authored several DIRDs (wormholes/negative energy, antigravity, quantum-vacuum energy, quantum tomography, laser lightcraft) - the single most prolific DIRD author on the exotic side.","Harold 'Sonny' White: the warp-metric and quantum-vacuum DIRDs are the same physics White later pursued at NASA and Casimir Inc.","TAE Technologies: the aneutronic-fusion DIRDs (Teofilo, Culbreth) survey exactly the hydrogen-boron route TAE is commercialising."],
     links:[["The Black Vault, AAWSAP/AATIP DIRD release (37 of 38)","https://www.theblackvault.com/documentarchive/aatip-aawsap-defense-intelligence-reference-documents/"],["Wikipedia, Advanced Aerospace Threat Identification Program","https://en.wikipedia.org/wiki/Advanced_Aerospace_Threat_Identification_Program"],["Wikipedia, AAWSAP / BAASS","https://en.wikipedia.org/wiki/Advanced_Aerospace_Weapon_System_Applications_Program"]],
     tags:["network","plasma","classified"]},
 

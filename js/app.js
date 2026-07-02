@@ -146,6 +146,20 @@
     iasa: { label: 'Institute for Advanced Studies at Austin', abbr: 'IASA' },
   };
 
+  /**
+   * Real org marks that actually ship in img/logos/ (public-domain federal seals
+   * plus a few recognizable brands). Orgs not present here fall back to a monogram
+   * tile, so the affiliation "tree" always reads as one cohesive set.
+   */
+  const SHIPPED_LOGOS = {
+    afrl: 1, cern: 1, cia: 1, congress: 1, darpa: 1, dia: 1, dod: 1, doe: 1,
+    fbi: 1, fda: 1, google: 1, harvard: 1, jpl: 1, lanl: 1, nasa: 1, novartis: 1,
+    nsa: 1, philips: 1, sri: 1, 'us-army': 1, 'us-navy': 1, usaf: 1, usarmy: 1,
+    uspto: 1, westinghouse: 1,
+  };
+  // NASA field centers / IPAC share their parent mark (no distinct seal shipped).
+  const LOGO_ALIAS = { msfc: 'nasa', jsc: 'nasa', ksc: 'nasa', ipac: 'jpl' };
+
   function renderOrgBadges(ids) {
     if (!ids || !ids.length) return '';
     const parts = [];
@@ -153,12 +167,26 @@
       const o = ORG_BADGES[id];
       if (!o) return;
       const title = escAttr(o.label);
+      const file = LOGO_ALIAS[id] || id;
+      // Only render an <img> when the asset actually shipped (see img/logos/).
+      if (SHIPPED_LOGOS[file]) {
+        parts.push(
+          '<span class="org-badge org-badge--logo" tabindex="0" role="img" aria-label="' +
+            title +
+            '" data-tip="' +
+            title +
+            '"><img class="org-badge__img" src="img/logos/' +
+            file +
+            '.webp" alt="" loading="lazy" decoding="async"></span>'
+        );
+        return;
+      }
       const t = escAttr(o.abbr || o.label);
       if (!t) return;
       parts.push(
-        '<span class="org-badge org-badge--abbr" role="img" aria-label="' +
+        '<span class="org-badge org-badge--abbr" tabindex="0" role="img" aria-label="' +
           title +
-          '" title="' +
+          '" data-tip="' +
           title +
           '">' +
           t +
@@ -288,12 +316,13 @@
       if (ct[t] !== undefined) ct[t]++;
     });
   });
+  // Fold category counts into the filter pills (replaces the separate metrics strip).
   Object.keys(ct).forEach(function (k) {
-    const el = document.getElementById('c-' + k);
+    const el = document.getElementById('fc-' + k);
     if (el) el.textContent = ct[k];
   });
-  const totalEl = document.getElementById('c-total');
-  if (totalEl) totalEl.textContent = DATA.length;
+  const allCountEl = document.getElementById('fc-all');
+  if (allCountEl) allCountEl.textContent = DATA.length;
 
   const totalDeaths = DATA.filter(function (e) {
     return e.tags.indexOf('death') >= 0;
@@ -588,37 +617,37 @@
       '</div><div class="ey-flags">' +
       br +
       dr +
-      '</div></div><div class="edw"><div class="edot d-' +
+      '</div>' +
+      affHtml +
+      '</div><div class="edw"><div class="edot d-' +
       e.type +
-      '"></div></div><div class="card"><div class="ch">' +
+      '"></div></div><div class="card">' +
+      '<button type="button" class="entry-share" data-share-slug="' +
+      escAttr(entrySlug) +
+      '" aria-label="Copy link to this case" title="Copy link to this case">' +
+      '<i class="fa-solid fa-link" aria-hidden="true"></i>' +
+      '</button>' +
+      '<div class="ch">' +
       photoHtml +
-      '<div class="ch-text"><div class="ch-row"><div class="chl"><div class="cn">' +
+      '<div class="ch-text">' +
+      '<div class="cb b-' +
+      e.type +
+      '">' +
+      e.badge +
+      '</div><div class="cn">' +
       e.name +
       nm +
       '</div><div class="cr">' +
       e.role +
-      '</div></div><div class="ch-actions"><div class="cb b-' +
-      e.type +
-      '">' +
-      e.badge +
-      '</div><button type="button" class="entry-share" data-share-slug="' +
-      escAttr(entrySlug) +
-      '" aria-label="Copy link to this case" title="Copy link to this case">' +
-      '<i class="fa-solid fa-link" aria-hidden="true"></i>' +
-      '</button></div></div>' +
-      affHtml +
-      '</div></div><div class="cs">' +
+      '</div>' +
+      '</div>' +
+      '</div><div class="cs">' +
       formatInlineMd(e.summary) +
       '</div><div class="eh" id="h' +
       i +
       '" aria-expanded="false" aria-label="Show or hide full history, sources and links">' +
-      '<span class="eh__text">' +
-      '<span class="eh__row">' +
-      '<span class="eh__line"><span class="eh__strong eh__when-collapsed">More</span><span class="eh__strong eh__when-open">Less</span></span>' +
+      '<span class="eh__label"><span class="eh__when-collapsed">Full history, sources &amp; links</span><span class="eh__when-open">Show less</span></span>' +
       '<span class="eh__icon" aria-hidden="true"><i class="fa-solid fa-chevron-down eh__chev"></i></span>' +
-      '</span>' +
-      '<span class="eh__sub">Full history · sources · links</span>' +
-      '</span>' +
       '</div><div class="cd" id="d' +
       i +
       '">' +
@@ -1011,4 +1040,12 @@
       lightboxCounterEl.textContent = lightboxActiveIdx + 1 + ' / ' + count;
     }
   }
+
+  // Expose the pieces the relationship map (graph.js) needs, without duplicating them.
+  window.DEAD_STARS = {
+    ORG_BADGES: ORG_BADGES,
+    SHIPPED_LOGOS: SHIPPED_LOGOS,
+    LOGO_ALIAS: LOGO_ALIAS,
+    slugByIndex: slugByIndex,
+  };
 })();

@@ -5,13 +5,21 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="description" content="A global timeline of plasma researchers, fusion scientists, and inventors, documented facts, official verdicts, and open questions from 1890 to 2026.">
 <title>Dead Inventors, Vanishing Scientists & The Energy They Knew</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2305060d'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%2367e8f9'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%2322d3ee' stroke-width='1.4' opacity='.7'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23d946ef' stroke-width='1' opacity='.45'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#05060d">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="Dead Inventors, Vanishing Scientists & The Energy They Knew">
+<meta property="og:description" content="A global timeline of plasma researchers, fusion scientists, and inventors: documented facts, official verdicts, and open questions from 1890 to 2026.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" crossorigin="anonymous">
-<link rel="stylesheet" href="./css/styles.css?v=31">
+<link rel="stylesheet" href="./css/styles.css?v=36">
 </head>
 <body>
+<canvas id="starfield" aria-hidden="true"></canvas>
 <a class="nav-skip" href="#timeline">Skip to timeline</a>
 
 <div class="hero" id="top">
@@ -20,7 +28,7 @@
     <p class="hero__kicker" id="intro">Investigative timeline</p>
     <p class="hero__tags">Classified research · Suppressed patents · Unexplained deaths · Aerospace · Energy suppression</p>
     <h1 class="hero__title"><span class="hero__title-line">Dead Inventors,</span> <span class="hero__title-line hero__title-line--accent">Vanishing Scientists</span> <span class="hero__title-amp">&amp;</span> <span class="hero__title-sub">The Energy They Knew</span></h1>
-    <p class="hero__manifesto"><span class="hero__manifesto-dream">Imagine a world without reliance on fossil fuels &mdash; energy in abundance, humanity free to explore the full potential of its creativity.</span> <span class="hero__manifesto-turn">Our timeline has actively suppressed the next step in the evolution of humankind&hellip;</span></p>
+    <p class="hero__manifesto"><span class="hero__manifesto-dream">Imagine a world without reliance on fossil fuels - energy in abundance, humanity free to explore the full potential of its creativity.</span> <span class="hero__manifesto-turn">Our timeline has actively suppressed the next step in the evolution of humankind&hellip;</span></p>
     <p class="hero__lead">A global chronicle of plasma researchers, fusion scientists, aerospace engineers, and free-energy visionaries who met misfortune, ruin, imprisonment, or death on the road to discovery, from <strong>1890</strong> to <strong>2026</strong>. The modern cluster: nine scientists and officials dead or missing from JPL, LANL, MIT, and AFRL in under three years.</p>
     <div class="hero__meta" aria-label="Last updated">
       <p class="hero__updated">
@@ -36,6 +44,7 @@
     <nav class="dock__nav" aria-label="Sections">
       <a class="dock__link" href="#intro">Intro</a>
       <a class="dock__link" href="#timeline">Timeline</a>
+      <a class="dock__link" href="#network-map">Map</a>
       <a class="dock__link" href="#filters">Filters</a>
       <a class="dock__link" href="#context">Context</a>
       <a class="dock__link" href="#changelog">Changelog</a>
@@ -44,14 +53,14 @@
   <div class="dock__filters" id="filters">
     <span class="dock__label">Show</span>
     <div class="filter-scroller" id="filter-bar">
-      <button type="button" class="pill pill--all active" data-filter="all">All</button>
-      <button type="button" class="pill pill--death" data-filter="death">Deaths</button>
-      <button type="button" class="pill pill--suppressed" data-filter="suppressed">Suppressed</button>
-      <button type="button" class="pill pill--plasma" data-filter="plasma">Plasma / Fusion</button>
-      <button type="button" class="pill pill--aerospace" data-filter="aerospace">Aerospace</button>
-      <button type="button" class="pill pill--classified" data-filter="classified">Classified</button>
-      <button type="button" class="pill pill--misfortune" data-filter="misfortune">Misfortune</button>
-      <button type="button" class="pill pill--network" data-filter="network">Network</button>
+      <button type="button" class="pill pill--all active" data-filter="all">All<span class="pill__count" id="fc-all"></span></button>
+      <button type="button" class="pill pill--death" data-filter="death">Deaths<span class="pill__count" id="fc-death"></span></button>
+      <button type="button" class="pill pill--suppressed" data-filter="suppressed">Suppressed<span class="pill__count" id="fc-suppressed"></span></button>
+      <button type="button" class="pill pill--plasma" data-filter="plasma">Plasma / Fusion<span class="pill__count" id="fc-plasma"></span></button>
+      <button type="button" class="pill pill--aerospace" data-filter="aerospace">Aerospace<span class="pill__count" id="fc-aerospace"></span></button>
+      <button type="button" class="pill pill--classified" data-filter="classified">Classified<span class="pill__count" id="fc-classified"></span></button>
+      <button type="button" class="pill pill--misfortune" data-filter="misfortune">Misfortune<span class="pill__count" id="fc-misfortune"></span></button>
+      <button type="button" class="pill pill--network" data-filter="network">Network<span class="pill__count" id="fc-network"></span></button>
     </div>
   </div>
   <div class="dock__eras" aria-label="Jump to era">
@@ -65,19 +74,6 @@
     <select id="mobile-jump" class="jump-select" aria-label="Jump to timeline entry"></select>
   </div>
 </header>
-
-<section class="metrics" aria-label="Entry counts by category">
-  <div class="metrics__inner">
-    <div class="metric"><span class="metric__dot" style="background:var(--cat-death)"></span><span class="metric__name">Deaths</span><span class="metric__val" id="c-death">0</span></div>
-    <div class="metric"><span class="metric__dot" style="background:var(--cat-suppressed)"></span><span class="metric__name">Suppressed</span><span class="metric__val" id="c-suppressed">0</span></div>
-    <div class="metric"><span class="metric__dot" style="background:var(--cat-plasma)"></span><span class="metric__name">Plasma</span><span class="metric__val" id="c-plasma">0</span></div>
-    <div class="metric"><span class="metric__dot" style="background:var(--cat-aerospace)"></span><span class="metric__name">Aerospace</span><span class="metric__val" id="c-aerospace">0</span></div>
-    <div class="metric"><span class="metric__dot" style="background:var(--cat-classified)"></span><span class="metric__name">Classified</span><span class="metric__val" id="c-classified">0</span></div>
-    <div class="metric"><span class="metric__dot" style="background:var(--cat-misfortune)"></span><span class="metric__name">Misfortune</span><span class="metric__val" id="c-misfortune">0</span></div>
-    <div class="metric"><span class="metric__dot" style="background:var(--cat-network)"></span><span class="metric__name">Network</span><span class="metric__val" id="c-network">0</span></div>
-    <div class="metric metric--total"><span class="metric__name">Total entries</span><span class="metric__val metric__val--lg" id="c-total">0</span></div>
-  </div>
-</section>
 
 <div class="page">
   <div class="timeline-zone" id="timeline">
@@ -129,6 +125,29 @@
   </aside>
 </div>
 
+<section class="netmap" id="network-map" aria-labelledby="netmap-title" tabindex="-1">
+  <div class="netmap__head">
+    <div class="netmap__head-text">
+      <p class="netmap__kicker">The network</p>
+      <h2 class="netmap__title" id="netmap-title">Relationship Map</h2>
+      <p class="netmap__lead">Every documented figure, linked to the institutions they worked for. Shared agencies and labs pull the players into clusters. Drag to rearrange, scroll to zoom, hover any node to trace its connections, and click a person to open their case.</p>
+    </div>
+    <div class="netmap__controls">
+      <label class="netmap__focus">
+        <span>Focus</span>
+        <select id="netmap-focus" aria-label="Focus on an organization"></select>
+      </label>
+      <button type="button" class="netmap__btn" id="netmap-reset">Reset view</button>
+    </div>
+  </div>
+  <div class="netmap__stage" id="netmap-stage">
+    <canvas id="netmap-canvas"></canvas>
+    <div class="netmap__legend" id="netmap-legend" aria-hidden="true"></div>
+    <div class="netmap__tip" id="netmap-tip" role="status" aria-live="polite"></div>
+    <p class="netmap__hint" aria-hidden="true">Drag nodes · scroll to zoom · drag background to pan</p>
+  </div>
+</section>
+
 <footer class="foot">
   <div class="foot__inner">
     <p class="foot__line">Compiled from public records, declassified files, court documents, FOIA, and congressional correspondence.</p>
@@ -145,7 +164,7 @@
       <ol class="foot__changelog-list">
         <li>
           <time class="foot__changelog-date" datetime="2026-07-03">3 July 2026</time>
-          <strong>Redesign</strong>: new &quot;Plasma / Dead-Star Observatory&quot; visual theme &mdash; cosmic-void background with a faint starfield, electric plasma accents (cyan / magenta / violet), glowing timeline markers, and geometric-technical type (Space Grotesk). Added a hero thesis line on energy abundance and suppression. New entries: <strong>Salvatore Pais</strong> (U.S. Navy &quot;UFO patents&quot; / the Pais Effect) and <strong>Hal Puthoff</strong> (SRI remote viewing, zero-point energy, To The Stars Academy), added as living &quot;outliers&quot; and placed in the timeline by their key year; plus a context-marker entry for <strong>the 38 AAWSAP/AATIP DIRDs</strong> (DIA reference documents, 37 of 38 FOIA-released via The Black Vault, 25 March 2022).
+          <strong>Redesign</strong>: new &quot;Plasma / Dead-Star Observatory&quot; visual theme - cosmic-void background with a faint starfield, electric plasma accents (cyan / magenta / violet), glowing timeline markers, and geometric-technical type (Space Grotesk). Added a hero thesis line on energy abundance and suppression. New entries: <strong>Salvatore Pais</strong> (U.S. Navy &quot;UFO patents&quot; / the Pais Effect) and <strong>Hal Puthoff</strong> (SRI remote viewing, zero-point energy, To The Stars Academy), added as living &quot;outliers&quot; and placed in the timeline by their key year; plus a context-marker entry for <strong>the 38 AAWSAP/AATIP DIRDs</strong> (DIA reference documents, 37 of 38 FOIA-released via The Black Vault, 25 March 2022).
         </li>
         <li>
           <time class="foot__changelog-date" datetime="2026-07-03">3 July 2026</time>
@@ -168,7 +187,12 @@
   </div>
 </footer>
 
-<script src="./js/data.js?v=17"></script>
-<script src="./js/app.js?v=23" defer></script>
+<div class="cursor" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<canvas id="cursor-trail" aria-hidden="true"></canvas>
+<script src="./js/data.js?v=18"></script>
+<script src="./js/app.js?v=25" defer></script>
+<script src="./js/graph.js?v=1" defer></script>
+<script src="./js/fx.js?v=1" defer></script>
 </body>
 </html>
