@@ -139,6 +139,11 @@
     'utah-hosp': { label: 'Utah State Hospital', abbr: 'Utah Hosp' },
     afit: { label: 'Air Force Institute of Technology', abbr: 'AFIT' },
     aflcmc: { label: 'Air Force Life Cycle Management Center', abbr: 'AFLCMC' },
+    nawcad: { label: 'Naval Air Warfare Center Aircraft Division', abbr: 'NAWCAD' },
+    sri: { label: 'SRI International (Stanford Research Institute)', abbr: 'SRI' },
+    dia: { label: 'Defense Intelligence Agency', abbr: 'DIA' },
+    ttsa: { label: 'To The Stars Academy', abbr: 'TTSA' },
+    iasa: { label: 'Institute for Advanced Studies at Austin', abbr: 'IASA' },
   };
 
   function renderOrgBadges(ids) {
@@ -343,6 +348,8 @@
     'Monica Jacinto Reza',
     'Rep. Burchett &amp; Rep. Burlison, Congressional Voices',
     'Joshua LeBlanc, NASA Marshall / SNP and DRACO',
+    "Dr. Salvatore Pais, U.S. Navy 'UFO Patents' / The Pais Effect",
+    "Dr. Harold 'Hal' Puthoff, SRI / EarthTech / TTSA",
   ]);
 
   /** 11-char YouTube video id or full watch / youtu.be URL. */
