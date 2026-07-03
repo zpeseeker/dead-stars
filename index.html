@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" crossorigin="anonymous">
-<link rel="stylesheet" href="./css/styles.css?v=37">
+<link rel="stylesheet" href="./css/styles.css?v=38">
 </head>
 <body>
 <canvas id="starfield" aria-hidden="true"></canvas>
@@ -184,6 +184,10 @@
       <ol class="foot__changelog-list">
         <li>
           <time class="foot__changelog-date" datetime="2026-07-03">3 July 2026</time>
+          <strong>UI/UX overhaul</strong>: rebuilt the case cards (the status badge is now a wrapping eyebrow so long titles no longer collapse to one word per line), slimmed the expand control, and moved institutional affiliations into a <strong>logo tree</strong> in the date rail using real org marks (public-domain federal seals plus a few brands) with hover tooltips. Replaced the right sidebar and the metrics strip with a <strong>search box</strong> (live keyword filtering, e.g. &quot;zpe&quot;, autocomplete jump-to-case, and a year-range filter); category counts now live on the filter pills and the timeline runs full width. Added a new <strong>Relationship Map</strong> tab: a force-directed network linking every figure to the institutions they served. Added an animated starfield background and a custom cursor. New entries: <strong>Operation Paperclip</strong> (documented program, files sanitised) and <strong>Die Glocke / &quot;The Bell&quot;</strong> (clearly labelled an unverified legend). Removed all en/em dashes from the copy.
+        </li>
+        <li>
+          <time class="foot__changelog-date" datetime="2026-07-03">3 July 2026</time>
           <strong>Redesign</strong>: new &quot;Plasma / Dead-Star Observatory&quot; visual theme - cosmic-void background with a faint starfield, electric plasma accents (cyan / magenta / violet), glowing timeline markers, and geometric-technical type (Space Grotesk). Added a hero thesis line on energy abundance and suppression. New entries: <strong>Salvatore Pais</strong> (U.S. Navy &quot;UFO patents&quot; / the Pais Effect) and <strong>Hal Puthoff</strong> (SRI remote viewing, zero-point energy, To The Stars Academy), added as living &quot;outliers&quot; and placed in the timeline by their key year; plus a context-marker entry for <strong>the 38 AAWSAP/AATIP DIRDs</strong> (DIA reference documents, 37 of 38 FOIA-released via The Black Vault, 25 March 2022).
         </li>
         <li>
@@ -210,9 +214,9 @@
 <div class="cursor" aria-hidden="true"></div>
 <div class="cursor-ring" aria-hidden="true"></div>
 <canvas id="cursor-trail" aria-hidden="true"></canvas>
-<script src="./js/data.js?v=19"></script>
-<script src="./js/app.js?v=26" defer></script>
-<script src="./js/graph.js?v=1" defer></script>
-<script src="./js/fx.js?v=1" defer></script>
+<script src="./js/data.js?v=20"></script>
+<script src="./js/app.js?v=27" defer></script>
+<script src="./js/graph.js?v=2" defer></script>
+<script src="./js/fx.js?v=2" defer></script>
 </body>
 </html>
