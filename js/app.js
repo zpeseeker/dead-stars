@@ -98,6 +98,9 @@
     onr: { label: 'Office of Naval Research', abbr: 'ONR' },
     fbi: { label: 'Federal Bureau of Investigation', abbr: 'FBI' },
     nsa: { label: 'National Security Agency', abbr: 'NSA' },
+    cia: { label: 'Central Intelligence Agency', abbr: 'CIA' },
+    'us-army': { label: 'U.S. Army', abbr: 'US Army' },
+    usarmy: { label: 'U.S. Army', abbr: 'US Army' },
     uspto: { label: 'United States Patent and Trademark Office', abbr: 'USPTO' },
     congress: { label: 'United States Congress', abbr: 'Congress' },
     westinghouse: { label: 'Westinghouse Electric', abbr: 'Westinghouse' },
@@ -779,14 +782,67 @@
 
   applyTimelineOrder(timelineNewestFirst);
 
+  // ── Unified search + filter (category tag · keyword · year range) ──
+  const flt = { tag: 'all', q: '', from: null, to: null };
+
+  // Precompute a lowercased searchable blob + parsed year for each entry.
+  const searchBlob = [];
+  const yearOf = [];
+  DATA.forEach(function (e, i) {
+    yearOf[i] = yearKey(e);
+    const parts = [e.name, e.role, e.summary, e.brief, e.year, (e.tags || []).join(' ')];
+    if (Array.isArray(e.off)) parts.push(e.off.join(' '));
+    if (Array.isArray(e.connections)) parts.push(e.connections.join(' '));
+    if (Array.isArray(e.sections)) {
+      e.sections.forEach(function (s) {
+        if (typeof s === 'string') parts.push(s);
+        else {
+          if (s.heading) parts.push(s.heading);
+          if (Array.isArray(s.body)) parts.push(s.body.join(' '));
+          else if (s.body) parts.push(s.body);
+        }
+      });
+    }
+    // Fold in org names + abbreviations so keywords like "energy" surface DOE, etc.
+    (e.affiliations || []).forEach(function (k) {
+      if (ORG_BADGES[k]) parts.push(ORG_BADGES[k].label + ' ' + (ORG_BADGES[k].abbr || ''));
+    });
+    searchBlob[i] = decodeEntities(parts.join(' ')).replace(/<[^>]+>/g, '').toLowerCase();
+  });
+
+  const tlCount = document.getElementById('tl-count');
+  const tlEmpty = document.getElementById('tl-empty');
+
+  function entryMatches(i) {
+    if (flt.tag !== 'all' && (DATA[i].tags || []).indexOf(flt.tag) < 0) return false;
+    if (flt.q && searchBlob[i].indexOf(flt.q) < 0) return false;
+    const y = yearOf[i];
+    if (flt.from != null && (!y || y < flt.from)) return false;
+    if (flt.to != null && (!y || y > flt.to)) return false;
+    return true;
+  }
+
+  function applyFilters() {
+    let shown = 0;
+    document.querySelectorAll('.entry').forEach(function (el) {
+      const i = parseInt(el.getAttribute('data-entry-index'), 10);
+      const vis = entryMatches(i);
+      el.classList.toggle('hidden', !vis);
+      if (vis) shown++;
+    });
+    if (tlCount) {
+      tlCount.textContent =
+        shown === DATA.length ? DATA.length + ' cases' : shown + ' of ' + DATA.length;
+    }
+    if (tlEmpty) tlEmpty.hidden = shown !== 0;
+  }
+
   function setFilter(tag) {
+    flt.tag = tag;
     document.querySelectorAll('#filter-bar [data-filter]').forEach(function (b) {
       b.classList.toggle('active', b.getAttribute('data-filter') === tag);
     });
-    document.querySelectorAll('.entry').forEach(function (el) {
-      const t = el.getAttribute('data-tags') || '';
-      el.classList.toggle('hidden', tag !== 'all' && t.indexOf(tag) < 0);
-    });
+    applyFilters();
   }
 
   const filterBar = document.getElementById('filter-bar');
@@ -798,6 +854,127 @@
       if (tag) setFilter(tag);
     });
   }
+
+  // ── Search box: live keyword filter + autocomplete suggestions ──
+  const qInput = document.getElementById('tl-q');
+  const qClear = document.getElementById('tl-q-clear');
+  const suggest = document.getElementById('tl-suggest');
+  const fromInput = document.getElementById('tl-from');
+  const toInput = document.getElementById('tl-to');
+
+  function cleanName(name) {
+    return decodeEntities(name).replace(/<[^>]+>/g, '');
+  }
+
+  function renderSuggest() {
+    if (!suggest) return;
+    const q = flt.q;
+    if (!q || q.length < 2) {
+      suggest.hidden = true;
+      suggest.innerHTML = '';
+      if (qInput) qInput.setAttribute('aria-expanded', 'false');
+      return;
+    }
+    const order = orderIndices(true);
+    const matches = [];
+    for (let k = 0; k < order.length && matches.length < 8; k++) {
+      const i = order[k];
+      if (cleanName(DATA[i].name).toLowerCase().indexOf(q) >= 0 || searchBlob[i].indexOf(q) >= 0) {
+        matches.push(i);
+      }
+    }
+    if (!matches.length) {
+      suggest.innerHTML = '<li class="tl-suggest__none">No matches</li>';
+    } else {
+      suggest.innerHTML = matches
+        .map(function (i) {
+          return (
+            '<li class="tl-suggest__item" role="option" data-idx="' +
+            i +
+            '"><span class="tl-suggest__yr">' +
+            escAttr(DATA[i].year) +
+            '</span><span class="tl-suggest__nm">' +
+            escAttr(cleanName(DATA[i].name)) +
+            '</span></li>'
+          );
+        })
+        .join('');
+    }
+    suggest.hidden = false;
+    if (qInput) qInput.setAttribute('aria-expanded', 'true');
+  }
+
+  if (qInput) {
+    qInput.addEventListener('input', function () {
+      flt.q = qInput.value.trim().toLowerCase();
+      if (qClear) qClear.hidden = !qInput.value;
+      applyFilters();
+      renderSuggest();
+    });
+    qInput.addEventListener('focus', renderSuggest);
+    qInput.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && suggest) suggest.hidden = true;
+    });
+  }
+  if (qClear) {
+    qClear.addEventListener('click', function () {
+      qInput.value = '';
+      flt.q = '';
+      qClear.hidden = true;
+      if (suggest) suggest.hidden = true;
+      applyFilters();
+      qInput.focus();
+    });
+  }
+  if (suggest) {
+    // mousedown fires before the input blur, so the list is still present.
+    suggest.addEventListener('mousedown', function (ev) {
+      const li = ev.target.closest('[data-idx]');
+      if (!li) return;
+      ev.preventDefault();
+      const i = parseInt(li.getAttribute('data-idx'), 10);
+      suggest.hidden = true;
+      // Clear range + tag so the chosen case is guaranteed visible, then jump.
+      flt.from = null;
+      flt.to = null;
+      if (fromInput) fromInput.value = '';
+      if (toInput) toInput.value = '';
+      setFilter('all');
+      scrollToEntry(i);
+    });
+  }
+  document.addEventListener('click', function (ev) {
+    if (suggest && !suggest.hidden && !ev.target.closest('.tl-search__field')) {
+      suggest.hidden = true;
+    }
+  });
+
+  function onRange() {
+    const f = parseInt(fromInput && fromInput.value, 10);
+    const t = parseInt(toInput && toInput.value, 10);
+    flt.from = isNaN(f) ? null : f;
+    flt.to = isNaN(t) ? null : t;
+    applyFilters();
+  }
+  if (fromInput) fromInput.addEventListener('input', onRange);
+  if (toInput) toInput.addEventListener('input', onRange);
+
+  const emptyClear = document.getElementById('tl-empty-clear');
+  if (emptyClear) {
+    emptyClear.addEventListener('click', function () {
+      flt.q = '';
+      flt.from = null;
+      flt.to = null;
+      if (qInput) qInput.value = '';
+      if (qClear) qClear.hidden = true;
+      if (fromInput) fromInput.value = '';
+      if (toInput) toInput.value = '';
+      if (suggest) suggest.hidden = true;
+      setFilter('all');
+    });
+  }
+
+  applyFilters();
 
   window.addEventListener('hashchange', applyHash);
   applyHash();

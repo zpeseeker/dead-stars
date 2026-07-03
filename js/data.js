@@ -1318,6 +1318,48 @@ const DATA = [
     off:["Both are sitting US Congressmen. Their public statements are documented in multiple media outlets. Neither has produced classified evidence publicly, named a specific perpetrator, or drawn a proven operational chain connecting the individual cases. Their role in this timeline is as political data points, the moment this pattern moved from Substack into formal Congressional record, not as evidentiary sources. Burchett's 'I'm not suicidal' statement is a matter of public record in multiple published interviews."],
     connections:["Rep. Amy Eskridge entry: the pattern Burchett and Burlison are raising in 2026, that scientists with UAP-adjacent knowledge are being silenced, is exactly what Eskridge stated explicitly before her death in 2022."],
     links:[["Newsweek, Mystery Over 8 Missing or Dead Experts (Apr 7 2026)","https://www.newsweek.com/mystery-over-8-missing-or-dead-experts-linked-to-ufo-research-11792852"],["The Grounded, The Pattern Nobody Wants to Talk About","https://thegrounded.ghost.io/the-pattern-nobody-wants-to-talk-about/"],["The Liberty Line, Count at 10","https://thelibertyline.com/2026/04/14/ufo-research-scientists-missing-10/"]],
-    tags:["network","classified"]}
-    
+    tags:["network","classified"]},
+
+    // ─────────────────────────────────────────────
+    // 38. OPERATION PAPERCLIP
+    // ─────────────────────────────────────────────
+    {year:"1945-1959",bornFlag:"🇩🇪",diedFlag:"🇺🇸",
+    bornLabel:"Nazi Germany (Peenemünde, Nordhausen, Vienna)",
+    diedLabel:"USA (Fort Bliss, Huntsville, Wright Field)",diedIn:"USA",
+    name:"Operation Paperclip",
+    role:"JIOA program · 1,600+ German scientists · Wernher von Braun · rocketry, propulsion, aerospace medicine",
+    type:"classified",badge:"⬛ Documented Program, Files Sanitized",
+    affiliations:["dod","us-army","usaf","wright-patterson","nasa","msfc","cia"],
+    summary:"Operation Paperclip was the United States program, run by the Joint Intelligence Objectives Agency (JIOA), that brought roughly 1,600 German and Austrian scientists, engineers, and technicians to the United States after World War II, along with their families. It began as Operation Overcast in July 1945, was renamed Paperclip in November 1945, and recruitment continued into the late 1950s. Its most famous recruit, Wernher von Braun, technical director of the V-2 rocket program at Peenemünde, went on to run NASA's Marshall Space Flight Center and design the Saturn V that carried Apollo to the Moon. To make the scientists admissible, US intelligence officers are documented to have sanitised and rewritten personnel files, removing or downgrading Nazi Party and SS affiliations, in direct conflict with President Truman's stated policy of excluding active Nazis. The relevance to this timeline is direct: the American rocketry, propulsion, aerospace-medicine, and advanced-materials programs that later touch nearly every case here were seeded, in part, by a covert transfer of talent whose paper trail was deliberately altered.",
+    brief:"The modern American propulsion establishment did not appear from nowhere. A large part of it was imported, quietly, from the losing side of a world war, and the records were edited to make it legal.",
+    sections:[
+    {heading:"From Peenemünde to Huntsville",body:[
+    "Wernher von Braun and roughly 120 members of his V-2 rocket team surrendered to US forces in 1945 and were moved first to Fort Bliss, Texas, then to Redstone Arsenal in Huntsville, Alabama. There von Braun built the US Army's ballistic-missile capability and, from 1960, directed NASA's Marshall Space Flight Center, where the Saturn V moon rocket was developed. The through-line from a Nazi weapons program to the Apollo program runs through this single transfer of people."
+    ]},
+    {heading:"The files were rewritten",body:[
+    "President Truman's policy explicitly barred anyone who had been 'a member of the Nazi Party and more than a nominal participant in its activities.' To keep valuable specialists admissible anyway, JIOA officers are documented to have expunged or softened SS and Party records and fabricated clean employment and political profiles. The V-2 itself was assembled at the underground Mittelwerk plant using concentration-camp slave labour from Dora-Nordhausen, a fact that the sanitised dossiers were designed to keep at arm's length."
+    ]}],
+    off:["Operation Paperclip is documented history, confirmed by declassified files at the US National Archives and extensively researched (e.g. Annie Jacobsen, 'Operation Paperclip', 2014). The figure of roughly 1,600 personnel, and the renaming from Overcast (July 1945) to Paperclip (November 1945), are established. That intelligence officers altered dossiers to obscure Nazi affiliations is documented. What remains debated is the moral accounting and how far specific individuals' wartime conduct was buried. Claims of exotic 'recovered' technologies beyond conventional rocketry and aeronautics are not part of the documented Paperclip record."],
+    quote:"\"'Once the rockets are up, who cares where they come down? That's not my department,' says Wernher von Braun.\" - Tom Lehrer",
+    links:[["Wikipedia, Operation Paperclip","https://en.wikipedia.org/wiki/Operation_Paperclip"],["Britannica, Project Paperclip","https://www.britannica.com/topic/Project-Paperclip"],["HISTORY, What Was Operation Paperclip?","https://www.history.com/articles/what-was-operation-paperclip"],["US National Archives, Records","https://www.archives.gov/iwg/research-papers/paperclip-related-records.html"]],
+    connections:["Joshua LeBlanc and Amy Eskridge: both worked at NASA Marshall Space Flight Center, the centre von Braun's Paperclip team built.","Die Glocke: the 'Nazi anti-gravity' legend claims SS General Hans Kammler traded exotic technology to the US for his freedom; Paperclip is the real, documented program such claims graft themselves onto."],
+    tags:["classified","network","aerospace"]},
+
+    // ─────────────────────────────────────────────
+    // 39. DIE GLOCKE ("THE BELL")
+    // ─────────────────────────────────────────────
+    {year:"1944-1945",bornFlag:"🇩🇪",diedFlag:null,
+    bornLabel:"Nazi Germany (alleged: Lower Silesia / Wenceslas Mine)",
+    diedLabel:"Unverified; no physical evidence",diedIn:null,
+    name:"Die Glocke (\"The Bell\")",
+    role:"Alleged SS Wunderwaffe · anti-gravity / torsion claim · 'Xerum 525' · Kammler · popularised by Witkowski & Nick Cook",
+    type:"classified",badge:"⚑ Alleged Legend, No Physical Evidence",
+    summary:"Die Glocke ('The Bell') is an alleged Nazi secret device, first described in detail by Polish journalist Igor Witkowski in a 2000 book and popularised in the English-speaking world by aerospace journalist Nick Cook in 'The Hunt for Zero Point: Inside the Classified World of Antigravity Technology' (2001). As described, it was a bell-shaped device roughly 3.7 m tall and 2.7 m wide, containing two counter-rotating cylinders filled with a violet, mercury-like radioactive substance code-named 'Xerum 525,' and was said to produce anti-gravitic or otherwise exotic effects. Cook relayed the claim that SS General Hans Kammler later traded the technology to the US military in exchange for his freedom, tying the legend directly to Operation Paperclip. Witkowski said his account rested on classified transcripts he was shown once, in 1997, by an unnamed Polish intelligence source, and was not permitted to copy. No physical device, blueprint, or corroborating primary document has ever surfaced. This entry is included not as evidence of anything, but because Die Glocke is the archetypal 'suppressed anti-gravity / free-energy' story, and it shows exactly how a real, documented secrecy program becomes the anchor for an unfalsifiable legend.",
+    brief:"This one is a legend, and it is marked as one. It earns a place only because it is the purest example of the pattern this site studies: an energy and anti-gravity claim with no evidence, welded onto a real secrecy program so that it can never quite be disproved.",
+    off:["There is no verified evidence that Die Glocke existed. It has no entry in the contemporaneous German wartime record, no physical remains, no blueprints, and no corroborating primary sources; the sole origin is Witkowski's uncorroborated 1997 account of documents he could not copy. Mainstream reviewers and skeptics regard the story as pseudoscience, recycled rumour, or hoax. The 'Xerum 525', anti-gravity, and Kammler-trade elements are claims, not facts. Treat this entry as documentation of a myth and its structure, not as a documented event."],
+    quote:"\"All we have is a third-hand anecdotal account of something desperately implausible, backed up by neither evidence nor even a corroborating account.\" - Brian Dunning, Skeptoid",
+    links:[["Wikipedia, Die Glocke (conspiracy theory)","https://en.wikipedia.org/wiki/Die_Glocke_(conspiracy_theory)"],["RationalWiki, Die Glocke","https://rationalwiki.org/wiki/Die_Glocke"],["Wikipedia, The Hunt for Zero Point","https://en.wikipedia.org/wiki/The_Hunt_for_Zero_Point"]],
+    connections:["Operation Paperclip: the documented program the Bell legend attaches itself to, via the alleged Kammler technology trade.","Hal Puthoff and zero-point energy: Nick Cook's 'zero point' framing draws on the same quantum-vacuum energy ideas that appear across this timeline both as legitimate research and as fringe claim."],
+    tags:["classified","network"]}
+
     ]; // end DATA

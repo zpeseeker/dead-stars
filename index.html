@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" crossorigin="anonymous">
-<link rel="stylesheet" href="./css/styles.css?v=36">
+<link rel="stylesheet" href="./css/styles.css?v=37">
 </head>
 <body>
 <canvas id="starfield" aria-hidden="true"></canvas>
@@ -35,6 +35,12 @@
         <a class="hero__updated-link" href="#changelog" title="View site changelog">Last updated: <time datetime="2026-07-03">3 July 2026</time></a>
       </p>
     </div>
+    <a class="hero__connect" href="#network-map">
+      <span class="hero__connect-icon" aria-hidden="true"><i class="fa-solid fa-diagram-project"></i></span>
+      <span class="hero__connect-text"><strong>Connect the dots.</strong> A live relationship map linking every player to the institutions they served sits at the foot of this page.</span>
+      <span class="hero__connect-go" aria-hidden="true">↓</span>
+    </a>
+    <p class="hero__timenote">This is a timeline, so a gentle reminder: time is not linear, and quantum mechanics keeps proving it.</p>
   </div>
 </div>
 
@@ -80,7 +86,7 @@
     <header class="timeline-zone__head">
       <h2 class="timeline-zone__title">Timeline</h2>
       <div class="timeline-zone__head-row">
-        <p class="timeline-zone__hint">Scroll the spine · Click a card to expand · Each case has a shareable URL (<code>#bio-…</code>) · Use the dock to filter or jump</p>
+        <p class="timeline-zone__hint">Scroll the spine · Click a card to expand · Each case has a shareable URL (<code>#bio-…</code>)</p>
         <div class="timeline-zone__order" role="group" aria-label="Timeline order">
           <span class="timeline-zone__order-label">Order</span>
           <div class="timeline-order-bar" id="tl-order-bar">
@@ -89,20 +95,34 @@
           </div>
         </div>
       </div>
+      <div class="tl-search" role="search">
+        <div class="tl-search__field">
+          <span class="tl-search__ico" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input id="tl-q" class="tl-search__input" type="search" autocomplete="off" spellcheck="false"
+            placeholder="Search names, roles, agencies, keywords (try &quot;zpe&quot;, &quot;NASA&quot;, &quot;plasma&quot;)…"
+            aria-label="Search the timeline" role="combobox" aria-expanded="false" aria-controls="tl-suggest">
+          <button type="button" class="tl-search__x" id="tl-q-clear" aria-label="Clear search" hidden><i class="fa-solid fa-xmark"></i></button>
+          <ul class="tl-search__suggest" id="tl-suggest" role="listbox" hidden></ul>
+        </div>
+        <div class="tl-search__range" aria-label="Filter by year range">
+          <span class="tl-search__range-label">Years</span>
+          <input id="tl-from" class="tl-search__year" type="number" inputmode="numeric" min="1850" max="2030" placeholder="1890" aria-label="From year">
+          <span class="tl-search__dash">to</span>
+          <input id="tl-to" class="tl-search__year" type="number" inputmode="numeric" min="1850" max="2030" placeholder="2026" aria-label="To year">
+        </div>
+        <span class="tl-search__count" id="tl-count" aria-live="polite"></span>
+      </div>
     </header>
     <div class="tl-wrap">
       <div class="tl-track" aria-hidden="true"><span class="tl-track__glow"></span></div>
       <div id="tl"></div>
+      <p class="tl-empty" id="tl-empty" hidden>No cases match. <button type="button" class="tl-empty__clear" id="tl-empty-clear">Clear filters</button></p>
     </div>
   </div>
+</div>
 
-  <aside class="sidebar" id="context">
-    <div class="panel panel--nav" id="sb-name-index">
-      <div class="panel__title" title="Newest first (independent of timeline sort)">Names</div>
-      <div class="tl-nav-scroll name-index-scroll">
-        <ul class="name-index-list" id="sb-name-index-list"></ul>
-      </div>
-    </div>
+<section class="context-zone" id="context" aria-label="Context: secrecy, statistics, and signatures">
+  <div class="context-zone__inner">
     <div class="panel">
       <div class="panel__title">Secrecy &amp; law</div>
       <div class="fact-card"><strong class="fact-card__flag">🇺🇸 Invention Secrecy Act (1951)</strong><p>5,784+ active secrecy orders (2017). DoD, DOE, NSA, NASA, including power and propulsion.</p></div>
@@ -117,13 +137,13 @@
         <div class="sig"><span class="sig__k">No autopsy</span><span class="sig__v">Hicks · Maiwald</span></div>
         <div class="sig"><span class="sig__k">No institutional comment</span><span class="sig__v">NASA silence</span></div>
         <div class="sig"><span class="sig__k">Congress on record</span><span class="sig__v">Burchett · Burlison</span></div>
-        <div class="sig"><span class="sig__k">“Not suicidal”</span><span class="sig__v">2026</span></div>
+        <div class="sig"><span class="sig__k">"Not suicidal"</span><span class="sig__v">2026</span></div>
         <div class="sig"><span class="sig__k">Secrecy orders</span><span class="sig__v">5,784 (2017)</span></div>
         <div class="sig"><span class="sig__k">Tesla trunks</span><span class="sig__v">20 of 80 missing</span></div>
       </div>
     </div>
-  </aside>
-</div>
+  </div>
+</section>
 
 <section class="netmap" id="network-map" aria-labelledby="netmap-title" tabindex="-1">
   <div class="netmap__head">
@@ -190,8 +210,8 @@
 <div class="cursor" aria-hidden="true"></div>
 <div class="cursor-ring" aria-hidden="true"></div>
 <canvas id="cursor-trail" aria-hidden="true"></canvas>
-<script src="./js/data.js?v=18"></script>
-<script src="./js/app.js?v=25" defer></script>
+<script src="./js/data.js?v=19"></script>
+<script src="./js/app.js?v=26" defer></script>
 <script src="./js/graph.js?v=1" defer></script>
 <script src="./js/fx.js?v=1" defer></script>
 </body>
